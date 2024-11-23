@@ -1,51 +1,46 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_app/screen/home/BottomNavigationBarWidget.dart';
+import 'package:my_app/route/routeName.dart';
+import 'package:my_app/screen/bottomTab/BottomNavigationBarWidget.dart';
 import 'package:my_app/widget/HomeAppBar.dart';
 import 'package:my_app/widget/HomePostWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _HomeScreen();
+    return _HomeScreenState();
   }
 }
 
-class _HomeScreen extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+
+  final PageController _pageController = PageController();
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+    // Switch to the desired page in the PageView
+    _pageController.jumpToPage(index);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppBar(),
-      bottomNavigationBar: BottomNavigationBarWidget(selectedIndex: _selectedIndex, onItemTapped: (index){_onItemTapped(index);}),
-      body: Expanded(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                HomePostWidget(),
-                const SizedBox(
-                  height: 20,
-                ),
-                HomePostWidget(),
-                HomePostWidget(),
-                HomePostWidget(),
-                HomePostWidget(),
-                HomePostWidget(),
-                HomePostWidget(),
-              ],
-            ),
-          ),
+      body: SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            HomePostWidget(),
+            const SizedBox(height: 20),
+            HomePostWidget(),
+          ],
         ),
       ),
+    ),
     );
   }
 }

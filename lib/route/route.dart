@@ -3,6 +3,7 @@ import 'package:my_app/route/routeName.dart';
 import 'package:my_app/screen/appStart.dart';
 import 'package:my_app/screen/auth/fanRegister.dart';
 import 'package:my_app/screen/splash/splash.dart';
+import 'package:my_app/screen/talent/TalentListScreen.dart';
 
 class AppRoute {
   static Route? generateRoute(RouteSettings setting) {
