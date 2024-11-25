@@ -3,8 +3,19 @@ import 'package:my_app/utils/appColor.dart';
 
 class BackButtonWidget extends StatelessWidget {
 
+  final VoidCallback? backTap;
+
+  BackButtonWidget({
+    super.key,
+    this.backTap
+  });
+
   void onBackTap(BuildContext context){
-    Navigator.pop(context);
+    if(backTap != null) {
+      backTap!();
+    } else{
+       Navigator.pop(context);
+    }
   }
 
   @override
