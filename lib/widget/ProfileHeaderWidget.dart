@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/widget/BackButtonWidget.dart';
 
 class ProfileHeaderWidget extends StatelessWidget {
   @override
@@ -25,10 +26,15 @@ class ProfileHeaderWidget extends StatelessWidget {
         Positioned(
             left: 0,
             right: 0,
-            bottom: itemSpacing*.2,
+            bottom: itemSpacing * .2,
             child: CircleAvatar(
               radius: 50,
-            ))
+            )),
+        Positioned(
+            left: 10,
+            top: 10,
+            child: SafeArea(child: BackButtonWidget())
+        )
       ],
     );
   }

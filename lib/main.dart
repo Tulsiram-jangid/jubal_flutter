@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primary),
         useMaterial3: true,
-        
         appBarTheme: const AppBarTheme(
           backgroundColor: AppColor.primary,
           titleTextStyle: TextStyle(color: Colors.white, fontSize: 16),
@@ -26,10 +25,16 @@ class MyApp extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        scaffoldBackgroundColor: AppColor.bgColor
+        scaffoldBackgroundColor: AppColor.bgColor,
       ),
       onGenerateRoute: AppRoute.generateRoute,
       initialRoute: RouteNames.splashScreen,
+      // darkTheme: ThemeData.dark().copyWith(
+      //   primaryColor: Colors.blueGrey,
+      //   scaffoldBackgroundColor: Colors.grey.shade800,
+      //   cardColor: Colors.red
+      //   // Customize dark theme here
+      // ),
     );
   }
 }

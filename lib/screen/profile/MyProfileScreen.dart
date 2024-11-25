@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_app/model/staticData/MyProfileModel.dart';
+import 'package:my_app/shimmer/MyProfileShimmer.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/widget/AppButton.dart';
 import 'package:my_app/widget/BorderedTextWithIconWidget.dart';
@@ -22,7 +23,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
     return Scaffold(
       appBar: null,
-      body: Expanded(
+      body: !true ? MyProfileShimmer() : Expanded(
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -69,7 +70,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
               const SizedBox(
                 height: 20,
               ),
-              Container(width: deviceWidth, child: ProfileItems())
+              Container(width: deviceWidth, child: ProfileItems()),
+              const SizedBox(height: 50,)
             ],
           ),
         ),
