@@ -8,3 +8,7 @@ class FieldTypes {
   static const String password = "password";
   static const String confirmPassword = "confirmPassword";
 }
+
+enum MyProfileTypes {
+  logout
+}
