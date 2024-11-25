@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/screen/auth/login.dart';
 import 'package:my_app/screen/bottomTab/BottomTab.dart';
-import 'package:my_app/screen/home/home.dart';
 import 'package:my_app/screen/splash/splash.dart';
 
 class AppStart extends StatefulWidget {

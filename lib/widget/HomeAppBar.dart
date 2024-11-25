@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/route/routeName.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -78,15 +79,20 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         const SizedBox(width: 10,),
         // Profile Icon
-        Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Text(
-              "MS",
-              style: TextStyle(
-                color: Colors.pink,
-                fontWeight: FontWeight.bold,
+        GestureDetector(
+          onTap: (){
+            Navigator.of(context).pushNamed(RouteNames.myProfileScreen);
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Text(
+                "MS",
+                style: TextStyle(
+                  color: Colors.pink,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
