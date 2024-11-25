@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/widget/AppBarWidget.dart';
 import 'package:my_app/widget/SeachTextField.dart';
@@ -25,31 +24,34 @@ class _TalentListScreen extends State<TalentListScreen> {
       ),
       backgroundColor: AppColor.bgColor,
       body: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
+            // Search Field
             SearchTextField(
               placeholder: "Search talents...",
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
+            // Expanded GridView
             Expanded(
-              
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, // Number of columns
                   crossAxisSpacing: 10, // Spacing between columns
-                  mainAxisSpacing: 10, // Spacing between rows
+                  mainAxisSpacing: 130, // Spacing between rows
                 ),
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.only(
+                  top: 10,
+                  bottom: 150, // Add extra bottom padding
+                ),
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   return TalentListWidget();
                 },
               ),
             ),
-            Spacer(),
           ],
         ),
       ),
