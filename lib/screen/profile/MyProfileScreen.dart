@@ -116,12 +116,33 @@ class ProfileItemHeading extends StatelessWidget {
 
   void onItemTap(BuildContext context, MyProfileModel item) {
     if (item.type == MyProfileTypes.logout) {
-      Provider.of<StoreProvider>(context, listen: false).onLogout(context);
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => AppStart()),
-        (route) => false, // Remove all previous routes
-      );
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("Confirm"),
+              content: const Text("Are you sure want to logout?"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("No")),
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Provider.of<StoreProvider>(context, listen: false)
+                          .onLogout(context);
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => AppStart()),
+                        (route) => false, // Remove all previous routes
+                      );
+                    },
+                    child: const Text("Yes")),
+              ],
+            );
+          });
     }
     return;
   }
