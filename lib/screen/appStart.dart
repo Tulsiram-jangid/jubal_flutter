@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_app/screen/auth/login.dart';
 import 'package:my_app/screen/bottomTab/BottomTab.dart';
 import 'package:my_app/screen/splash/splash.dart';
+import 'package:my_app/store/StoreProvider.dart';
+import 'package:provider/provider.dart';
 
 class AppStart extends StatefulWidget {
   @override
@@ -13,17 +15,30 @@ class AppStart extends StatefulWidget {
 
 class _AppStart extends State<AppStart>{
 
-  int appStatus = 2;
+  int appStatus = 0;
+
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 2),(){
+      Provider.of<StoreProvider>(context, listen: false).goToLogin();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    if(appStatus == 0){
+    final storeProvider = Provider.of<StoreProvider>(context);
+    print("storeProvider======="+storeProvider.app_status.toString());
+
+
+    if(storeProvider.app_status == 0){
       return SplashScreen();
     }
-    if(appStatus == 1){
+    if(storeProvider.app_status == 1){
       return LoginScreen();
     }
-    if(appStatus == 2){
+    if(storeProvider.app_status == 2){
       return BottomTabScreen();
     }
     return Container(child: Center(child: const Text("Not found"),),);

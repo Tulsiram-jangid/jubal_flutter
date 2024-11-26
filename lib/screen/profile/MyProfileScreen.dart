@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_app/constant/type.dart';
 import 'package:my_app/model/staticData/MyProfileModel.dart';
+import 'package:my_app/screen/appStart.dart';
 import 'package:my_app/shimmer/MyProfileShimmer.dart';
+import 'package:my_app/store/StoreProvider.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/widget/AppButton.dart';
 import 'package:my_app/widget/BorderedTextWithIconWidget.dart';
 import 'package:my_app/widget/HeadingWidget.dart';
 import 'package:my_app/widget/ProfileHeaderWidget.dart';
 import 'package:my_app/widget/UserBadgeWidget.dart';
+import 'package:provider/provider.dart';
 
 class MyProfileScreen extends StatefulWidget {
   @override
@@ -23,59 +27,64 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
     return Scaffold(
       appBar: null,
-      body: !true ? MyProfileShimmer() : Expanded(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ProfileHeaderWidget(),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10),
+      body: !true
+          ? MyProfileShimmer()
+          : Expanded(
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        HeadingWidget(title: "Mohan kumar"),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        UserBadgeWidget(),
-                      ],
-                    ),
-                    const Text(
-                      "Musician",
-                      style: TextStyle(color: AppColor.darkGrey, fontSize: 14),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        BorderedTextWithIconWidget(title: "Followers"),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        BorderedTextWithIconWidget(title: "Followers")
-                      ],
+                    ProfileHeaderWidget(),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              HeadingWidget(title: "Mohan kumar"),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              UserBadgeWidget(),
+                            ],
+                          ),
+                          const Text(
+                            "Musician",
+                            style: TextStyle(
+                                color: AppColor.darkGrey, fontSize: 14),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              BorderedTextWithIconWidget(title: "Followers"),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              BorderedTextWithIconWidget(title: "Followers")
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          AppButton(title: "Follow", onTap: () {}),
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    AppButton(title: "Follow", onTap: () {}),
+                    Container(width: deviceWidth, child: ProfileItems()),
+                    const SizedBox(
+                      height: 50,
+                    )
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(width: deviceWidth, child: ProfileItems()),
-              const SizedBox(height: 50,)
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
@@ -105,6 +114,18 @@ class ProfileItemHeading extends StatelessWidget {
 
   ProfileItemHeading({super.key, required this.title, this.items});
 
+  void onItemTap(BuildContext context, MyProfileModel item) {
+    if (item.type == MyProfileTypes.logout) {
+      Provider.of<StoreProvider>(context, listen: false).onLogout(context);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => AppStart()),
+        (route) => false, // Remove all previous routes
+      );
+    }
+    return;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -127,9 +148,11 @@ class ProfileItemHeading extends StatelessWidget {
 
         return ProfileItem(
           title: item.title,
-          showDivider: index !=
-              items!.length - 1,
-              icon: item.icon, // Example: hide divider for the last item
+          showDivider: index != items!.length - 1,
+          icon: item.icon,
+          onTap: () {
+            onItemTap(context, item);
+          }, // Example: hide divider for the last item
         );
       }).toList(),
     ]);
@@ -140,52 +163,61 @@ class ProfileItem extends StatelessWidget {
   final String title;
   final bool showDivider;
   final Widget? icon;
+  final VoidCallback? onTap;
 
   ProfileItem(
-      {super.key, required this.title, this.showDivider = false, this.icon});
+      {super.key,
+      required this.title,
+      this.showDivider = false,
+      this.icon,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
     double iconSize = 40;
 
-    return Column(children: [
-      Container(
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-        child: Row(
-          children: [
-            Container(
-              width: iconSize,
-              height: iconSize,
-              //color: Colors.grey[300],
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(iconSize)),
-              child: SizedBox(
-                width: 18,
-                height: 18,
-                child: icon ?? SvgPicture.asset(
-                  "assets/icons/profileUser.svg",
-                  color: AppColor.darkGrey,
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(children: [
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+          child: Row(
+            children: [
+              Container(
+                width: iconSize,
+                height: iconSize,
+                //color: Colors.grey[300],
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(iconSize)),
+                child: SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: icon ??
+                      SvgPicture.asset(
+                        "assets/icons/profileUser.svg",
+                        color: AppColor.darkGrey,
+                      ),
                 ),
               ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              title,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-            ),
-          ],
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                title,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
         ),
-      ),
-      if (showDivider)
-        Divider()
-      else
-        const SizedBox(
-          height: 5,
-        )
-    ]);
+        if (showDivider)
+          Divider()
+        else
+          const SizedBox(
+            height: 5,
+          )
+      ]),
+    );
   }
 }

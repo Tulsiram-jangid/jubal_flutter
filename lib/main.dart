@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/route/route.dart';
 import 'package:my_app/route/routeName.dart';
+import 'package:my_app/store/StoreProvider.dart';
 import 'package:my_app/utils/appColor.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  //runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(create: (context)=> StoreProvider(), child: MyApp(),),
+  );
 }
 
 class MyApp extends StatelessWidget {

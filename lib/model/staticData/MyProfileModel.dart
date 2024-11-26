@@ -83,6 +83,7 @@ class MyProfileHeadingModel {
       MyProfileModel(
         title: "Logout",
         route_name: RouteNames.myOrderScreen,
+        type: MyProfileTypes.logout,
         icon: Icon(
           Icons.logout,
           color: iconColor,

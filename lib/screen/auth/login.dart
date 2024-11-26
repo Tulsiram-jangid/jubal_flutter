@@ -4,10 +4,12 @@ import 'package:my_app/api/ApiModel/LoginRequestModel.dart';
 import 'package:my_app/constant/type.dart';
 import 'package:my_app/helper/helper.dart';
 import 'package:my_app/route/routeName.dart';
+import 'package:my_app/store/StoreProvider.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/utils/appUtils.dart';
 import 'package:my_app/widget/AppButton.dart';
 import 'package:my_app/widget/CustomTextField.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -69,6 +71,7 @@ class _LoginScreen extends State<LoginScreen> {
       Helper.showToast(context, loginRequest.message);
       return;
     }
+    Provider.of<StoreProvider>(context,listen: false).goToHome();
   }
 
   @override
