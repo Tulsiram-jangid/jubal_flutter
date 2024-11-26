@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/route/route.dart';
 import 'package:my_app/route/routeName.dart';
 import 'package:my_app/store/StoreProvider.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         scaffoldBackgroundColor: AppColor.bgColor,
+        textTheme: GoogleFonts.montserratTextTheme()
       ),
       onGenerateRoute: AppRoute.generateRoute,
       initialRoute: RouteNames.splashScreen,
