@@ -74,6 +74,37 @@ class _LoginScreen extends State<LoginScreen> {
     Provider.of<StoreProvider>(context,listen: false).goToHome();
   }
 
+  void _showCustomAlertDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Warning'),
+        content: Text('This is a custom alert dialog with an icon and a different shape.'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              // Handle confirmation action
+              Navigator.of(context).pop();
+            },
+            child: Text('Confirm'),
+          ),
+        ],
+        icon: Icon(Icons.warning),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0.0),
+        ),
+      );
+    },
+  );
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,7 +191,9 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
                 AppButton(
                   title: "Sign up with mobile number",
-                  onTap: () {},
+                  onTap: () {
+                    _showCustomAlertDialog(context);
+                  },
                   backgroundColor: Color(0xFFFFFFFF),
                   textColor: Color(0xFF000000),
                 )
