@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_app/notification/app_notification.dart';
 import 'package:my_app/route/route.dart';
 import 'package:my_app/route/routeName.dart';
 import 'package:my_app/store/StoreProvider.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  //runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  initializeNotification();
+  
   runApp(
-    ChangeNotifierProvider(create: (context)=> StoreProvider(), child: MyApp(),),
+    ChangeNotifierProvider(
+      create: (context) => StoreProvider(),
+      child: MyApp(),
+    ),
   );
 }
 
@@ -22,18 +28,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primary),
-        useMaterial3: true,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: AppColor.primary,
-          titleTextStyle: TextStyle(color: Colors.white, fontSize: 16),
-          iconTheme: IconThemeData(
-            color: Colors.white,
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primary),
+          useMaterial3: true,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: AppColor.primary,
+            titleTextStyle: TextStyle(color: Colors.white, fontSize: 16),
+            iconTheme: IconThemeData(
+              color: Colors.white,
+            ),
           ),
-        ),
-        scaffoldBackgroundColor: AppColor.bgColor,
-        textTheme: GoogleFonts.montserratTextTheme()
-      ),
+          scaffoldBackgroundColor: AppColor.bgColor,
+          textTheme: GoogleFonts.montserratTextTheme()),
       onGenerateRoute: AppRoute.generateRoute,
       initialRoute: RouteNames.splashScreen,
       // darkTheme: ThemeData.dark().copyWith(
