@@ -7,17 +7,21 @@ class SearchTextField extends StatelessWidget {
   final bool isFilterActive;
   final bool showFilterIcon;
   final Color fillColor;
+  final ValueChanged<String>? onChanged;
 
-  SearchTextField(
-      {super.key,
-      this.placeholder = "Search...",
-      this.isFilterActive = false,
-      this.showFilterIcon = false,
-      this.fillColor = Colors.transparent});
+  SearchTextField({
+    super.key,
+    this.placeholder = "Search...",
+    this.isFilterActive = false,
+    this.showFilterIcon = false,
+    this.fillColor = Colors.transparent,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: onChanged,
       decoration: InputDecoration(
         filled: true,
         fillColor: fillColor,

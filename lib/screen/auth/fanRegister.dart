@@ -1,3 +1,5 @@
+import 'package:country_pickers/countries.dart';
+import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_app/api/request.dart';
@@ -8,6 +10,8 @@ import 'package:my_app/utils/appUtils.dart';
 import 'package:my_app/widget/AppButton.dart';
 import 'package:my_app/widget/BackButtonWidget.dart';
 import 'package:my_app/widget/CustomTextField.dart';
+import 'package:country_pickers/country.dart';
+import 'package:country_pickers/country_picker_dropdown.dart';
 
 class FanRegisterScreen extends StatefulWidget {
   const FanRegisterScreen({super.key});
@@ -31,19 +35,32 @@ class _FanRegisterScreen extends State<FanRegisterScreen> {
   String userName = "";
   String email = "";
   String mobile = "";
-  String countryCode = "";
+  String countryCode = "+1";
+  Country? country = CountryPickerUtils.getCountryByPhoneCode("1");
   String password = "";
   String confirmPassword = "";
   bool showPassword = !false;
   bool showConfirmPassword = !false;
 
+  Widget _buildDropdownItem(Country country) => Container(
+        child: Row(
+          children: <Widget>[
+            CountryPickerUtils.getDefaultFlagImage(country),
+            SizedBox(
+              width: 8.0,
+            ),
+            Text("+${country.phoneCode}(${country.isoCode})"),
+          ],
+        ),
+      );
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
     fetchData();
   }
 
-  void fetchData()async{
+  void fetchData() async {
     
   }
 
@@ -63,7 +80,8 @@ class _FanRegisterScreen extends State<FanRegisterScreen> {
       errorType = type;
       errorMsg = msg;
     });
-    _scrollController.animateTo(0, duration: Duration(microseconds: 1000), curve: Curves.easeInCubic);
+    _scrollController.animateTo(0,
+        duration: Duration(microseconds: 1000), curve: Curves.easeInCubic);
   }
 
   void onSubmit() {
@@ -159,6 +177,15 @@ class _FanRegisterScreen extends State<FanRegisterScreen> {
               }),
               error: getErrorMsgByType(FieldTypes.mobile),
               keyboardType: TextInputType.phone,
+              isMobileNumber: true,
+              country: country,
+              countryCode: countryCode,
+              onCountryCodeChanged: (country){
+                setState(() {
+                  countryCode = country.phoneCode;
+                  country = country;
+                });
+              },
             ),
             SizedBox(
               height: spacing,
