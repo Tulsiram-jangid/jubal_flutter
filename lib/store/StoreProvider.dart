@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/model/user_model.dart';
 import 'package:my_app/screen/appStart.dart';
 
 class StoreProvider extends ChangeNotifier {
   int app_status = 0;
+  UserModel? user = null;
+
+
+  //For user
+  void setUser(UserModel _user){
+    this.user = _user;
+  }
+
+  UserModel getUser(){
+    return this.user!;
+  }
 
   void updateAppStatus(int app_status){
     this.app_status = app_status;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_app/constant/app_constant.dart';
 import 'package:my_app/notification/app_notification.dart';
 import 'package:my_app/route/route.dart';
 import 'package:my_app/route/routeName.dart';
@@ -14,7 +15,7 @@ Future<void> main() async {
   runApp(
     ChangeNotifierProvider(
       create: (context) => StoreProvider(),
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -25,6 +26,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    AppConstant.context = context;
+    
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

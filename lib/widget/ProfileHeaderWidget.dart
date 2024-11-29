@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/store/StoreProvider.dart';
 import 'package:my_app/widget/BackButtonWidget.dart';
+import 'package:provider/provider.dart';
 
 class ProfileHeaderWidget extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+
+    
+
     final imageHeight = 200.0;
     const itemSpacing = 60.0;
 

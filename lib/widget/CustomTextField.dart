@@ -34,6 +34,7 @@ class CustomTextField extends StatelessWidget {
   final Country? country;
   final ValueChanged<Country>? onCountryCodeChanged;
   final String value;
+  final TextStyle? textStyle;
 
   CustomTextField(
       {super.key,
@@ -49,7 +50,9 @@ class CustomTextField extends StatelessWidget {
       this.countryCode = "+1",
       this.value = "",
       this.onCountryCodeChanged,
-      this.country});
+      this.country,
+      this.textStyle
+      });
 
   void onCountryTap(BuildContext context) {
     Navigator.of(context).push(
@@ -67,13 +70,14 @@ class CustomTextField extends StatelessWidget {
     final bool hasError = error != null && error!.trim().isNotEmpty;
 
     return TextField(
-      controller: TextEditingController(text: value),
+      //controller: TextEditingController(text: value,),
       obscureText: obscureText,
       onChanged: onChanged,
       keyboardType: keyboardType,
+      style: textStyle,
       decoration: InputDecoration(
         hintText: placeholder,
-        hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
+        hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14,),
         filled: true,
         fillColor: Colors.white,
         contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 14.0),
@@ -186,6 +190,7 @@ class CustomTextField extends StatelessWidget {
                 style: const TextStyle(
                   color: AppColor.primary,
                   fontSize: 12,
+                  fontWeight: FontWeight.bold
                 ),
               ),
             )

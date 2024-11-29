@@ -238,7 +238,7 @@ class _FanRegisterScreen extends State<FanRegisterScreen> {
             const SizedBox(
               height: 100,
             ),
-            AppButton(title: "Continue", onTap: onSubmit)
+            SafeArea(child: AppButton(title: "Continue", onTap: onSubmit))
           ],
         ),
       )),

@@ -24,6 +24,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
+    final user = Provider.of<StoreProvider>(context).user;
 
     return Scaffold(
       appBar: null,
@@ -42,7 +43,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              HeadingWidget(title: "Mohan kumar"),
+                              HeadingWidget(title: user != null ? user.getFullName() ?? "" : ""),
                               const SizedBox(
                                 width: 10,
                               ),

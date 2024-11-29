@@ -3,7 +3,9 @@ import 'package:my_app/api/ApiController/AuthServiceController.dart';
 import 'package:my_app/api/ApiModel/LoginRequestModel.dart';
 import 'package:my_app/constant/type.dart';
 import 'package:my_app/helper/helper.dart';
+import 'package:my_app/model/user_model.dart';
 import 'package:my_app/route/routeName.dart';
+import 'package:my_app/screen/auth/upload_image.dart';
 import 'package:my_app/store/StoreProvider.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/utils/appUtils.dart';
@@ -38,7 +40,12 @@ class _LoginScreen extends State<LoginScreen> {
     return "";
   }
 
+  void navigateToOtp(BuildContext context){
+    Navigator.of(context).pushNamed(RouteNames.otpVerifyScreen);
+  }
+
   void onSubmitTap(BuildContext context) async {
+    
     if (email == "") {
       const msg = "Email is required";
       setState(() {
@@ -61,17 +68,17 @@ class _LoginScreen extends State<LoginScreen> {
       isLoading = true;
     });
 
-    late LoginRequestModel loginRequest;
-    final res = await AuthServiceController.loginByEmail(email: email, password: password);
+    
+    final res = await AuthServiceController.loginByEmail(email: email, password: password, context: context);
     setState(() {
       isLoading = false;
     });
-    loginRequest = LoginRequestModel.fromJson(res);
-    if(!loginRequest.status){
-      Helper.showToast(context, loginRequest.message);
-      return;
+
+    if(res.status){
+      UserModel user = UserModel.getUserFromLoginApi(res.data);
+      Provider.of<StoreProvider>(context,listen: false).setUser(user);
+      Provider.of<StoreProvider>(context,listen: false).goToHome();
     }
-    Provider.of<StoreProvider>(context,listen: false).goToHome();
   }
 
   void _showCustomAlertDialog(BuildContext context) {
@@ -107,6 +114,8 @@ class _LoginScreen extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    //return UploadImage();
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -124,6 +133,7 @@ class _LoginScreen extends State<LoginScreen> {
                   height: 12,
                 ),
                 CustomTextField(
+                  value: email,
                   label: "Email Address / Username",
                   placeholder: "Enter email Address / username",
                   isPassword: false,
