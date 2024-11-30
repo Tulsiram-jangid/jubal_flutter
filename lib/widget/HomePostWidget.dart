@@ -197,13 +197,15 @@ class HomePostWidget extends StatelessWidget {
               ),
             ),
             TextSpan(
-              text: getPostDescription(),
+              text: " ${getPostDescription()}",
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.grey[800], // Optional: Adjust text color
+                color: Colors.grey[800],
+                 // Optional: Adjust text color
               ),
+              
             ),
-          ]))
+          ]),maxLines: 4,)
         ],
       ),
     );

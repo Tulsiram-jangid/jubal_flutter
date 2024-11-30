@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/route/routeName.dart';
+import 'package:my_app/store/StoreProvider.dart';
+import 'package:provider/provider.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<StoreProvider>(context).getUser();
+
+    String getName() {
+      String name = user.getFullName();
+      // Split the name by spaces
+      List<String> nameParts = name.split(" ");
+      // Get the initials
+      final initials = nameParts.map((part) => part[0]).join();
+      return initials;
+    }
+
     return AppBar(
       backgroundColor: Colors.pink, // AppBar background color
       elevation: 0, // Remove shadow
       titleSpacing: 0, // Align title content to the left
       leading: IconButton(
-        icon: Icon(Icons.menu, color: Colors.white), // Menu icon
+        icon: const Icon(Icons.menu, color: Colors.white), // Menu icon
         onPressed: () {
           // Handle menu icon tap
         },
@@ -31,9 +44,9 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 // App title
-                Text(
+                const Text(
                   "Jubal Talents",
                   style: TextStyle(
                     fontSize: 18,
@@ -57,7 +70,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                 shape: BoxShape.circle, // Circular background
               ),
               child: IconButton(
-                icon: Icon(Icons.notifications, color: Colors.white),
+                icon: const Icon(Icons.notifications, color: Colors.white),
                 onPressed: () {
                   // Handle notification tap
                 },
@@ -69,7 +82,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Container(
                 width: 8,
                 height: 8,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.green,
                   shape: BoxShape.circle,
                 ),
@@ -77,23 +90,26 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ],
         ),
-        const SizedBox(width: 10,),
+        const SizedBox(
+          width: 10,
+        ),
         // Profile Icon
         GestureDetector(
-          onTap: (){
+          onTap: () {
             Navigator.of(context).pushNamed(RouteNames.myProfileScreen);
           },
           child: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: CircleAvatar(
+              backgroundImage: NetworkImage(user.profilePhoto ?? ""),
               backgroundColor: Colors.white,
-              child: Text(
-                "MS",
-                style: TextStyle(
+              child: user.profilePhoto == null ? Text(
+                getName(),
+                style: const TextStyle(
                   color: Colors.pink,
                   fontWeight: FontWeight.bold,
                 ),
-              ),
+              ) : null,
             ),
           ),
         ),
