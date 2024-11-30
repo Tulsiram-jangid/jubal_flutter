@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:my_app/api/ApiController/AuthServiceController.dart';
+import 'package:my_app/api/ApiController/auth_service_controller.dart';
 import 'package:my_app/constant/type.dart';
 import 'package:my_app/model/staticData/MyProfileModel.dart';
 import 'package:my_app/screen/appStart.dart';

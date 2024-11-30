@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app/api/ApiController/home_service_controller.dart';
+import 'package:my_app/api/request.dart';
+import 'package:my_app/model/PostModel.dart';
 import 'package:my_app/route/routeName.dart';
 import 'package:my_app/screen/bottomTab/BottomNavigationBarWidget.dart';
 import 'package:my_app/shimmer/home_shimmer.dart';
@@ -14,36 +17,66 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-  bool activity = !false;
+  bool activity = false;
+  int pageNumber = 1;
+  int totalPages = 1;
+  List<dynamic> posts = [];
 
-  final PageController _pageController = PageController();
+  @override
+  void initState() {
+    super.initState();
+    getHomeData();
+  }
 
-  void _onItemTapped(int index) {
+  void getHomeData() async {
     setState(() {
-      _selectedIndex = index;
+      activity = true;
     });
-    // Switch to the desired page in the PageView
-    _pageController.jumpToPage(index);
+    try {
+      ApiResponse res =
+          await HomeServiceController.getHomeData(pageNumber: pageNumber);
+
+      if (res.status) {
+        setState(() {
+          posts = res.data['posts'];
+          totalPages = res.data['totalPages'];
+          activity = false;
+        });
+        return;
+      }
+      setState(() {
+        activity = false;
+      });
+    } catch (e) {
+      print("unable to get data");
+      setState(() {
+        activity = false;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // return HomeShimmer();
     return Scaffold(
       appBar: HomeAppBar(),
-      body: activity ? HomeShimmer() : SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              HomePostWidget(),
-              const SizedBox(height: 20),
-              HomePostWidget(),
-            ],
-          ),
-        ),
-      ),
+      body: activity
+          ? HomeShimmer()
+          : Padding(
+              padding: const EdgeInsets.all(10),
+              child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    final post = posts[index];
+                    return HomePostWidget(
+                      post: post,
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(
+                      height: 20,
+                    );
+                  },
+                  itemCount: posts.length),
+            ),
     );
   }
 }

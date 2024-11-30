@@ -23,7 +23,7 @@ class FanRegisterScreen extends StatefulWidget {
 }
 
 class _FanRegisterScreen extends State<FanRegisterScreen> {
-  late Post p;
+  
   final ScrollController _scrollController = ScrollController();
 
   final double spacing = 16.0;

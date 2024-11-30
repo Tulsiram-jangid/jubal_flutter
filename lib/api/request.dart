@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_app/constant/app_constant.dart';
 import 'package:my_app/helper/helper.dart';
 
 class ApiResponse {
@@ -41,7 +42,10 @@ class ApiRequest {
     late ApiResponse apiRes;
     try {
       // Default headers for the request
-      final requestHeaders = headers ?? {'Content-Type': "application/json"};
+      final requestHeaders = headers ?? {
+        'Content-Type': "application/json",
+        'Authorization': "Bearer ${AppConstant.userToken}"
+        };
       final requestUrl = Uri.parse(url);
 
       http.Response res;
@@ -74,7 +78,8 @@ class ApiRequest {
             data: jsonData['data']);
         return apiRes;
       }
-      return ApiResponse(status: false, message: "Service error", data: jsonData);
+      return ApiResponse(
+          status: false, message: "Service error", data: jsonData);
     } catch (e) {
       print("Error: ${e.toString()}");
       return ApiResponse(status: false, message: "Service error", data: "");

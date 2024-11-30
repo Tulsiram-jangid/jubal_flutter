@@ -1,29 +1,94 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:my_app/model/PostModel.dart';
 import 'package:my_app/utils/appColor.dart';
 
 class HomePostWidget extends StatelessWidget {
   final url =
       "https://media.gettyimages.com/id/622987928/photo/music-concert.jpg?s=612x612&w=gi&k=20&c=5-KouutHsY5tDliefHHCrV0q_VecZgmalXvp8MWRtR0=";
 
+  final dynamic post;
+
+  const HomePostWidget({super.key, required this.post});
+
+  String getFullName() {
+    String name = "";
+    if (post['User']['firstName'] != null) {
+      name = post['User']['firstName'];
+    }
+    if (post['User']['lastName'] != null) {
+      name = "${name} ${post['User']['lastName']}";
+    }
+    return name;
+  }
+
+  String getDes() {
+    String des = "";
+    if (post['User']['Talent']['catagory'] != null) {
+      List<String> result =
+          List<String>.from(jsonDecode(post['User']['Talent']['catagory']));
+      des = result.isNotEmpty ? result.first : "";
+    }
+    return des;
+  }
+
+  String getUserImage() {
+    String url = "";
+    if (post['User']['profilePhoto'] != null) {
+      return post['User']['profilePhoto'];
+    }
+    return url;
+  }
+
+  String getTotalLike() {
+    String totalLike = "0";
+    if (post['Likes'] != null) {
+      totalLike = "${post['Likes']} likes";
+    }
+    return totalLike;
+  }
+
+  String getTotalComment() {
+    String comments = "0";
+    if (post['Comments'] != null) {
+      comments = "${post['Comments']} comments";
+    }
+    return comments;
+  }
+
+  String getPostDescription() {
+    if (post['caption'] != null) {
+      return post['caption'];
+    }
+    return "";
+  }
+
   @override
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
-    double postHeight = deviceHeight * .6;
+    double postHeight = deviceHeight * .5;
     return Container(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
               Container(
                 width: double.infinity,
                 height: postHeight,
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    "https://media.gettyimages.com/id/622987928/photo/music-concert.jpg?s=612x612&w=gi&k=20&c=5-KouutHsY5tDliefHHCrV0q_VecZgmalXvp8MWRtR0=",
-                    fit: BoxFit.cover,
-                  ),
+                  child: post != null && post['postImageUrl'] != null
+                      ? Image.network(
+                          post['postImageUrl'],
+                          fit: BoxFit.contain,
+                        )
+                      : null,
                 ),
               ),
               Container(
@@ -60,7 +125,7 @@ class HomePostWidget extends StatelessWidget {
                                 border:
                                     Border.all(color: Colors.white, width: 2)),
                             child: CircleAvatar(
-                              backgroundImage: NetworkImage(url),
+                              backgroundImage: NetworkImage(getUserImage()),
                             ),
                           ),
                           Padding(
@@ -69,14 +134,14 @@ class HomePostWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Sound of reveal",
+                                  getFullName(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  "Sound of reveal",
+                                  getDes(),
                                   style: TextStyle(
                                       color: Colors.grey, fontSize: 12),
                                 )
@@ -96,11 +161,11 @@ class HomePostWidget extends StatelessWidget {
             height: 40,
             child: Row(
               children: [
-                Text("5 likes"),
+                Text(getTotalLike()),
                 const SizedBox(
                   width: 10,
                 ),
-                Text("5 comments"),
+                Text(getTotalComment()),
                 Spacer(),
                 Icon(
                   Icons.favorite_border,
@@ -125,15 +190,14 @@ class HomePostWidget extends StatelessWidget {
           ),
           Text.rich(TextSpan(children: [
             TextSpan(
-              text: "Sound of revival ",
+              text: getFullName(),
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
             ),
             TextSpan(
-              text:
-                  "I have filmed a small vlog of north Dhaka, and I’m very excited to post on YouTube, will po...more 🤭",
+              text: getPostDescription(),
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[800], // Optional: Adjust text color

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/api/ApiController/AuthServiceController.dart';
+import 'package:my_app/api/ApiController/auth_service_controller.dart';
 import 'package:my_app/constant/app_constant.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/screen/auth/login.dart';
