@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    getHomeData();
+    getHomeData(1);
     scrollController.addListener(() {
       print("${scrollController.position.pixels}");
       if (scrollController.position.pixels ==
@@ -38,19 +38,20 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void getHomeData() async {
+  void getHomeData(int page) async {
     setState(() {
       activity = true;
     });
     try {
       ApiResponse res =
-          await HomeServiceController.getHomeData(pageNumber: pageNumber);
+          await HomeServiceController.getHomeData(pageNumber: page);
 
       if (res.status) {
         setState(() {
           posts = res.data['posts'];
           totalPages = res.data['totalPages'];
           activity = false;
+          pageNumber = page;
         });
         return;
       }
@@ -72,9 +73,10 @@ class _HomeScreenState extends State<HomeScreen> {
         footerActivity = true;
       });
       try {
-        ApiResponse res =
-            await HomeServiceController.getHomeData(pageNumber: page);
-
+        List<dynamic> result = await Future.wait([
+          HomeServiceController.getHomeData(pageNumber: page),
+        ]);
+        ApiResponse res = result[0];
         if (res.status) {
           setState(() {
             posts.addAll(res.data['posts'].length > 0 ? res.data['posts'] : []);
@@ -96,6 +98,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return;
   }
 
+  Future<void> refreshPosts() async {
+    getHomeData(1);
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -109,31 +115,34 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: HomeAppBar(),
       body: activity
           ? HomeShimmer()
-          : Padding(
-              padding: const EdgeInsets.all(10),
-              child: ListView.separated(
-                  controller: scrollController,
-                  physics: const ClampingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    if (index == posts.length - 1 && footerActivity) {
-                      return const Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: CircularProgressIndicator(),
-                        ),
+          : RefreshIndicator(
+              onRefresh: refreshPosts,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: ListView.separated(
+                    controller: scrollController,
+                    physics: const ClampingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      if (index == posts.length - 1 && footerActivity) {
+                        return const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
+                      final post = posts[index];
+                      return HomePostWidget(
+                        post: post,
                       );
-                    }
-                    final post = posts[index];
-                    return HomePostWidget(
-                      post: post,
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(
-                      height: 20,
-                    );
-                  },
-                  itemCount: posts.length),
+                    },
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(
+                        height: 20,
+                      );
+                    },
+                    itemCount: posts.length),
+              ),
             ),
     );
   }

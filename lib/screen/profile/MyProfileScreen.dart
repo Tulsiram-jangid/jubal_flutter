@@ -48,7 +48,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              UserBadgeWidget(),
+                              const UserBadgeWidget(),
                             ],
                           ),
                           const Text(
