@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/route/routeName.dart';
 import 'package:my_app/screen/bottomTab/BottomNavigationBarWidget.dart';
+import 'package:my_app/shimmer/home_shimmer.dart';
 import 'package:my_app/widget/HomeAppBar.dart';
 import 'package:my_app/widget/HomePostWidget.dart';
 
@@ -14,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  bool activity = !false;
 
   final PageController _pageController = PageController();
 
@@ -27,20 +29,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // return HomeShimmer();
     return Scaffold(
       appBar: HomeAppBar(),
-      body: SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            HomePostWidget(),
-            const SizedBox(height: 20),
-            HomePostWidget(),
-          ],
+      body: activity ? HomeShimmer() : SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              HomePostWidget(),
+              const SizedBox(height: 20),
+              HomePostWidget(),
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 }

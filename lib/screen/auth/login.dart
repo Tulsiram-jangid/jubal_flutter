@@ -22,8 +22,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreen extends State<LoginScreen> {
-  String email = "";
-  String password = "";
+  TextEditingController emailController =
+      TextEditingController(text: "rohan@gmail.com");
+  TextEditingController passwordController =
+      TextEditingController(text: "");
   bool showPassword = false;
   bool isLoading = false;
 
@@ -41,13 +43,12 @@ class _LoginScreen extends State<LoginScreen> {
     return "";
   }
 
-  void navigateToOtp(BuildContext context){
+  void navigateToOtp(BuildContext context) {
     Navigator.of(context).pushNamed(RouteNames.otpVerifyScreen);
   }
 
   void onSubmitTap(BuildContext context) async {
-    
-    if (email == "") {
+    if (emailController.text == "") {
       const msg = "Email is required";
       setState(() {
         errorType = FieldTypes.email;
@@ -55,7 +56,7 @@ class _LoginScreen extends State<LoginScreen> {
       });
       return;
     }
-    if (password == "") {
+    if (passwordController.text == "") {
       const msg = "Password is required";
       setState(() {
         errorType = FieldTypes.password;
@@ -63,53 +64,54 @@ class _LoginScreen extends State<LoginScreen> {
       });
       return;
     }
+    FocusScope.of(context).unfocus();
     setState(() {
       errorType = "";
       errorMsg = "";
       isLoading = true;
     });
-
     
-    final res = await AuthServiceController.loginByEmail(email: email, password: password, context: context);
+    final res = await AuthServiceController.loginByEmail(
+        email: emailController.text, password: passwordController.text, context: context);
     setState(() {
       isLoading = false;
     });
   }
 
   void _showCustomAlertDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Warning'),
-        content: Text('This is a custom alert dialog with an icon and a different shape.'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('Cancel'),
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Warning'),
+          content: Text(
+              'This is a custom alert dialog with an icon and a different shape.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                // Handle confirmation action
+                Navigator.of(context).pop();
+              },
+              child: Text('Confirm'),
+            ),
+          ],
+          icon: Icon(Icons.warning),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0.0),
           ),
-          TextButton(
-            onPressed: () {
-              // Handle confirmation action
-              Navigator.of(context).pop();
-            },
-            child: Text('Confirm'),
-          ),
-        ],
-        icon: Icon(Icons.warning),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0.0),
-        ),
-      );
-    },
-  );
-}
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-
     //return UploadImage();
     return Scaffold(
         appBar: AppBar(
@@ -128,13 +130,13 @@ class _LoginScreen extends State<LoginScreen> {
                   height: 12,
                 ),
                 CustomTextField(
-                  value: email,
+                  textEditingController: emailController,
                   label: "Email Address / Username",
                   placeholder: "Enter email Address / username",
                   isPassword: false,
                   onChanged: (value) {
                     setState(() {
-                      email = value;
+                      emailController.text = value;
                     });
                   },
                   error: getErrorByType(FieldTypes.email),
@@ -143,13 +145,14 @@ class _LoginScreen extends State<LoginScreen> {
                   height: 16,
                 ),
                 CustomTextField(
+                  textEditingController: passwordController,
                   label: "Password",
                   placeholder: "Enter password",
                   isPassword: true,
                   obscureText: showPassword,
                   onChanged: (value) {
                     setState(() {
-                      password = value;
+                      passwordController.text = value;
                     });
                   },
                   onRightIconTap: () {
@@ -170,7 +173,9 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
                 AppButton(
                   title: "Sign in",
-                  onTap: (){onSubmitTap(context);},
+                  onTap: () {
+                    onSubmitTap(context);
+                  },
                   isLoading: isLoading,
                 ),
                 const SizedBox(
