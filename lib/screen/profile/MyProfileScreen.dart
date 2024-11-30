@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_app/api/ApiController/AuthServiceController.dart';
 import 'package:my_app/constant/type.dart';
 import 'package:my_app/model/staticData/MyProfileModel.dart';
 import 'package:my_app/screen/appStart.dart';
@@ -132,8 +133,7 @@ class ProfileItemHeading extends StatelessWidget {
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
-                      Provider.of<StoreProvider>(context, listen: false)
-                          .onLogout(context);
+                      AuthServiceController.logoutUserFromApp(context);
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) => AppStart()),

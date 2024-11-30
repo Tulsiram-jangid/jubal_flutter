@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/api/ApiController/AuthServiceController.dart';
 import 'package:my_app/api/ApiModel/LoginRequestModel.dart';
+import 'package:my_app/constant/app_constant.dart';
 import 'package:my_app/constant/type.dart';
 import 'package:my_app/helper/helper.dart';
 import 'package:my_app/model/user_model.dart';
@@ -73,12 +74,6 @@ class _LoginScreen extends State<LoginScreen> {
     setState(() {
       isLoading = false;
     });
-
-    if(res.status){
-      UserModel user = UserModel.getUserFromLoginApi(res.data);
-      Provider.of<StoreProvider>(context,listen: false).setUser(user);
-      Provider.of<StoreProvider>(context,listen: false).goToHome();
-    }
   }
 
   void _showCustomAlertDialog(BuildContext context) {

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/api/ApiController/AuthServiceController.dart';
+import 'package:my_app/constant/app_constant.dart';
+import 'package:my_app/model/user_model.dart';
 import 'package:my_app/screen/auth/login.dart';
 import 'package:my_app/screen/bottomTab/BottomTab.dart';
 import 'package:my_app/screen/splash/splash.dart';
+import 'package:my_app/store/SharedPrefrenceStorage.dart';
 import 'package:my_app/store/StoreProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +26,7 @@ class _AppStart extends State<AppStart>{
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 2),(){
-      Provider.of<StoreProvider>(context, listen: false).goToLogin();
+      AuthServiceController.setUserLoginFromSharedPreference(context);
     });
   }
 
