@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/shimmer/talent_list_shimmer.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/widget/AppBarWidget.dart';
 import 'package:my_app/widget/SeachTextField.dart';
@@ -12,18 +13,19 @@ class TalentListScreen extends StatefulWidget {
 }
 
 class _TalentListScreen extends State<TalentListScreen> {
+  bool activity = !false;
   @override
   Widget build(BuildContext context) {
     final List<String> items =
         List.generate(20, (index) => 'Item ${index + 1}');
 
     return Scaffold(
-      appBar: AppBarWidget(
+      appBar: const AppBarWidget(
         title: "Search Talents",
         isHaveBackButton: false,
       ),
       backgroundColor: AppColor.bgColor,
-      body: Padding(
+      body: activity ? TalentListShimmer() : Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [

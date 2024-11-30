@@ -4,7 +4,7 @@ import 'package:my_app/api/ApiController/auth_service_controller.dart';
 import 'package:my_app/constant/type.dart';
 import 'package:my_app/model/staticData/MyProfileModel.dart';
 import 'package:my_app/screen/appStart.dart';
-import 'package:my_app/shimmer/MyProfileShimmer.dart';
+import 'package:my_app/shimmer/my_profile_shimmer.dart';
 import 'package:my_app/store/StoreProvider.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/widget/AppButton.dart';

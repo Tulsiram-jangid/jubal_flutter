@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:my_app/shimmer/event_list_shimmer.dart';
 import 'package:my_app/widget/AppBarWidget.dart';
 import 'package:my_app/widget/EventListWidget.dart';
 import 'package:my_app/widget/SeachTextField.dart';
@@ -21,7 +22,7 @@ class _EventListScreen extends State<EventListScreen> {
         title: "Jubal Events",
         isHaveBackButton: false,
       ),
-      body: Padding(
+      body: true ? EventListShimmer() : Padding(
         padding: EdgeInsets.all(10),
         child: Column(
           children: [
