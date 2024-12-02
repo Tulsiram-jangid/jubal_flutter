@@ -8,6 +8,7 @@ import 'package:my_app/widget/app_bar_widget.dart';
 import 'package:my_app/widget/event_list_widget.dart';
 import 'package:my_app/widget/footer_activity.dart';
 import 'package:my_app/widget/search_text_widget.dart';
+import 'package:my_app/widget/total_result_widget.dart';
 
 class EventListScreen extends StatefulWidget {
   @override
@@ -30,15 +31,16 @@ class _EventListScreen extends State<EventListScreen> {
   void initState() {
     super.initState();
     getEvents(1);
-    scrollController.addListener((){
-      if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
-        
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        loadMoreEvent();
       }
     });
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     scrollController.dispose();
   }
@@ -67,6 +69,31 @@ class _EventListScreen extends State<EventListScreen> {
     });
   }
 
+  Future<void> loadMoreEvent() async {
+    if (page < totalPage) {
+      int newPage = page + 1;
+      setState(() {
+        footerActivity = true;
+      });
+      ApiResponse res = await EventServiceController.getEventList(
+        context: context,
+        page: newPage,
+
+      );
+      if (res.status) {
+        List<dynamic> _list = List<dynamic>.from(res.data['event'] ?? []);
+        setState(() {
+          footerActivity = false;
+          list.addAll(_list);
+          page = newPage;
+        });
+      }
+      setState(() {
+        footerActivity = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<String> items = List.generate(10, (index) => 'items ${index}');
@@ -79,10 +106,15 @@ class _EventListScreen extends State<EventListScreen> {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SearchTextField(
               placeholder: "Search events...",
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            TotalResultWidget(totalItem: totalItems.toString()),
             const SizedBox(
               height: 10,
             ),
@@ -91,13 +123,17 @@ class _EventListScreen extends State<EventListScreen> {
             else
               Expanded(
                 child: ListView.separated(
+                  controller: scrollController,
                   itemCount: list.length,
+                  physics: const ClampingScrollPhysics(),
                   itemBuilder: (context, index) {
-                    if(index == list.length-1 && footerActivity){
+                    if (index == list.length - 1 && footerActivity) {
                       return FooterActivity();
                     }
                     final item = list[index];
-                    return EventListWidget(event: EventListModel(event: item),);
+                    return EventListWidget(
+                      event: EventListModel(event: item),
+                    );
                   },
                   separatorBuilder: (context, index) {
                     return const SizedBox(
