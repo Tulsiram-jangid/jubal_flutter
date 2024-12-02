@@ -21,4 +21,19 @@ class TalentServiceController {
     if (ApiRequest.isSuccess(res.toJosn(), context)) {}
     return res;
   }
+
+  static Future<ApiResponse> searchTalentByApi(
+      {int page = 1, String searchData = "", BuildContext? context}) async {
+    final URL = ApiUrl.filterTalent;
+    final body = {
+      "limit": 10,
+      "page": page,
+      "search": searchData
+    };
+
+    ApiResponse res =
+        await ApiRequest.request(url: URL, body: body, method: "POST");
+    if (ApiRequest.isSuccess(res.toJosn(), context)) {}
+    return res;
+  }
 }

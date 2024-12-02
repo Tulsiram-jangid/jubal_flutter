@@ -8,15 +8,52 @@ class SearchTextField extends StatelessWidget {
   final bool showFilterIcon;
   final Color fillColor;
   final ValueChanged<String>? onChanged;
+  final bool? activity;
 
-  SearchTextField({
+  const SearchTextField({
     super.key,
     this.placeholder = "Search...",
     this.isFilterActive = false,
     this.showFilterIcon = false,
     this.fillColor = Colors.transparent,
     this.onChanged,
+    this.activity,
   });
+
+
+  Widget? getSuffixIcon(){
+    if(activity!){
+      return const SizedBox(width: 10,height: 10, child: Padding( padding: EdgeInsets.all(15),child: CircularProgressIndicator(strokeWidth: 2, color: AppColor.primary,)),);
+    }
+    if(showFilterIcon){
+      return SizedBox(
+                width: 20,
+                height: 20,
+                child: Stack(
+                  children: [
+                    Center(
+                      child: IconButton(
+                        onPressed: () {
+                          // Handle filter button click
+                        },
+                        icon: SvgPicture.asset('assets/icons/filter.svg'),
+                      ),
+                    ),
+                    // Active Dot
+                    const Positioned(
+                      top: 9, // Adjust position as needed
+                      right: 12,
+                      child: CircleAvatar(
+                        radius: 6, // Size of the dot
+                        backgroundColor: Colors.green, // Dot color
+                      ),
+                    ),
+                  ],
+                ),
+              );
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,33 +76,7 @@ class SearchTextField extends StatelessWidget {
               onPressed: () {},
               icon: SvgPicture.asset('assets/icons/search.svg')),
         ),
-        suffixIcon: showFilterIcon
-            ? SizedBox(
-                width: 20,
-                height: 20,
-                child: Stack(
-                  children: [
-                    Center(
-                      child: IconButton(
-                        onPressed: () {
-                          // Handle filter button click
-                        },
-                        icon: SvgPicture.asset('assets/icons/filter.svg'),
-                      ),
-                    ),
-                    // Active Dot
-                    Positioned(
-                      top: 9, // Adjust position as needed
-                      right: 12,
-                      child: CircleAvatar(
-                        radius: 6, // Size of the dot
-                        backgroundColor: Colors.green, // Dot color
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            : null,
+        suffixIcon: getSuffixIcon(),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none),

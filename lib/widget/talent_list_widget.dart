@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/model/staticData/talent_list_model.dart';
+import 'package:my_app/model/talent_list_model.dart';
 import 'package:my_app/utils/appColor.dart';
 
 class TalentListWidget extends StatelessWidget {

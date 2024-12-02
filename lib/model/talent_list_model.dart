@@ -9,7 +9,10 @@ class TalentListModel {
   String get id => talent['id'] ?? '';
   String get firstName => (talent['firstName'] ?? '').trim();
   String get lastName => (talent['lastName'] ?? '').trim();
-  String get fullName => "${firstName} ${lastName}".trim();
+  String get fullName {
+    String full_name = "${firstName} ${lastName}".trim();
+    return "${full_name[0].toUpperCase()}${full_name.substring(1)}";
+  }
   String get artistBandName => talent['artistBandName'] ?? '';
   int get gender => talent['gender'] ?? 0;
   String get profilePhoto => talent['profilePhoto'] ?? '';
@@ -32,8 +35,11 @@ class TalentListModel {
   bool get profileVerified => userTalent['profileVerified'] ?? false;
 
   String get getCategory {
-    if(talent['User']['Talent'] != null){
-      List<String> cate = List<String>.from(jsonDecode(talent['User']['Talent']['catagory']));
+    if(talent['User']['Talent']['catagory'] != null){
+      String _cates = talent['User']['Talent']['catagory'] ?? "";
+      List<String> cate = _cates.isNotEmpty 
+        ? List<String>.from(jsonDecode(_cates) as List<dynamic>) 
+        : [];
       return cate.isNotEmpty ? cate.first : "";
     }
     return "";
