@@ -78,7 +78,6 @@ class _EventListScreen extends State<EventListScreen> {
       ApiResponse res = await EventServiceController.getEventList(
         context: context,
         page: newPage,
-
       );
       if (res.status) {
         List<dynamic> _list = List<dynamic>.from(res.data['event'] ?? []);
@@ -92,6 +91,31 @@ class _EventListScreen extends State<EventListScreen> {
         footerActivity = false;
       });
     }
+  }
+
+  Future<void> onSearchEvent(String value) async {
+    if (value.isEmpty) {
+      getEvents(1);
+      return;
+    }
+    setState(() {
+      searchActivity = true;
+    });
+    ApiResponse res = await EventServiceController.getEventList(
+        context: context, page: 1, eventName: value);
+    if (res.status) {
+      List<dynamic> _list = List<dynamic>.from(res.data['event'] ?? []);
+      setState(() {
+        searchActivity = false;
+        list = _list;
+        page = 1;
+        totalItems = res.data['count'] ?? 0;
+        totalPage = res.data['totalPages'] ?? 1;
+      });
+    }
+    setState(() {
+      searchActivity = false;
+    });
   }
 
   @override
@@ -108,8 +132,10 @@ class _EventListScreen extends State<EventListScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SearchTextField(
+            SearchTextField(
               placeholder: "Search events...",
+              activity: searchActivity,
+              onChanged: onSearchEvent,
             ),
             const SizedBox(
               height: 10,
