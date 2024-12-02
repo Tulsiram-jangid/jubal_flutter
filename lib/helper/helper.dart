@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/utils/appColor.dart';
-
+import 'package:intl/intl.dart';
 class Helper {
+
+  static String getPrice(double price){
+    final formater = NumberFormat.currency(locale: "en_US", symbol: '\$');
+    return formater.format(price);
+  }
+
   static void showToast(BuildContext context, String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(msg), duration: const Duration(seconds: 5)));

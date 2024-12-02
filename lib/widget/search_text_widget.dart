@@ -17,7 +17,7 @@ class SearchTextField extends StatelessWidget {
     this.showFilterIcon = false,
     this.fillColor = Colors.transparent,
     this.onChanged,
-    this.activity,
+    this.activity=false,
   });
 
 

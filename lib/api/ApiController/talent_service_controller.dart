@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/api/baseUrl.dart';
 import 'package:my_app/api/request.dart';
+import 'package:my_app/constant/app_constant.dart';
 
 class TalentServiceController {
   static Future<ApiResponse> getTalentList(
@@ -26,7 +27,7 @@ class TalentServiceController {
       {int page = 1, String searchData = "", BuildContext? context}) async {
     final URL = ApiUrl.filterTalent;
     final body = {
-      "limit": 10,
+      "limit": AppConstant.pageLimit,
       "page": page,
       "search": searchData
     };

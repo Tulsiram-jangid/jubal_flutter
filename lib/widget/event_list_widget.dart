@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/helper/helper.dart';
+import 'package:my_app/model/event_list_model.dart';
 import 'package:my_app/utils/appColor.dart';
 
 class EventListWidget extends StatelessWidget {
+  final EventListModel event;
+
+  const EventListWidget({super.key, required this.event});
+
   @override
   Widget build(BuildContext context) {
-    final imgHeight = 150.0;
+    const imgHeight = 200.0;
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -15,7 +21,7 @@ class EventListWidget extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
-                'https://media.gettyimages.com/id/622987928/photo/music-concert.jpg?s=612x612&w=gi&k=20&c=5-KouutHsY5tDliefHHCrV0q_VecZgmalXvp8MWRtR0=',
+                event.eventImage,
                 width: double.infinity,
                 height: imgHeight,
                 fit: BoxFit.cover,
@@ -23,26 +29,59 @@ class EventListWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(10),
-              
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(child: Text(
-                          "Concerts: Live performances by artists or bands, often in large venues or stadiums.", style: TextStyle(fontWeight: FontWeight.bold),)),
-                          const SizedBox(width: 10,),
-                          Text("\$39", style: TextStyle(fontWeight: FontWeight.bold),)
+                      Expanded(
+                          child: Text(
+                        event.eventName,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      if (event.ticketPrice_ == 0)
+                        const Text(
+                          "Free",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColor.primary),
+                        )
+                      else
+                        Text(
+                          Helper.getPrice(event.ticketPrice_),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        )
                     ],
                   ),
-                  const SizedBox(height: 6,),
-                  Text("Live and Cracko", style: TextStyle(color: AppColor.darkGrey),),
-                  const SizedBox(height: 6,),
-                  Row(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                    Icon(Icons.location_on, color: AppColor.darkGrey,),
-                    Expanded(child: Text("The Airstream Main Courtyards, Paintworks The Airstream Main Courtyards, Paintworks", style: TextStyle(color: AppColor.darkGrey),maxLines: 2,)),
-                  ],)
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  Text(
+                    event.eventType,
+                    style: const TextStyle(color: AppColor.darkGrey),
+                  ),
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        color: AppColor.darkGrey,
+                      ),
+                      Expanded(
+                          child: Text(
+                        event.location,
+                        style: const TextStyle(color: AppColor.darkGrey),
+                        maxLines: 2,
+                      )),
+                    ],
+                  )
                 ],
               ),
             )

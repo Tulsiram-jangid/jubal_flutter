@@ -6,6 +6,8 @@ class AppConstant {
   static String? userToken;
   static String? userId;
 
+  static const pageLimit = 10;
+
   static setUserToken(String token) {
     userToken = token;
     print("---------user token-----------${userToken}");
