@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/utils/appColor.dart';
-import 'package:my_app/widget/AppBarWidget.dart';
+import 'package:my_app/widget/app_bar_widget.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'package:my_app/widget/AppButton.dart';
-import 'package:my_app/widget/CustomTextField.dart';
+import 'package:my_app/widget/app_button.dart';
+import 'package:my_app/widget/custome_text_field.dart';
 
 class OtpVerifyScreen extends StatefulWidget {
   @override

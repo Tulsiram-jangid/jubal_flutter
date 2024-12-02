@@ -7,9 +7,9 @@ import 'package:my_app/constant/type.dart';
 import 'package:my_app/model/PostModel.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/utils/appUtils.dart';
-import 'package:my_app/widget/AppButton.dart';
-import 'package:my_app/widget/BackButtonWidget.dart';
-import 'package:my_app/widget/CustomTextField.dart';
+import 'package:my_app/widget/app_button.dart';
+import 'package:my_app/widget/back_button_widget.dart';
+import 'package:my_app/widget/custome_text_field.dart';
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_picker_dropdown.dart';
 

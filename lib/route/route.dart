@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/route/routeName.dart';
+import 'package:my_app/route/route_name.dart';
 import 'package:my_app/screen/appStart.dart';
-import 'package:my_app/screen/auth/fanRegister.dart';
-import 'package:my_app/screen/auth/otpVerify.dart';
-import 'package:my_app/screen/profile/MyProfileScreen.dart';
-import 'package:my_app/screen/search/countryScreen.dart';
+import 'package:my_app/screen/auth/fan_register.dart';
+import 'package:my_app/screen/auth/otp_verify.dart';
+import 'package:my_app/screen/profile/my_profile_screen.dart';
+import 'package:my_app/screen/search/country_screen.dart';
 
 class AppRoute {
   static Route? generateRoute(RouteSettings setting) {

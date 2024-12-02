@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_app/utils/appColor.dart';
-import 'package:my_app/widget/AppBarWidget.dart';
-import 'package:my_app/widget/AppButton.dart';
+import 'package:my_app/widget/app_bar_widget.dart';
+import 'package:my_app/widget/app_button.dart';
 
 class UploadImage extends StatefulWidget {
   @override

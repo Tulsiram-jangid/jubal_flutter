@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_app/shimmer/event_list_shimmer.dart';
-import 'package:my_app/widget/AppBarWidget.dart';
-import 'package:my_app/widget/EventListWidget.dart';
-import 'package:my_app/widget/SeachTextField.dart';
+import 'package:my_app/widget/app_bar_widget.dart';
+import 'package:my_app/widget/event_list_widget.dart';
+import 'package:my_app/widget/search_text_widget.dart';
 
 class EventListScreen extends StatefulWidget {
   @override

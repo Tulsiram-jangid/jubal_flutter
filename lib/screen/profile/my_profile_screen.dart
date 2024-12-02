@@ -7,11 +7,11 @@ import 'package:my_app/screen/appStart.dart';
 import 'package:my_app/shimmer/my_profile_shimmer.dart';
 import 'package:my_app/store/StoreProvider.dart';
 import 'package:my_app/utils/appColor.dart';
-import 'package:my_app/widget/AppButton.dart';
-import 'package:my_app/widget/BorderedTextWithIconWidget.dart';
-import 'package:my_app/widget/HeadingWidget.dart';
-import 'package:my_app/widget/ProfileHeaderWidget.dart';
-import 'package:my_app/widget/UserBadgeWidget.dart';
+import 'package:my_app/widget/app_button.dart';
+import 'package:my_app/widget/bordered_text_with_icon_widget.dart';
+import 'package:my_app/widget/heading_widget.dart';
+import 'package:my_app/widget/profile_header_widget.dart';
+import 'package:my_app/widget/user_badge_widget.dart';
 import 'package:provider/provider.dart';
 
 class MyProfileScreen extends StatefulWidget {

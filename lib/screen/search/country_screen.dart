@@ -3,9 +3,9 @@ import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:my_app/widget/AppBarWidget.dart';
-import 'package:my_app/widget/CustomTextField.dart';
-import 'package:my_app/widget/SeachTextField.dart';
+import 'package:my_app/widget/app_bar_widget.dart';
+import 'package:my_app/widget/custome_text_field.dart';
+import 'package:my_app/widget/search_text_widget.dart';
 
 class CountryScreen extends StatefulWidget {
   final OnSearchComplete? onSearchComplete;

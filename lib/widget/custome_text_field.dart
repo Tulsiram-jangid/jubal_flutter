@@ -1,8 +1,8 @@
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
-import 'package:my_app/route/routeName.dart';
-import 'package:my_app/screen/search/countryScreen.dart';
+import 'package:my_app/route/route_name.dart';
+import 'package:my_app/screen/search/country_screen.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/utils/appUtils.dart';
 

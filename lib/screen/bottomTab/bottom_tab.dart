@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_app/screen/bottomTab/BottomNavigationBarWidget.dart';
-import 'package:my_app/screen/chat/ChatListScreen.dart';
-import 'package:my_app/screen/event/EventListScreen.dart';
+import 'package:my_app/screen/bottomTab/bottom_navigation_bar_widget.dart';
+import 'package:my_app/screen/chat/chat_list_screen.dart';
+import 'package:my_app/screen/event/event_list_screen.dart';
 import 'package:my_app/screen/home/home.dart';
-import 'package:my_app/screen/post/AddPostScreen.dart';
-import 'package:my_app/screen/talent/TalentListScreen.dart';
+import 'package:my_app/screen/post/add_post_screen.dart';
+import 'package:my_app/screen/talent/talent_list_screen.dart';
 
 class BottomTabScreen extends StatefulWidget {
   @override

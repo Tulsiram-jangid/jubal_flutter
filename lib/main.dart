@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/constant/app_constant.dart';
 import 'package:my_app/notification/app_notification.dart';
 import 'package:my_app/route/route.dart';
-import 'package:my_app/route/routeName.dart';
+import 'package:my_app/route/route_name.dart';
 import 'package:my_app/store/StoreProvider.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:provider/provider.dart';

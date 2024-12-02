@@ -3,7 +3,7 @@ import 'package:my_app/api/ApiController/auth_service_controller.dart';
 import 'package:my_app/constant/app_constant.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/screen/auth/login.dart';
-import 'package:my_app/screen/bottomTab/BottomTab.dart';
+import 'package:my_app/screen/bottomTab/bottom_tab.dart';
 import 'package:my_app/screen/splash/splash.dart';
 import 'package:my_app/store/SharedPrefrenceStorage.dart';
 import 'package:my_app/store/StoreProvider.dart';

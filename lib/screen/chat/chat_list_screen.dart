@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:my_app/shimmer/chat_list_shimmer.dart';
 import 'package:my_app/utils/appColor.dart';
-import 'package:my_app/widget/AppBarWidget.dart';
-import 'package:my_app/widget/ChatListWidget.dart';
-import 'package:my_app/widget/SeachTextField.dart';
+import 'package:my_app/widget/app_bar_widget.dart';
+import 'package:my_app/widget/chat_list_widget.dart';
+import 'package:my_app/widget/search_text_widget.dart';
 
 class ChatListScreen extends StatefulWidget {
   @override
@@ -23,7 +24,7 @@ class _ChatListScreen extends State<ChatListScreen> {
         title: "Chat",
         isHaveBackButton: false,
       ),
-      body: Stack(
+      body: true ? ChatListShimmer() : Stack(
         children: [
           Column(
             children: [

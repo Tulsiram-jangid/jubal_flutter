@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:my_app/api/ApiController/home_service_controller.dart';
 import 'package:my_app/api/request.dart';
 import 'package:my_app/model/PostModel.dart';
-import 'package:my_app/route/routeName.dart';
-import 'package:my_app/screen/bottomTab/BottomNavigationBarWidget.dart';
+import 'package:my_app/route/route_name.dart';
+import 'package:my_app/screen/bottomTab/bottom_navigation_bar_widget.dart';
 import 'package:my_app/shimmer/home_shimmer.dart';
-import 'package:my_app/widget/HomeAppBar.dart';
-import 'package:my_app/widget/HomePostWidget.dart';
+import 'package:my_app/widget/home_app_bar.dart';
+import 'package:my_app/widget/home_post_widget.dart';
+import 'package:my_app/widget/footer_activity.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -30,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getHomeData(1);
     scrollController.addListener(() {
-      print("${scrollController.position.pixels}");
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
         loadMorePost();
@@ -124,12 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     physics: const ClampingScrollPhysics(),
                     itemBuilder: (context, index) {
                       if (index == posts.length - 1 && footerActivity) {
-                        return const Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: CircularProgressIndicator(),
-                          ),
-                        );
+                        return FooterActivity();
                       }
                       final post = posts[index];
                       return HomePostWidget(

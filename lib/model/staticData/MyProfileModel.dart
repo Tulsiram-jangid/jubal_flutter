@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_app/constant/type.dart';
-import 'package:my_app/route/routeName.dart';
+import 'package:my_app/route/route_name.dart';
 import 'package:my_app/utils/appColor.dart';
 
 class MyProfileHeadingModel {

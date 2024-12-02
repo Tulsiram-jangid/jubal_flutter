@@ -4,13 +4,13 @@ import 'package:my_app/constant/app_constant.dart';
 import 'package:my_app/constant/type.dart';
 import 'package:my_app/helper/helper.dart';
 import 'package:my_app/model/user_model.dart';
-import 'package:my_app/route/routeName.dart';
+import 'package:my_app/route/route_name.dart';
 import 'package:my_app/screen/auth/upload_image.dart';
 import 'package:my_app/store/StoreProvider.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/utils/appUtils.dart';
-import 'package:my_app/widget/AppButton.dart';
-import 'package:my_app/widget/CustomTextField.dart';
+import 'package:my_app/widget/app_button.dart';
+import 'package:my_app/widget/custome_text_field.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {

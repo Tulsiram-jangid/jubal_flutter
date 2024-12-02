@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/store/StoreProvider.dart';
-import 'package:my_app/widget/BackButtonWidget.dart';
+import 'package:my_app/widget/back_button_widget.dart';
 import 'package:provider/provider.dart';
 
 class ProfileHeaderWidget extends StatelessWidget {
