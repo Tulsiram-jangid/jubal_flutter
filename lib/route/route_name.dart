@@ -7,4 +7,5 @@ class RouteNames {
   static const String accountSettingScreen = "/accountSettingScreen";
   static const String otpVerifyScreen = "/otpVerifyScreen";
   static const String searchCountryScreen = "/searchCountryScreen";
+  static const String eventDetailScreen = "/eventDetailScreen";
 }
