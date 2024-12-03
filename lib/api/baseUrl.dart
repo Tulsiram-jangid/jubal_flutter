@@ -10,4 +10,5 @@ class ApiUrl {
   static const searchTalent = "${ApiUrl.server}/J0001/api/v1/users/list?type=3";
 
   static const eventList = "${ApiUrl.server}/J0005/api/v1/event/list";
+  static const eventDetail = "${ApiUrl.server}/J0005/api/v1/event";
 }

@@ -29,4 +29,12 @@ class EventServiceController {
         await ApiRequest.request(url: URL, method: "POST", body: body);
     return res;
   }
+
+  static Future<ApiResponse> getEventDetail({
+    BuildContext? context,
+    String? id
+  })async{
+    final URL = "${ApiUrl.eventDetail}/${id}";
+    return await ApiRequest.request(url: URL, method: "GET");
+  }
 }
