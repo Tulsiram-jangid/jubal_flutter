@@ -11,4 +11,5 @@ class RouteNames {
   static const String myActivity = "/myActivity";
   static const String myLike = "/myLike";
   static const String myComment = "/myComment";
+  static const String myTag = "/myTag";
 }

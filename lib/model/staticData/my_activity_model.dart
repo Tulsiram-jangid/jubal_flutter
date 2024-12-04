@@ -25,7 +25,7 @@ class MyActivityModel {
     ));
     list.add(MyActivityModel(
       title: "Tags",
-      routeName: RouteNames.myLike
+      routeName: RouteNames.myTag
     ));
     list.add(MyActivityModel(
       title: "Shared",
