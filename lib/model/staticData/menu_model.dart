@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_app/route/route_name.dart';
 
 class MenuModel {
   final String title;
   final int? badge;
   final Widget? icon;
   final Widget? screenWidget;
+  final String? routeName;
 
   static double iconSize = 10;
 
   MenuModel(
-      {required this.title,this.badge, this.icon, this.screenWidget});
+      {required this.title,this.badge, this.icon, this.screenWidget, this.routeName});
 
   static List<MenuModel> getMenuList() {
     List<MenuModel> list = [];
@@ -21,7 +23,8 @@ class MenuModel {
     ));
     list.add(MenuModel(
       title: "Your Activity",
-      icon: SvgPicture.asset('assets/icons/activity.svg', width: iconSize, height: iconSize,)
+      icon: SvgPicture.asset('assets/icons/activity.svg', width: iconSize, height: iconSize,),
+      routeName: RouteNames.myActivity
     ));
     list.add(MenuModel(
       title: "Saved",

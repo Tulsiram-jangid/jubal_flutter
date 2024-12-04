@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/screen/activity/my_activity.dart';
 import 'package:my_app/screen/event/event_detail_screen.dart';
 
 class AppNavigation {
@@ -6,9 +7,12 @@ class AppNavigation {
     if (context != null) {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => EventDetailScreen(eventId: eventId,),
+          builder: (context) => EventDetailScreen(
+            eventId: eventId,
+          ),
         ),
       );
     }
   }
+
 }

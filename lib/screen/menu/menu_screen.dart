@@ -6,6 +6,14 @@ import 'package:my_app/widget/heading_widget.dart';
 class MenuScreen extends StatelessWidget {
   final List<MenuModel> menus = MenuModel.getMenuList();
 
+  void onTapMenu(MenuModel item, BuildContext context) {
+    if (item.routeName != null && item.routeName!.isNotEmpty) {
+      Navigator.of(context).pop();
+      Navigator.of(context).pushNamed(item.routeName!);
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,6 +41,9 @@ class MenuScreen extends StatelessWidget {
                   final item = menus[index];
                   return MenuItem(
                     menu: item,
+                    onTap: () {
+                      onTapMenu(item, context);
+                    },
                   );
                 },
                 separatorBuilder: (context, index) {
@@ -50,59 +61,70 @@ class MenuScreen extends StatelessWidget {
 
 class MenuItem extends StatelessWidget {
   final MenuModel menu;
+  final VoidCallback? onTap;
 
-  const MenuItem({super.key, required this.menu});
+  const MenuItem({super.key, required this.menu, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          color: Colors.grey.shade100, borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        children: [
-          Container(
-            height: 30,
-            width: 30,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: Colors.grey.shade300),
-            child: menu.icon != null
-                ? IconButton(
-                    icon: menu.icon!,
-                    onPressed: () {},
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            color: Colors.grey.shade100,
+            borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          children: [
+            Container(
+              height: 30,
+              width: 30,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.grey.shade300),
+              child: menu.icon != null
+                  ? IconButton(
+                      icon: menu.icon!,
+                      onPressed: () {},
+                    )
+                  : null,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            HeadingWidget(
+              title: menu.title,
+              fontSize: 14,
+              color: AppColor.darkGrey,
+            ),
+            const Spacer(),
+            menu.badge != null && menu.badge! > 0
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: AppColor.primary),
+                      //padding: EdgeInsets.all(10),
+                      child: Text(
+                        menu.badge.toString(),
+                        style: const TextStyle(
+                            fontSize: 10,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   )
-                : null,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          HeadingWidget(
-            title: menu.title,
-            fontSize: 14,
-            color: AppColor.darkGrey,
-          ),
-          const Spacer(),
-          menu.badge != null && menu.badge! > 0
-              ? Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: Container(
-                  alignment: Alignment.center,
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: AppColor.primary),
-                    //padding: EdgeInsets.all(10),
-                    child: Text(menu.badge.toString(), style: const TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold),),
-                  ),
-              )
-              : const Icon(
-                  Icons.chevron_right,
-                  color: AppColor.darkGrey,
-                  size: 30,
-                )
-        ],
+                : const Icon(
+                    Icons.chevron_right,
+                    color: AppColor.darkGrey,
+                    size: 30,
+                  )
+          ],
+        ),
       ),
     );
   }

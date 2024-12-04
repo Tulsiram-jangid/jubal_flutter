@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/constant/app_navigation.dart';
+import 'package:my_app/route/app_navigation.dart';
 import 'package:my_app/helper/helper.dart';
 import 'package:my_app/model/event_list_model.dart';
 import 'package:my_app/route/route_name.dart';

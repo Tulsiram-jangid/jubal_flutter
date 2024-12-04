@@ -8,4 +8,6 @@ class RouteNames {
   static const String otpVerifyScreen = "/otpVerifyScreen";
   static const String searchCountryScreen = "/searchCountryScreen";
   static const String eventDetailScreen = "/eventDetailScreen";
+  static const String myActivity = "/myActivity";
+  static const String myLike = "/myLike";
 }

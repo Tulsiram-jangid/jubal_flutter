@@ -7,6 +7,12 @@ class FieldTypes {
   static const String countryCode = "countryCode";
   static const String password = "password";
   static const String confirmPassword = "confirmPassword";
+
+
+  //for tabs
+  static const String post = "post";
+  static const String event = "event";
+  static const String instrument = "instrument";
 }
 
 enum MyProfileTypes { logout }

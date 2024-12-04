@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/route/route_name.dart';
+import 'package:my_app/screen/activity/my_activity.dart';
+import 'package:my_app/screen/activity/my_like.dart';
 import 'package:my_app/screen/appStart.dart';
 import 'package:my_app/screen/auth/fan_register.dart';
 import 'package:my_app/screen/auth/otp_verify.dart';
@@ -22,6 +24,10 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => CountryScreen());
       case RouteNames.eventDetailScreen:
         return MaterialPageRoute(builder: (_) => EventDetailScreen());
+      case RouteNames.myActivity:
+        return MaterialPageRoute(builder: (_) => MyActivity());
+      case RouteNames.myLike:
+        return MaterialPageRoute(builder: (_) => MyLike());
       default:
         return null;
     }
