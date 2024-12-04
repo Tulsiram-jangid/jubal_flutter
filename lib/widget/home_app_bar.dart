@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/route/route_name.dart';
+import 'package:my_app/screen/menu/menu_screen.dart';
 import 'package:my_app/store/StoreProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,19 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       return initials;
     }
 
+    void openMenuSheet(BuildContext context) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (context) {
+          return FractionallySizedBox(
+            heightFactor: .8,
+            child: MenuScreen()
+          );
+        },
+      );
+    }
+
     return AppBar(
       backgroundColor: Colors.pink, // AppBar background color
       elevation: 0, // Remove shadow
@@ -24,7 +38,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         icon: const Icon(Icons.menu, color: Colors.white), // Menu icon
         onPressed: () {
-          // Handle menu icon tap
+          openMenuSheet(context);
         },
       ),
       title: Row(
@@ -103,13 +117,15 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: CircleAvatar(
               backgroundImage: NetworkImage(user.profilePhoto ?? ""),
               backgroundColor: Colors.white,
-              child: user.profilePhoto == null ? Text(
-                getName(),
-                style: const TextStyle(
-                  color: Colors.pink,
-                  fontWeight: FontWeight.bold,
-                ),
-              ) : null,
+              child: user.profilePhoto == null
+                  ? Text(
+                      getName(),
+                      style: const TextStyle(
+                        color: Colors.pink,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : null,
             ),
           ),
         ),
