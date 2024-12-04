@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/constant/type.dart';
 import 'package:my_app/model/staticData/tab_model.dart';
+import 'package:my_app/screen/activity/like/my_liked_event.dart';
+import 'package:my_app/screen/activity/like/my_liked_instrument.dart';
 import 'package:my_app/screen/activity/like/my_liked_post.dart';
 import 'package:my_app/widget/app_bar_widget.dart';
 import 'package:my_app/widget/tab_list.dart';
@@ -37,6 +39,12 @@ class _MyLike extends State<MyLike> {
   Widget renderLikedWidget(){
     if(selectedTab!.type == FieldTypes.post){
       return MyLikedPost();
+    }
+    if(selectedTab!.type == FieldTypes.event){
+      return MyLikedEvent();
+    }
+    if(selectedTab!.type == FieldTypes.instrument){
+      return MyLikedInstrument();
     }
     return const SizedBox();
   }

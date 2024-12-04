@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/widget/heading_widget.dart';
+import 'package:my_app/widget/user_circle_image.dart';
 
 class LikedPost extends StatelessWidget {
   @override
@@ -52,18 +53,7 @@ class LikedPost extends StatelessWidget {
               
               child: Row(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 2
-                      ),
-                      borderRadius: BorderRadius.circular(60)
-                    ),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(URL),
-                    ),
-                  ),
+                  UserCircleImage(),
                   const SizedBox(
                     width: 10,
                   ),

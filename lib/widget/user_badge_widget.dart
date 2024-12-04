@@ -14,9 +14,9 @@ class UserBadgeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(child: const Row(children: [
-      Text("Talent", style: const TextStyle(color: AppColor.primary, fontWeight: FontWeight.bold),),
+      Text("Talent", style: const TextStyle(color: AppColor.primary, fontWeight: FontWeight.bold, fontSize: 12),),
       const SizedBox(width: 5,),
-     Icon(Icons.verified, color: AppColor.primary,size: 15,),
+     Icon(Icons.verified, color: AppColor.primary,size: 12,),
     ],),);
   }
   
