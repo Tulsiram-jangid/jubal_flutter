@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/api/ApiController/event_service_controller.dart';
 import 'package:my_app/api/request.dart';
+import 'package:my_app/constant/type.dart';
+import 'package:my_app/helper/helper.dart';
 import 'package:my_app/model/event_detail_model.dart';
 import 'package:my_app/shimmer/event_detail_shimmer.dart';
 import 'package:my_app/utils/appColor.dart';
@@ -62,7 +64,9 @@ class _EventDetailScreen extends State<EventDetailScreen> {
           ? const EventDetailShimmer()
           : RefreshIndicator(
               onRefresh: onRefresh,
-              child: event != null ? EventDetail(event: EventDetailModel(event: event)) : const SizedBox.shrink(),
+              child: event != null
+                  ? EventDetail(event: EventDetailModel(event: event))
+                  : const SizedBox.shrink(),
             ),
     );
   }
@@ -88,12 +92,10 @@ class EventDetail extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                        child: HeadingWidget(
-                            title:
-                                "Concerts: Live performances by artists or bands, often in large venues or stadiums.")),
+                    Expanded(child: HeadingWidget(title: event.eventName)),
                     AppStatusWidget(
-                      status: "Completed",
+                      status: getEventStatusText(
+                          event.eventStatus.toString() ?? ""),
                     )
                   ],
                 ),
@@ -102,18 +104,29 @@ class EventDetail extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const Icon(
-                      Icons.calendar_today,
-                      color: AppColor.darkGrey,
-                      size: 20,
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.calendar_today,
+                          color: AppColor.darkGrey,
+                          size: 20,
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        HeadingWidget(
+                          title: "Nov 12, 10PM  -  Nov 15, 6PM ",
+                          isText: true,
+                        )
+                      ],
                     ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    HeadingWidget(
-                      title: "Nov 12, 10PM  -  Nov 15, 6PM ",
-                      isText: true,
-                    )
+
+                    Spacer(),
+
+                    event.ticketPrice_ > 0 ?
+                    HeadingWidget(title: Helper.getPrice(event.ticketPrice_), fontSize: 14,)
+                    :
+                    HeadingWidget(title: "Free", fontSize: 14, color: AppColor.primary,)
                   ],
                 ),
                 const SizedBox(
@@ -145,8 +158,7 @@ class EventDetail extends StatelessWidget {
                   height: 10,
                 ),
                 HeadingWidget(
-                  title:
-                      "Enjoy your favourite vulputate velit hendrerit, libero viverra felis ad aptent aenean semper etiam, velit erat!Etiam ultricies ligula lorem vulputate velit hendrerit, libero viverra felis ad aptent aenean semper etiam, velit erat!",
+                  title: event.eventDescription,
                   isText: true,
                 ),
                 const SizedBox(
@@ -283,7 +295,7 @@ class EventDetail extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 60,
                 ),
                 AppButton(title: "Buy ticket", onTap: () {}),
               ],
