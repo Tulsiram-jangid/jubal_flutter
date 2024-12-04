@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/route/route_name.dart';
+import 'package:my_app/screen/activity/comment/my_comment.dart';
 import 'package:my_app/screen/activity/my_activity.dart';
 import 'package:my_app/screen/activity/like/my_like.dart';
 import 'package:my_app/screen/appStart.dart';
@@ -28,6 +29,8 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => MyActivity());
       case RouteNames.myLike:
         return MaterialPageRoute(builder: (_) => MyLike());
+      case RouteNames.myComment:
+        return MaterialPageRoute(builder: (_) => MyComment());
       default:
         return null;
     }

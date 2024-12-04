@@ -17,7 +17,7 @@ class MyActivityModel {
     ));
     list.add(MyActivityModel(
       title: "Comments",
-      routeName: RouteNames.myLike
+      routeName: RouteNames.myComment
     ));
     list.add(MyActivityModel(
       title: "Reviews",

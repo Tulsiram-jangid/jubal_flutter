@@ -10,4 +10,5 @@ class RouteNames {
   static const String eventDetailScreen = "/eventDetailScreen";
   static const String myActivity = "/myActivity";
   static const String myLike = "/myLike";
+  static const String myComment = "/myComment";
 }
