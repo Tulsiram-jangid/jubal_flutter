@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/constant/type.dart';
 import 'package:my_app/model/staticData/tab_model.dart';
+import 'package:my_app/screen/activity/like/my_liked_post.dart';
 import 'package:my_app/widget/app_bar_widget.dart';
 import 'package:my_app/widget/tab_list.dart';
 
@@ -32,6 +34,13 @@ class _MyLike extends State<MyLike> {
     });
   }
 
+  Widget renderLikedWidget(){
+    if(selectedTab!.type == FieldTypes.post){
+      return MyLikedPost();
+    }
+    return const SizedBox();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +54,7 @@ class _MyLike extends State<MyLike> {
               selectedTab: selectedTab,
               onTapItem: onTapItem,
             ),
+            renderLikedWidget()
           ],
         ),
       ),

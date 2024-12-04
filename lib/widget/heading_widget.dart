@@ -22,7 +22,7 @@ class HeadingWidget extends StatelessWidget {
         style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            color: AppColor.darkGrey),
+            color: color ?? AppColor.darkGrey),
       );
     }
     return Text(
