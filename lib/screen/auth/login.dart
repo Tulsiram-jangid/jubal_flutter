@@ -3,8 +3,10 @@ import 'package:my_app/api/ApiController/auth_service_controller.dart';
 import 'package:my_app/constant/app_constant.dart';
 import 'package:my_app/constant/type.dart';
 import 'package:my_app/helper/helper.dart';
+import 'package:my_app/model/logged_in_user.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/route/route_name.dart';
+import 'package:my_app/screen/auth/remember_user.dart';
 import 'package:my_app/screen/auth/upload_image.dart';
 import 'package:my_app/store/StoreProvider.dart';
 import 'package:my_app/utils/appColor.dart';
@@ -21,15 +23,24 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreen extends State<LoginScreen> {
-  TextEditingController emailController =
-      TextEditingController(text: "rohan@gmail.com");
-  TextEditingController passwordController =
-      TextEditingController(text: "");
+  TextEditingController emailController = TextEditingController(text: "");
+  TextEditingController passwordController = TextEditingController(text: "");
   bool showPassword = false;
   bool isLoading = false;
 
   String errorType = "";
   String errorMsg = "";
+
+  BuildContext? _context;
+
+  @override
+  void initState() {
+    super.initState();
+    _context = context;
+    Future.delayed(const Duration(seconds: 1), () {
+      showRememberUserList(context);
+    });
+  }
 
   void onFanRegisterTap(BuildContext context) {
     Navigator.pushNamed(context, RouteNames.fanRegisterScreen);
@@ -44,6 +55,43 @@ class _LoginScreen extends State<LoginScreen> {
 
   void navigateToOtp(BuildContext context) {
     Navigator.of(context).pushNamed(RouteNames.otpVerifyScreen);
+  }
+
+  void onSelectUser(LoggedInUser user) async {
+    if (user.type == "email") {
+      Navigator.of(context).pop();
+      emailController.text = user.email ?? "";
+      passwordController.text = user.password ?? "";
+      callLoginService(user.email ?? "", user.password ?? "", context);
+    }
+  }
+
+  void showRememberUserList(BuildContext context) async {
+    // Retrieve the list of users
+    List<LoggedInUser> users = await LoggedInUser.getLoggedInUserList();
+
+    if (users.isEmpty) {
+      return;
+    }
+    // Show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          content: RememberUser(
+            onTap: (LoggedInUser user) {
+              onSelectUser(user);
+            },
+          ),
+          contentTextStyle: const TextStyle(),
+          backgroundColor: Colors.white,
+          contentPadding: const EdgeInsets.all(10),
+        );
+      },
+    );
   }
 
   void onSubmitTap(BuildContext context) async {
@@ -64,14 +112,28 @@ class _LoginScreen extends State<LoginScreen> {
       return;
     }
     FocusScope.of(context).unfocus();
+    callLoginService(emailController.text, passwordController.text, context);
+  }
+
+  void callLoginService(
+      String email, String password, BuildContext context) async {
     setState(() {
       errorType = "";
       errorMsg = "";
       isLoading = true;
     });
-    
     final res = await AuthServiceController.loginByEmail(
-        email: emailController.text, password: passwordController.text, context: context);
+        email: emailController.text,
+        password: passwordController.text,
+        context: context);
+    if (res.status) {
+      LoggedInUser.setLoggedInUser(
+          id: res.data['id'],
+          email: emailController.text,
+          password: passwordController.text,
+          mobile: "",
+          type: "email");
+    }
     setState(() {
       isLoading = false;
     });
@@ -82,7 +144,7 @@ class _LoginScreen extends State<LoginScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Warning'),
+          title: const Text('Warning'),
           content: Text(
               'This is a custom alert dialog with an icon and a different shape.'),
           actions: [

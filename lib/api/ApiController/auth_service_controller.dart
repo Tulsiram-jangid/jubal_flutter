@@ -3,6 +3,7 @@ import 'package:my_app/api/baseUrl.dart';
 import 'package:my_app/api/request.dart';
 import 'package:my_app/constant/app_constant.dart';
 import 'package:my_app/helper/helper.dart';
+import 'package:my_app/model/logged_in_user.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/store/SharedPrefrenceStorage.dart';
 import 'package:my_app/store/StoreProvider.dart';
@@ -18,6 +19,7 @@ class AuthServiceController {
     if (res.data.containsKey("id")) {
       AppConstant.setUserId(res.data['id']);
     }
+    
     UserModel user = UserModel.getUserFromLoginApi(res.data);
     Provider.of<StoreProvider>(context, listen: false).setUser(user);
     Provider.of<StoreProvider>(context, listen: false).goToHome();
