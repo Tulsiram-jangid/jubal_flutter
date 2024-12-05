@@ -6,7 +6,7 @@ import 'package:my_app/helper/helper.dart';
 import 'package:my_app/model/logged_in_user.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/store/SharedPrefrenceStorage.dart';
-import 'package:my_app/store/StoreProvider.dart';
+import 'package:my_app/store/provider/StoreProvider.dart';
 import 'package:provider/provider.dart';
 
 class AuthServiceController {

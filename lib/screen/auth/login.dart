@@ -8,7 +8,7 @@ import 'package:my_app/model/user_model.dart';
 import 'package:my_app/route/route_name.dart';
 import 'package:my_app/screen/auth/remember_user.dart';
 import 'package:my_app/screen/auth/upload_image.dart';
-import 'package:my_app/store/StoreProvider.dart';
+import 'package:my_app/store/provider/StoreProvider.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/utils/appUtils.dart';
 import 'package:my_app/widget/app_button.dart';

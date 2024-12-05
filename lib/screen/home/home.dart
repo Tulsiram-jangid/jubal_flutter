@@ -6,9 +6,11 @@ import 'package:my_app/model/PostModel.dart';
 import 'package:my_app/route/route_name.dart';
 import 'package:my_app/screen/bottomTab/bottom_navigation_bar_widget.dart';
 import 'package:my_app/shimmer/home_shimmer.dart';
+import 'package:my_app/store/provider/StoreProvider.dart';
 import 'package:my_app/widget/home_app_bar.dart';
 import 'package:my_app/widget/home_post_widget.dart';
 import 'package:my_app/widget/footer_activity.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -20,9 +22,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool activity = false;
   bool footerActivity = false;
-  int pageNumber = 1;
-  int totalPages = 1;
-  List<dynamic> posts = [];
 
   final ScrollController scrollController = ScrollController();
 
@@ -39,6 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void getHomeData(int page) async {
+    List<dynamic> _posts = Provider.of<StoreProvider>(context).posts;
+    if(_posts.isNotEmpty){
+      return;
+    }
     setState(() {
       activity = true;
     });
@@ -47,11 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
           await HomeServiceController.getHomeData(pageNumber: page);
 
       if (res.status) {
+        updatePostList(
+            list: res.data['posts'] ?? [],
+            page: page,
+            totalPage: res.data['totalPages']);
         setState(() {
-          posts = res.data['posts'];
-          totalPages = res.data['totalPages'];
           activity = false;
-          pageNumber = page;
         });
         return;
       }
@@ -66,21 +70,35 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void updatePostList({
+    List<dynamic>? list,
+    int? page,
+    int? totalPage,
+  }) {
+    Provider.of<StoreProvider>(context, listen: false)
+        .setPost(list ?? [], page ?? 1, totalPage);
+  }
+
   Future<void> loadMorePost() async {
+    int pageNumber = Provider.of<StoreProvider>(context).page;
+    int totalPages = Provider.of<StoreProvider>(context).totalPage;
+
     if (pageNumber < totalPages) {
       int page = pageNumber + 1;
       setState(() {
         footerActivity = true;
       });
       try {
+        List<dynamic> _posts = Provider.of<StoreProvider>(context).posts;
+
         List<dynamic> result = await Future.wait([
           HomeServiceController.getHomeData(pageNumber: page),
         ]);
         ApiResponse res = result[0];
         if (res.status) {
+          updatePostList(
+              list: [..._posts, ...res.data['posts'] ?? []], page: page,totalPage: totalPages);
           setState(() {
-            posts.addAll(res.data['posts'].length > 0 ? res.data['posts'] : []);
-            pageNumber = page;
             footerActivity = false;
           });
           return;
@@ -111,6 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> _posts = Provider.of<StoreProvider>(context).posts;
+
     return Scaffold(
       appBar: HomeAppBar(),
       body: activity
@@ -123,10 +143,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     controller: scrollController,
                     physics: const ClampingScrollPhysics(),
                     itemBuilder: (context, index) {
-                      if (index == posts.length - 1 && footerActivity) {
+                      if (index == _posts.length - 1 && footerActivity) {
                         return FooterActivity();
                       }
-                      final post = posts[index];
+                      final post = _posts[index];
                       return HomePostWidget(
                         post: post,
                       );
@@ -136,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 20,
                       );
                     },
-                    itemCount: posts.length),
+                    itemCount: _posts.length),
               ),
             ),
     );

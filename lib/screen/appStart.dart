@@ -6,7 +6,7 @@ import 'package:my_app/screen/auth/login.dart';
 import 'package:my_app/screen/bottomTab/bottom_tab.dart';
 import 'package:my_app/screen/splash/splash.dart';
 import 'package:my_app/store/SharedPrefrenceStorage.dart';
-import 'package:my_app/store/StoreProvider.dart';
+import 'package:my_app/store/provider/StoreProvider.dart';
 import 'package:provider/provider.dart';
 
 class AppStart extends StatefulWidget {

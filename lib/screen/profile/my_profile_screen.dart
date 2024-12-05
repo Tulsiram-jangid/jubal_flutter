@@ -5,7 +5,7 @@ import 'package:my_app/constant/type.dart';
 import 'package:my_app/model/staticData/MyProfileModel.dart';
 import 'package:my_app/screen/appStart.dart';
 import 'package:my_app/shimmer/my_profile_shimmer.dart';
-import 'package:my_app/store/StoreProvider.dart';
+import 'package:my_app/store/provider/StoreProvider.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/widget/app_button.dart';
 import 'package:my_app/widget/bordered_text_with_icon_widget.dart';

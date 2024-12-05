@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/route/route_name.dart';
 import 'package:my_app/screen/menu/menu_screen.dart';
-import 'package:my_app/store/StoreProvider.dart';
+import 'package:my_app/store/provider/StoreProvider.dart';
 import 'package:provider/provider.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
