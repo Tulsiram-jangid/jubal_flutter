@@ -84,7 +84,7 @@ class CustomTextField extends StatelessWidget {
         ),
         filled: true,
         fillColor: Colors.white,
-        contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 14.0),
+        contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 14.0),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none),
@@ -145,7 +145,7 @@ class CustomTextField extends StatelessWidget {
                       onCountryTap(context);
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       width: double.infinity,
                       height: 50,
                       decoration: BoxDecoration(

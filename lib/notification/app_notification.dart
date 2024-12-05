@@ -9,7 +9,6 @@ late DeviceInfoPlugin deviceInfoPlugin;
 late AndroidDeviceInfo androidDeviceInfo;
 late bool? isNotificationInitialized;
 
-
 Future<void> initializeNotification() async {
   debugPrint("started-----------");
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -25,6 +24,13 @@ Future<void> initializeNotification() async {
     iOS: initializationSettingsIOS,
   );
 
+  try {
+    // Get Android-specific device info
+    androidDeviceInfo = await deviceInfoPlugin.androidInfo;
+  } catch (e) {
+    print('Failed to get device info: $e');
+  }
+
   isNotificationInitialized = await flutterLocalNotificationsPlugin.initialize(
     initializationSettings,
     onDidReceiveNotificationResponse: (NotificationResponse response) {
@@ -36,7 +42,6 @@ Future<void> initializeNotification() async {
   await requestNotificationPermission();
 
   print("FlutterLocalNotificationsPlugin initialized.");
-
 }
 
 Future<void> requestNotificationPermission() async {
@@ -85,4 +90,3 @@ Future<void> showNotification() async {
     payload: 'Notification Payload', // Payload data
   );
 }
-

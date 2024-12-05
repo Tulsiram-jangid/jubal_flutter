@@ -21,6 +21,11 @@ class ProfileHeaderWidget extends StatelessWidget {
                 fit: BoxFit.fill,
                 width: double.infinity,
                 height: imageHeight,
+              ) else Image.asset(
+                "assets/images/banner.png",
+                fit: BoxFit.fill,
+                width: double.infinity,
+                height: imageHeight,
               ),
             const SizedBox(
               width: double.infinity,
@@ -32,10 +37,14 @@ class ProfileHeaderWidget extends StatelessWidget {
             left: 0,
             right: 0,
             bottom: itemSpacing * .2,
-            child: CircleAvatar(
+            child: user != null && user.profilePhoto != null ? CircleAvatar(
               radius: 50,
               backgroundImage: NetworkImage(user != null && user.profilePhoto != null ? user.profilePhoto! : "", scale: 1),
-            )),
+            ) : const CircleAvatar(
+              radius: 50,
+              child: Icon(Icons.person, size: 50,) ,
+            ),
+            ), 
         Positioned(
             left: 10, top: 10, child: SafeArea(child: BackButtonWidget()))
       ],

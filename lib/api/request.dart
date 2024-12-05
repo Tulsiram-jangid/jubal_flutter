@@ -7,15 +7,17 @@ import 'package:my_app/helper/helper.dart';
 class ApiResponse {
   bool status;
   String message;
+  int? statusCode;
   dynamic data;
 
-  ApiResponse({required this.status, required this.message, this.data});
+  ApiResponse({required this.status, required this.message, this.data, this.statusCode});
 
   Map<String, dynamic> toJosn() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['message'] = this.message;
     data['data'] = this.data;
+    data['statusCode'] = this.statusCode;
     return data;
   }
 }

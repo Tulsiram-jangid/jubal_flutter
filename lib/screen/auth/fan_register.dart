@@ -2,8 +2,11 @@ import 'package:country_pickers/countries.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:my_app/api/ApiController/auth_service_controller.dart';
+import 'package:my_app/api/api_form.dart';
 import 'package:my_app/api/request.dart';
 import 'package:my_app/constant/type.dart';
+import 'package:my_app/helper/helper.dart';
 import 'package:my_app/model/PostModel.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/utils/appUtils.dart';
@@ -23,7 +26,6 @@ class FanRegisterScreen extends StatefulWidget {
 }
 
 class _FanRegisterScreen extends State<FanRegisterScreen> {
-  
   final ScrollController _scrollController = ScrollController();
 
   final double spacing = 16.0;
@@ -41,12 +43,13 @@ class _FanRegisterScreen extends State<FanRegisterScreen> {
   String confirmPassword = "";
   bool showPassword = !false;
   bool showConfirmPassword = !false;
+  bool activity = false;
 
   Widget _buildDropdownItem(Country country) => Container(
         child: Row(
           children: <Widget>[
             CountryPickerUtils.getDefaultFlagImage(country),
-            SizedBox(
+            const SizedBox(
               width: 8.0,
             ),
             Text("+${country.phoneCode}(${country.isoCode})"),
@@ -60,9 +63,7 @@ class _FanRegisterScreen extends State<FanRegisterScreen> {
     fetchData();
   }
 
-  void fetchData() async {
-    
-  }
+  void fetchData() async {}
 
   @override
   void dispose() {
@@ -81,10 +82,25 @@ class _FanRegisterScreen extends State<FanRegisterScreen> {
       errorMsg = msg;
     });
     _scrollController.animateTo(0,
-        duration: Duration(microseconds: 1000), curve: Curves.easeInCubic);
+        duration: const Duration(microseconds: 1000),
+        curve: Curves.easeInCubic);
   }
 
-  void onSubmit() {
+  Future<bool> validateMobileEmailUsername(
+      {String? email,
+      String? mobile,
+      String? countryCode,
+      String? username}) async {
+    bool status = await AuthServiceController.validateMobileEmailAndUsername(
+        email: email,
+        context: context,
+        username: username,
+        mobile: mobile,
+        countryCode: countryCode);
+    return status;
+  }
+
+  void onSubmit() async {
     if (firstName == "") {
       String msg = "First name is required";
       updateErrorMsg(msg, FieldTypes.firstName);
@@ -121,6 +137,41 @@ class _FanRegisterScreen extends State<FanRegisterScreen> {
     setState(() {
       errorMsg = "";
       errorType = "";
+      activity = true;
+    });
+
+    bool validationStatus = await validateMobileEmailUsername(
+        email: email,
+        username: userName,
+        mobile: mobile,
+        countryCode: countryCode);
+
+    if (validationStatus) {
+      //call register api
+
+      final body = ApiForm.getRegisterForm(
+        email: email,
+        password: password,
+        phone: mobile,
+        countryCode: countryCode,
+        firstName: firstName,
+        lastName: lastName,
+        username: userName
+      );
+
+      final res = await AuthServiceController.registerUser(
+        body: body
+      );
+
+      if(res.status){
+        Navigator.of(context).pop();
+        Helper.showToast(context, "You are registered successfully please login to continue");
+      }else {
+        Helper.showAlert(context, "Service Error", res.message);
+      }
+    }
+    setState(() {
+      activity = false;
     });
   }
 
@@ -130,10 +181,9 @@ class _FanRegisterScreen extends State<FanRegisterScreen> {
       appBar: AppBar(
           title: const Text("Sign up to continue with us"),
           leading: BackButtonWidget()),
-      body: Expanded(
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
         controller: _scrollController,
-        padding: EdgeInsets.all(AppUtils.spacing),
+        padding: const EdgeInsets.all(AppUtils.spacing),
         child: Column(
           children: [
             CustomTextField(
@@ -180,7 +230,7 @@ class _FanRegisterScreen extends State<FanRegisterScreen> {
               isMobileNumber: true,
               country: country,
               countryCode: countryCode,
-              onCountryCodeChanged: (country){
+              onCountryCodeChanged: (country) {
                 setState(() {
                   countryCode = country.phoneCode;
                   country = country;
@@ -238,10 +288,15 @@ class _FanRegisterScreen extends State<FanRegisterScreen> {
             const SizedBox(
               height: 100,
             ),
-            SafeArea(child: AppButton(title: "Continue", onTap: onSubmit))
+            SafeArea(
+                child: AppButton(
+              title: "Continue",
+              onTap: onSubmit,
+              isLoading: activity,
+            ))
           ],
         ),
-      )),
+      ),
     );
   }
 }

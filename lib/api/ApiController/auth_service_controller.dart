@@ -19,7 +19,7 @@ class AuthServiceController {
     if (res.data.containsKey("id")) {
       AppConstant.setUserId(res.data['id']);
     }
-    
+
     UserModel user = UserModel.getUserFromLoginApi(res.data);
     Provider.of<StoreProvider>(context, listen: false).setUser(user);
     Provider.of<StoreProvider>(context, listen: false).goToHome();
@@ -45,7 +45,7 @@ class AuthServiceController {
     Provider.of<StoreProvider>(context, listen: false).goToLogin();
   }
 
-  static void logoutUserFromApp(BuildContext context)async{
+  static void logoutUserFromApp(BuildContext context) async {
     await removeUserFromSharedPreference();
     Provider.of<StoreProvider>(context, listen: false).goToLogin();
   }
@@ -66,6 +66,78 @@ class AuthServiceController {
       await AuthServiceController.setUserLoginDetails(res, context);
       return res;
     }
+    return res;
+  }
+
+  static Future<bool> validateMobileEmailAndUsername(
+      {String? email,
+      String? mobile,
+      String? countryCode,
+      String? username,
+      BuildContext? context}) async {
+    const URL = ApiUrl.authCheck;
+
+    //validate if email is exist or not
+    if (email != null && email.isNotEmpty) {
+      final body = {"email": email};
+      ApiResponse res =
+          await ApiRequest.request(url: URL, method: "POST", body: body);
+      if (res.status) {
+        if (res.data != null) {
+          const msg =
+              "This email address has already been registered, try other one";
+          if (context != null) {
+            Helper.showAlert(context, "Already Registered", msg);
+          }
+          return false;
+        }
+      }
+    }
+    //validate if username is exist or not
+    if (username != null && username.isNotEmpty) {
+      final body = {"username": username};
+      ApiResponse res =
+          await ApiRequest.request(url: URL, method: "POST", body: body);
+      if (res.status) {
+        if (res.data != null) {
+          const msg = "This username has already been taken, try other one";
+          if (context != null) {
+            Helper.showAlert(context, "Already Registered", msg);
+          }
+          return false;
+        }
+      }
+    }
+
+    //validate mobile number
+    if (mobile != null &&
+        mobile.isNotEmpty &&
+        countryCode != null &&
+        countryCode.isNotEmpty) {
+      final body = {"phone": mobile, "countryCode": countryCode};
+      ApiResponse res =
+          await ApiRequest.request(url: URL, method: "POST", body: body);
+      if (res.status) {
+        if (res.data != null) {
+          const msg =
+              "This mobile number has already been registered, try other one";
+          if (context != null) {
+            Helper.showAlert(context, "Already Registered", msg);
+          }
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  static Future<ApiResponse> registerUser({
+    Map<String, dynamic>? body,
+  }) async {
+    const URL = ApiUrl.register;
+    ApiResponse res =
+        await ApiRequest.request(url: URL, method: "POST", body: body);
     return res;
   }
 }
