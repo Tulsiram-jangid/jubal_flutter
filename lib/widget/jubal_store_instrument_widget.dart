@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/helper/helper.dart';
-import 'package:my_app/model/instrument_model.dart';
+import 'package:my_app/model/instrument/instrument_model.dart';
 import 'package:my_app/widget/app_image.dart';
 import 'package:my_app/widget/heading_widget.dart';
 

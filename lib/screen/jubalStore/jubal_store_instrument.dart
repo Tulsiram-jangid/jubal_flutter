@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/api/ApiController/instrument_service_controller.dart';
-import 'package:my_app/model/instrument_model.dart';
+import 'package:my_app/model/instrument/instrument_model.dart';
 import 'package:my_app/shimmer/list_shimmer.dart';
 import 'package:my_app/store/provider/jubal_store_provider.dart';
 import 'package:my_app/widget/footer_activity.dart';

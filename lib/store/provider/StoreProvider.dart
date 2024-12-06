@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/model/PostModel.dart';
+import 'package:my_app/model/post/post_model.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/screen/appStart.dart';
 

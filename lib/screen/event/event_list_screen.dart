@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_app/api/ApiController/event_service_controller.dart';
 import 'package:my_app/api/request.dart';
-import 'package:my_app/model/event_list_model.dart';
+import 'package:my_app/model/event/event_list_model.dart';
 import 'package:my_app/shimmer/event_list_shimmer.dart';
 import 'package:my_app/widget/app_bar_widget.dart';
 import 'package:my_app/widget/event_list_widget.dart';

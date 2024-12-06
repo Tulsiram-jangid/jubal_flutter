@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:my_app/model/PostModel.dart';
+import 'package:my_app/model/post/post_model.dart';
 import 'package:my_app/utils/appColor.dart';
 
 class HomePostWidget extends StatelessWidget {

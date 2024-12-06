@@ -7,7 +7,7 @@ import 'package:my_app/api/api_form.dart';
 import 'package:my_app/api/request.dart';
 import 'package:my_app/constant/type.dart';
 import 'package:my_app/helper/helper.dart';
-import 'package:my_app/model/PostModel.dart';
+import 'package:my_app/model/post/post_model.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/utils/appUtils.dart';
 import 'package:my_app/widget/app_button.dart';

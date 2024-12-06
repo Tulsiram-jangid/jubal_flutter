@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/api/ApiController/event_service_controller.dart';
-import 'package:my_app/model/event_list_model.dart';
+import 'package:my_app/model/event/event_list_model.dart';
 import 'package:my_app/shimmer/list_shimmer.dart';
 import 'package:my_app/store/provider/jubal_store_provider.dart';
 import 'package:my_app/widget/footer_activity.dart';

@@ -3,7 +3,7 @@ import 'package:my_app/api/ApiController/event_service_controller.dart';
 import 'package:my_app/api/request.dart';
 import 'package:my_app/constant/type.dart';
 import 'package:my_app/helper/helper.dart';
-import 'package:my_app/model/event_detail_model.dart';
+import 'package:my_app/model/event/event_detail_model.dart';
 import 'package:my_app/shimmer/event_detail_shimmer.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/widget/app_bar_widget.dart';

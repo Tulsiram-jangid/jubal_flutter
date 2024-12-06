@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/model/event_list_model.dart';
+import 'package:my_app/model/event/event_list_model.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/widget/app_image.dart';
 import 'package:my_app/widget/dot_status.dart';

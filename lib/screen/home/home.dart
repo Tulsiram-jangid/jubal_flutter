@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/api/ApiController/home_service_controller.dart';
 import 'package:my_app/api/request.dart';
-import 'package:my_app/model/PostModel.dart';
+import 'package:my_app/model/post/post_model.dart';
 import 'package:my_app/route/route_name.dart';
 import 'package:my_app/screen/bottomTab/bottom_navigation_bar_widget.dart';
 import 'package:my_app/shimmer/home_shimmer.dart';
