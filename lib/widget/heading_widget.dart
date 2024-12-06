@@ -6,13 +6,16 @@ class HeadingWidget extends StatelessWidget {
   final Color? color;
   final bool isText;
   final double? fontSize;
+  final double? textFontSize;
 
   HeadingWidget(
       {super.key,
       required this.title,
       this.color = Colors.black,
       this.isText = false,
-      this.fontSize=18});
+      this.fontSize=18,
+      this.textFontSize = 12
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class HeadingWidget extends StatelessWidget {
       return Text(
         title,
         style: TextStyle(
-            fontSize: 12,
+            fontSize: textFontSize,
             fontWeight: FontWeight.w400,
             color: color ?? AppColor.darkGrey),
       );

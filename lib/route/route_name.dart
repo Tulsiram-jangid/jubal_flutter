@@ -12,4 +12,5 @@ class RouteNames {
   static const String myLike = "/myLike";
   static const String myComment = "/myComment";
   static const String myTag = "/myTag";
+  static const String jubalStore = "/jubalStore";
 }

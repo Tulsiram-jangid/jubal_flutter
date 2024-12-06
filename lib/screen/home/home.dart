@@ -38,8 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void getHomeData(int page) async {
-    List<dynamic> _posts = Provider.of<StoreProvider>(context).posts;
-    if(_posts.isNotEmpty){
+    final storeProvider = Provider.of<StoreProvider>(context, listen: false);
+    if(storeProvider.posts.isNotEmpty){
       return;
     }
     setState(() {
@@ -80,8 +80,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> loadMorePost() async {
-    int pageNumber = Provider.of<StoreProvider>(context).page;
-    int totalPages = Provider.of<StoreProvider>(context).totalPage;
+    final storeProvider = Provider.of<StoreProvider>(context, listen: false);
+    int pageNumber = storeProvider.page;
+    int totalPages = storeProvider.totalPage;
+    print("pageNumber------" + pageNumber.toString());
+    print("totalPages------" + totalPages.toString());
 
     if (pageNumber < totalPages) {
       int page = pageNumber + 1;
@@ -89,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
         footerActivity = true;
       });
       try {
-        List<dynamic> _posts = Provider.of<StoreProvider>(context).posts;
+        List<dynamic> _posts = storeProvider.posts;
 
         List<dynamic> result = await Future.wait([
           HomeServiceController.getHomeData(pageNumber: page),
@@ -97,7 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ApiResponse res = result[0];
         if (res.status) {
           updatePostList(
-              list: [..._posts, ...res.data['posts'] ?? []], page: page,totalPage: totalPages);
+              list: [..._posts, ...res.data['posts'] ?? []],
+              page: page,
+              totalPage: totalPages);
           setState(() {
             footerActivity = false;
           });

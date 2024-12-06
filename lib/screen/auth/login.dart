@@ -79,7 +79,7 @@ class _LoginScreen extends State<LoginScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(10),
           ),
           content: RememberUser(
             onTap: (LoggedInUser user) {

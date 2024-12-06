@@ -34,6 +34,9 @@ class _RememberUser extends State<RememberUser> {
     setState(() {
       users = list;
     });
+    if(list.isEmpty){
+      Navigator.of(context).pop();
+    }
   }
 
   @override

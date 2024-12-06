@@ -19,7 +19,8 @@ class MenuModel {
 
     list.add(MenuModel(
       title: "Jubal Store",
-      icon: SvgPicture.asset('assets/icons/activity.svg', width: iconSize, height: iconSize,)
+      icon: SvgPicture.asset('assets/icons/activity.svg', width: iconSize, height: iconSize,),
+      routeName: RouteNames.jubalStore
     ));
     list.add(MenuModel(
       title: "Your Activity",

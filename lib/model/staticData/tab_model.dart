@@ -25,4 +25,17 @@ class TabModel {
     ));
     return list;
   }
+
+  static List<TabModel> getJubalStoreTabList(){
+    List<TabModel> list = [];
+    list.add(TabModel(
+      title: "Instrument",
+      type: FieldTypes.instrument
+    ));
+    list.add(TabModel(
+      title: "Event",
+      type: FieldTypes.event
+    ));
+    return list;
+  }
 }
