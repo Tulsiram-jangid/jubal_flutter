@@ -30,7 +30,7 @@ class JubalStoreInstrumentWidget extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: AppImage(url: instrumentModel.instrumentImage, imgSize: imgSize,),
+            child: AppImage(url: instrumentModel.instrumentImage, width: imgSize, height: imgSize,),
           ),
           const SizedBox(
             width: 10,

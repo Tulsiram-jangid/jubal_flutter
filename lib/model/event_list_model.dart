@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:my_app/constant/type.dart';
+import 'package:intl/intl.dart';
+
 class EventListModel {
   final Map<String, dynamic> event;
 
@@ -11,6 +14,10 @@ class EventListModel {
   String get eventDescription => event['eventDescription'] ?? '';
   String get eventImage => event['eventImage'] ?? '';
   int get eventStatus => event['eventStatus'] ?? 0;
+  String get eventStatusText {
+    return getEventStatusText(eventStatus.toString()) ?? "";
+  }
+
   String get musicType => event['musicType'] ?? '';
   String get eventType => event['eventType'] ?? '';
   bool get createdByTalent => event['createdByTalent'] ?? false;
@@ -33,6 +40,35 @@ class EventListModel {
       return int.parse(price).toDouble();
     }
     return 0;
+  }
+
+  String get getFormattedDate {
+    String startDate = event['eventTimeLocation']['start_date'];
+    String startTime = event['eventTimeLocation']['start_time'];
+    String endDate = event['eventTimeLocation']['end_date'];
+    String endTime = event['eventTimeLocation']['end_time'];
+
+    // Combine the date and time to create DateTime objects
+    String startDateTimeStr = "$startDate $startTime";
+    String endDateTimeStr = "$endDate $endTime";
+
+    // Define the format used in the input data
+    DateFormat inputFormat = DateFormat("dd-MM-yyyy hh:mm a");
+
+    // Parse the strings into DateTime objects
+    DateTime startDateTime = inputFormat.parse(startDateTimeStr);
+    DateTime endDateTime = inputFormat.parse(endDateTimeStr);
+
+    // Define the desired output format
+    DateFormat outputFormat = DateFormat("MMMM dd, yy hh:mm a");
+
+    // Format the DateTime objects to the desired format
+    String formattedStart = outputFormat.format(startDateTime);
+    String formattedEnd = DateFormat("hh:mm a").format(endDateTime);
+
+    // Combine the start and end times in the requested format
+    String formattedEventTime = "$formattedStart to $formattedEnd";
+    return formattedEventTime;
   }
 
   String get ticketQuantity => tickets['quantity'] ?? '';

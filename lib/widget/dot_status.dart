@@ -7,7 +7,7 @@ class DotStatus extends StatelessWidget {
 
   const DotStatus({
     super.key,
-    this.status
+    this.status = "pending"
   });
 
   @override
@@ -23,7 +23,7 @@ class DotStatus extends StatelessWidget {
         ),
       ),
       const SizedBox(width: 5,),
-      Text("Pending", style: TextStyle(color: color, fontSize: 10),)
+      Text(status ?? "", style: TextStyle(color: color, fontSize: 10),)
     ],);
   }
   
