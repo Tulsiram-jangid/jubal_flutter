@@ -18,7 +18,8 @@ class _MyLikedEvent extends State<MyLikedEvent> {
         padding: const EdgeInsets.only(top: 10),
         child: ListView.separated(
             itemBuilder: (context, index) {
-              return LikedPost();
+              return SizedBox();
+              //return LikedPost();
             },
             separatorBuilder: (context, index) {
               return const SizedBox(

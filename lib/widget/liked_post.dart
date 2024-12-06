@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/model/post/post_like_model.dart';
+import 'package:my_app/widget/app_image.dart';
 import 'package:my_app/widget/heading_widget.dart';
 import 'package:my_app/widget/user_circle_image.dart';
 
 class LikedPost extends StatelessWidget {
+
+  final PostLikeModel post;
+
+  LikedPost({
+    super.key,
+    required this.post
+  });
+
   @override
   Widget build(BuildContext context) {
     double imgHeight = 210;
-
-    String URL =
-        "https://cdn.pixabay.com/photo/2017/12/08/11/53/event-party-3005668_640.jpg";
 
     return Container(
       height: imgHeight,
@@ -17,12 +24,7 @@ class LikedPost extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              URL,
-              height: imgHeight,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
+            child: AppImage(url: post.postImage, width: double.infinity, height: imgHeight,),
           ),
 
           Positioned(
@@ -53,7 +55,9 @@ class LikedPost extends StatelessWidget {
               
               child: Row(
                 children: [
-                  UserCircleImage(),
+                  UserCircleImage(
+                    url: post.userImage,
+                  ),
                   const SizedBox(
                     width: 10,
                   ),
@@ -61,11 +65,11 @@ class LikedPost extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       HeadingWidget(
-                        title: "Sound of reviewval",
+                        title: post.userFullName,
                         color: Colors.white,
                       ),
                       HeadingWidget(
-                        title: "Sound of reviewval",
+                        title: post.getCategory,
                         isText: true,
                         color: Colors.white,
                       )
