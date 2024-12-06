@@ -12,4 +12,7 @@ class ApiUrl {
 
   static const eventList = "${ApiUrl.server}/J0005/api/v1/event/list";
   static const eventDetail = "${ApiUrl.server}/J0005/api/v1/event";
+
+  //for instrument
+  static const instrumentList = "${ApiUrl.server}/J0003/api/v1/instruments/get";
 }

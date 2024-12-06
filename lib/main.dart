@@ -5,6 +5,7 @@ import 'package:my_app/notification/app_notification.dart';
 import 'package:my_app/route/route.dart';
 import 'package:my_app/route/route_name.dart';
 import 'package:my_app/store/provider/StoreProvider.dart';
+import 'package:my_app/store/provider/jubal_store_provider.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:provider/provider.dart';
 
@@ -13,10 +14,10 @@ Future<void> main() async {
   initializeNotification();
   
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => StoreProvider(),
-      child: const MyApp(),
-    ),
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context)=>StoreProvider()),
+      ChangeNotifierProvider(create: (context)=>JubalStoreProvider()),
+    ], child: const MyApp(),)
   );
 }
 

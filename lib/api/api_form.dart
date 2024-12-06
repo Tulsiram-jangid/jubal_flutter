@@ -33,4 +33,18 @@ class ApiForm {
     form['otp'] = otp;
     return form;
   }
+
+  static Map<String, dynamic> getJubalStoreForm({
+    bool? inStock = true,
+    int? page = 1,
+    String? sortField = "instrument_name",
+    String? sortType = "ASC",
+  }){
+    Map<String, dynamic> form = {};
+    form['inStock'] = inStock;
+    form['page'] = page;
+    form['sortField'] = sortField;
+    form['sortType'] = sortType;
+    return form;
+  }
 }

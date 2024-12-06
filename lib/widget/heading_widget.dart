@@ -6,7 +6,8 @@ class HeadingWidget extends StatelessWidget {
   final Color? color;
   final bool isText;
   final double? fontSize;
-  final double? textFontSize;
+  final double? textFontSize; 
+  final int? maxLines;
 
   HeadingWidget(
       {super.key,
@@ -14,7 +15,8 @@ class HeadingWidget extends StatelessWidget {
       this.color = Colors.black,
       this.isText = false,
       this.fontSize=18,
-      this.textFontSize = 12
+      this.textFontSize = 12,
+      this.maxLines
       });
 
   @override
@@ -31,6 +33,8 @@ class HeadingWidget extends StatelessWidget {
     return Text(
       title,
       style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold, color: color),
+      maxLines: maxLines,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }
