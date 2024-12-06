@@ -39,6 +39,14 @@ class InstrumentModel {
     return 0.0;
   }
 
+  List<dynamic> get imageList {
+    if (instrument != null && instrument['instrument_image'] != null) {
+      final images = instrument['instrument_image'] as List<dynamic>;
+      return images;
+    }
+    return [];
+  }
+
   String get instrumentImage {
     if (instrument != null && instrument['instrument_image'] != null) {
       final images = instrument['instrument_image'] as List<dynamic>;

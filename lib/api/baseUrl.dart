@@ -15,6 +15,7 @@ class ApiUrl {
 
   //for instrument
   static const instrumentList = "${ApiUrl.server}/J0003/api/v1/instruments/get";
+  static const instrumentDetail = "${ApiUrl.server}/J0003/api/v1/instruments";
 
   //likes
   static const getPostLikes = "${ApiUrl.server}/J0002/api/v1/post/my-liked";

@@ -8,6 +8,7 @@ import 'package:my_app/screen/appStart.dart';
 import 'package:my_app/screen/auth/fan_register.dart';
 import 'package:my_app/screen/auth/otp_verify.dart';
 import 'package:my_app/screen/event/event_detail_screen.dart';
+import 'package:my_app/screen/instrument/instrument_detail.dart';
 import 'package:my_app/screen/jubalStore/jubal_store_screen.dart';
 import 'package:my_app/screen/profile/my_profile_screen.dart';
 import 'package:my_app/screen/search/country_screen.dart';

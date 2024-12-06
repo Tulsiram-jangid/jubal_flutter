@@ -8,4 +8,11 @@ class InstrumentServiceController {
     const URL = ApiUrl.instrumentList;
     return await ApiRequest.request(url: URL, method: "POST", body: body);
   }
+
+  static Future<ApiResponse> getInstrumentDetail({
+    String instrumentId = ""
+  }) async {
+    final URL = "${ApiUrl.instrumentDetail}/${instrumentId}";
+    return await ApiRequest.request(url: URL, method: "GET");
+  }
 }
