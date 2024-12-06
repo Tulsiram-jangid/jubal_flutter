@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:my_app/shimmer/shimmer_container.dart';
 
 class ListShimmer extends StatelessWidget {
-  final double height = 180;
+  final double height;
+
+  ListShimmer({
+    super.key,
+    this.height = 180
+  });
   @override
   Widget build(BuildContext context) {
-    final list = List.generate(5, (index) => index);
+    final list = List.generate(10, (index) => index);
     return ShimmerContainer(
       child: ListView.separated(
         itemBuilder: (context, index) {

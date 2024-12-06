@@ -29,7 +29,6 @@ class _JubalStoreScreen extends State<JubalStoreScreen> {
     });
   }
 
-
   void onTapItem(TabModel item){
     setState(() {
       selectedTab = item;
