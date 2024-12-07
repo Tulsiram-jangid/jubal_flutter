@@ -11,6 +11,14 @@ class InstrumentModel {
   String get secondaryCategory => instrument['secondaryCategory'] ?? "";
   String get primaryCategoryId => instrument['primaryCategoryId'] ?? "";
   String get secondaryCategoryId => instrument['secondaryCategoryId'] ?? "";
+  List<dynamic> get features => instrument['features'] ?? [];
+  List<dynamic> get specification => instrument['specification'] ?? [];
+  String get condition => instrument['condition'] ?? "";
+  bool get isLikedByMe => instrument['isLikedByMe'] ?? false;
+  bool get isSavedByMe => instrument['isSavedByMe'] ?? false;
+  bool get isFollowedByMe => instrument['isFollowedByMe'] ?? false;
+
+
   double get sellingPrice {
     if (instrument != null) {
       final price = instrument['selling_price'];
@@ -56,6 +64,8 @@ class InstrumentModel {
     }
     return "";
   }
+
+  
 
   // List<String>? features;
 

@@ -8,6 +8,7 @@ import 'package:my_app/shimmer/event_detail_shimmer.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/widget/app_bar_widget.dart';
 import 'package:my_app/widget/app_button.dart';
+import 'package:my_app/widget/app_image.dart';
 import 'package:my_app/widget/app_status_widget.dart';
 import 'package:my_app/widget/back_button_widget.dart';
 import 'package:my_app/widget/heading_widget.dart';
@@ -314,7 +315,9 @@ class EventHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double containerHeight = 220.0;
+    double _height = MediaQuery.of(context).size.height;
+
+    double containerHeight = _height*.35;
 
     return Container(
       width: double.infinity,
@@ -328,12 +331,7 @@ class EventHeader extends StatelessWidget {
               bottomLeft: Radius.circular(10),
               bottomRight: Radius.circular(10),
             ),
-            child: Image.network(
-              url ?? "",
-              width: double.infinity,
-              height: containerHeight,
-              fit: BoxFit.cover,
-            ),
+            child: AppImage(url: url ?? "", width: double.infinity, height: containerHeight,),
           ),
           Positioned(
             left: 10,

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_app/api/ApiController/instrument_service_controller.dart';
+import 'package:my_app/helper/helper.dart';
 import 'package:my_app/model/instrument/instrument_model.dart';
 import 'package:my_app/shimmer/instrument_detail_shimmer.dart';
 import 'package:my_app/utils/appColor.dart';
+import 'package:my_app/widget/app_button.dart';
 import 'package:my_app/widget/app_image.dart';
 import 'package:my_app/widget/back_button_widget.dart';
+import 'package:my_app/widget/heading_widget.dart';
 
 class InstrumentDetail extends StatefulWidget {
   final String instrumentId;
@@ -32,8 +36,7 @@ class _InstrumentDetail extends State<InstrumentDetail> {
     });
     final res = await InstrumentServiceController.getInstrumentDetail(
         instrumentId: widget.instrumentId);
-    
-    
+
     setState(() {
       activity = false;
       instrumentModel = InstrumentModel(instrument: res.data);
@@ -48,9 +51,17 @@ class _InstrumentDetail extends State<InstrumentDetail> {
           ? InstrumentDetailShimmer()
           : SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InstrumentHeader(
                     instrument: instrumentModel!,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: InstrumentBody(instrument: instrumentModel!),
                   ),
                 ],
               ),
@@ -94,6 +105,9 @@ class _InstrumentHeader extends State<InstrumentHeader> {
 
   @override
   Widget build(BuildContext context) {
+    final instrument = widget.instrument;
+    double _height = MediaQuery.of(context).size.height;
+
     return Container(
       child: Column(
         children: [
@@ -106,7 +120,7 @@ class _InstrumentHeader extends State<InstrumentHeader> {
                 child: AppImage(
                   url: url,
                   width: double.infinity,
-                  height: 300,
+                  height: _height*.4,
                 ),
               ),
               Positioned(
@@ -124,7 +138,7 @@ class _InstrumentHeader extends State<InstrumentHeader> {
                             borderRadius: BorderRadius.circular(50)),
                         child: IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.favorite),
+                            icon: instrument.isSavedByMe ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border, color: AppColor.darkGrey,),
                             color: AppColor.primary),
                       ),
                       const SizedBox(
@@ -138,7 +152,7 @@ class _InstrumentHeader extends State<InstrumentHeader> {
                             borderRadius: BorderRadius.circular(50)),
                         child: IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.favorite),
+                            icon: instrument.isSavedByMe ? const Icon(Icons.bookmark) : const Icon(Icons.bookmark_border, color: AppColor.darkGrey,),
                             color: AppColor.primary),
                       )
                     ],
@@ -204,6 +218,147 @@ class ImageList extends StatelessWidget {
             );
           },
           itemCount: list.length),
+    );
+  }
+}
+
+class InstrumentBody extends StatelessWidget {
+  InstrumentModel instrument;
+
+  InstrumentBody({super.key, required this.instrument});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              HeadingWidget(title: instrument.instrumentName),
+              Spacer(),
+              HeadingWidget(title: Helper.getPrice(99)),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          HeadingWidget(
+            title: "Brand : ${instrument.brand}",
+            isText: true,
+            textFontSize: 14,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              const Icon(
+                Icons.location_on,
+                color: AppColor.darkGrey,
+              ),
+              HeadingWidget(
+                title: "670 main durbon northdeen south africa",
+                isText: true,
+                textFontSize: 14,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          HeadingWidget(
+            title: "Overview",
+          ),
+          HeadingWidget(
+            title: instrument.about,
+            isText: true,
+            textFontSize: 14,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          HeadingWithPoints(
+            title: "Feature",
+            list: instrument.features,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          HeadingWithPoints(
+            title: "Specifications",
+            list: instrument.specification,
+          ),
+         
+          const SizedBox(
+            height: 20,
+          ),
+          HeadingWidget(
+            title: "Condition",
+          ),
+          HeadingWidget(
+            title: instrument.condition,
+            isText: true,
+            textFontSize: 14,
+          ),
+          SafeArea(
+            child: AppButton(
+              title: "Add to cart",
+              onTap: () {},
+              leftIcon: SvgPicture.asset(
+                "assets/icons/cart.svg",
+                width: 20,
+                height: 20,
+                color: Colors.white,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class HeadingWithPoints extends StatelessWidget {
+  final String title;
+  final List<dynamic> list;
+
+  HeadingWithPoints({super.key, required this.title, required this.list});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          HeadingWidget(
+            title: title,
+          ),
+          ...list.map((item) {
+            return Padding(
+              padding: const EdgeInsets.all(5),
+              child: Row(
+                children: [
+                  Container(
+                    width: 6,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.black
+                    ),
+                  ),
+                  const SizedBox(width: 6,),
+                  HeadingWidget(
+                    title: item,
+                    isText: true,
+                    textFontSize: 14,
+                  ),
+                ],
+              ),
+            );
+          }).toList()
+        ],
+      ),
     );
   }
 }

@@ -6,6 +6,7 @@ class AppButton extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
   final VoidCallback onTap;
+  final Widget? leftIcon;
   bool isLoading;
 
   AppButton(
@@ -14,8 +15,11 @@ class AppButton extends StatelessWidget {
       this.backgroundColor = AppColor.primary,
       this.textColor = Colors.white,
       required this.onTap,
-      this.isLoading = false})
-      : super(key: key);
+      this.isLoading = false,
+      this.leftIcon})
+      : super(
+          key: key,
+        );
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,7 @@ class AppButton extends StatelessWidget {
         ),
         alignment: Alignment.center,
         child: isLoading
-            ? SizedBox(
+            ? const SizedBox(
                 width: 20,
                 height: 20,
                 child: CircularProgressIndicator(
@@ -40,13 +44,20 @@ class AppButton extends StatelessWidget {
                   strokeWidth: 2,
                 ),
               )
-            : Text(
-                title,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  leftIcon ?? const SizedBox(),
+                  leftIcon != null ? const SizedBox(width: 10,) : const SizedBox(),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
               ),
       ),
     );
