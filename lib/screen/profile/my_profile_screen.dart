@@ -145,6 +145,9 @@ class ProfileItemHeading extends StatelessWidget {
             );
           });
     }
+    if(item?.route_name != null && item.route_name.isNotEmpty){
+      Navigator.of(context).pushNamed(item.route_name);
+    }
     return;
   }
 

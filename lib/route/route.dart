@@ -4,6 +4,8 @@ import 'package:my_app/screen/activity/comment/my_comment.dart';
 import 'package:my_app/screen/activity/my_activity.dart';
 import 'package:my_app/screen/activity/like/my_like.dart';
 import 'package:my_app/screen/activity/tag/my_tagged_post.dart';
+import 'package:my_app/screen/address/add_address_screen.dart';
+import 'package:my_app/screen/address/address_list_screen.dart';
 import 'package:my_app/screen/appStart.dart';
 import 'package:my_app/screen/auth/fan_register.dart';
 import 'package:my_app/screen/auth/otp_verify.dart';
@@ -38,6 +40,10 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => MyTaggedPost());
       case RouteNames.jubalStore:
         return MaterialPageRoute(builder: (_) => JubalStoreScreen());
+      case RouteNames.addAddressScreen:
+        return MaterialPageRoute(builder: (_) => AddAddressScreen());
+        case RouteNames.addressListScreen:
+        return MaterialPageRoute(builder: (_) => AddListScreen());
       default:
         return null;
     }

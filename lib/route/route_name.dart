@@ -14,4 +14,6 @@ class RouteNames {
   static const String myTag = "/myTag";
   static const String jubalStore = "/jubalStore";
   static const String instrumentDetail = "/instrumentDetail";
+  static const String addressListScreen = "/addressListScreen";
+  static const String addAddressScreen = "/addAddressScreen";
 }

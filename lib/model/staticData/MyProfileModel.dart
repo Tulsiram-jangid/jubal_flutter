@@ -26,7 +26,7 @@ class MyProfileHeadingModel {
       ),
       MyProfileModel(
         title: "Addresses",
-        route_name: RouteNames.myOrderScreen,
+        route_name: RouteNames.addressListScreen,
         icon: Icon(
           Icons.alternate_email,
           color: iconColor,
