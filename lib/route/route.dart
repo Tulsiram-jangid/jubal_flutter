@@ -42,7 +42,7 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => JubalStoreScreen());
       case RouteNames.addAddressScreen:
         return MaterialPageRoute(builder: (_) => AddAddressScreen());
-        case RouteNames.addressListScreen:
+      case RouteNames.addressListScreen:
         return MaterialPageRoute(builder: (_) => AddListScreen());
       default:
         return null;

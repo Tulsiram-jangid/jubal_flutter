@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/route/route_name.dart';
+import 'package:my_app/widget/add_action_widget.dart';
 import 'package:my_app/widget/address_detail_widget.dart';
 import 'package:my_app/widget/app_bar_widget.dart';
 import 'package:my_app/widget/heading_widget.dart';
+import 'package:my_app/widget/add_action_widget.dart';
 
 class AddListScreen extends StatefulWidget {
   @override
@@ -10,11 +13,20 @@ class AddListScreen extends StatefulWidget {
   }
 }
 
+
 class _AddListScreen extends State<AddListScreen>{
+
+  void onAddPressed(){
+    Navigator.of(context).pushNamed(RouteNames.addAddressScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(title: "Address"),
+      appBar: AppBarWidget(title: "Address",
+      actions: [
+        AddActionWidget(onPressed: onAddPressed,)
+      ],),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Container(child: Column(

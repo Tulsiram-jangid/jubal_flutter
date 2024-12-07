@@ -1,3 +1,5 @@
+import 'package:country_pickers/country.dart';
+import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
 
 class AppConstant {
@@ -5,6 +7,9 @@ class AppConstant {
   static String? fcmToken;
   static String? userToken;
   static String? userId;
+
+  static const String defaultCountryCode = "+1";
+  static Country? defaultCountry = CountryPickerUtils.getCountryByPhoneCode("1");
 
   static const pageLimit = 10;
 

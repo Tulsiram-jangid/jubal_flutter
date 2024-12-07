@@ -6,12 +6,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? backTap;
   final bool isHaveBackButton;
+  final List<Widget>? actions;
 
   const AppBarWidget({
     super.key,
     required this.title,
     this.backTap,
-    this.isHaveBackButton = true
+    this.isHaveBackButton = true,
+    this.actions
   });
 
   @override
@@ -21,6 +23,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: false,
       title: Text(title, style: const TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),maxLines: 2,),
       leading: isHaveBackButton ? BackButtonWidget(backTap: isHaveBackButton ? backTap : (){},) : null,
+      actions: actions,
     );
   }
   

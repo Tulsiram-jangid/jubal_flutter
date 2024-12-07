@@ -8,11 +8,22 @@ class FieldTypes {
   static const String password = "password";
   static const String confirmPassword = "confirmPassword";
 
-
   //for tabs
   static const String post = "post";
   static const String event = "event";
   static const String instrument = "instrument";
+
+  //address
+  static const String officeMobile = "officeMobile";
+  static const String recoveryEmail = "recoveryEmail";
+  static const String faxNumber = "faxNumber";
+  static const String location = "location";
+  static const String city = "city";
+  static const String state = "state";
+  static const String country = "country";
+  static const String zipCode = "zipCode";
+  static const String addressType = "addressType";
+  
 }
 
 enum MyProfileTypes { logout }
@@ -29,16 +40,16 @@ enum EventStatusTypes {
 }
 
 String getEventStatusText(String status) {
-  if(status == EventStatusTypes.pending.value){
+  if (status == EventStatusTypes.pending.value) {
     return "Draft";
   }
-  if(status == EventStatusTypes.closed.value){
+  if (status == EventStatusTypes.closed.value) {
     return "Closed";
   }
-  if(status == EventStatusTypes.published.value){
+  if (status == EventStatusTypes.published.value) {
     return "Published";
   }
-  if(status == EventStatusTypes.rejected.value){
+  if (status == EventStatusTypes.rejected.value) {
     return "Rejected";
   }
   return "";

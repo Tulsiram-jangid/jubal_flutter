@@ -31,6 +31,27 @@ class AddressDetailWidget extends StatelessWidget {
                 ),
               )
             ],
+          ),
+          const SizedBox(height: 5,),
+          RowText(
+            title: "Mobile",
+            value: "9876543234",
+          ),
+          const SizedBox(height: 5,),
+          RowText(
+            title: "Email",
+            value: "mohan@gmail.com",
+          ),
+          const SizedBox(height: 5,),
+          RowText(
+            title: "Fax",
+            value: "12121212",
+          ),
+          const SizedBox(height: 5,),
+          RowText(
+            title: "Address",
+            value:
+                "Pwanapuri bikaner iwebwiser Pwanapuri bikaner iwebwiser Pwanapuri bikaner iwebwiser",
           )
         ],
       ),
@@ -76,6 +97,32 @@ class DefaultBadge extends StatelessWidget {
       child: const Text(
         "Default",
         style: TextStyle(fontSize: 10),
+      ),
+    );
+  }
+}
+
+class RowText extends StatelessWidget {
+  final String title;
+  final String value;
+
+  RowText({super.key, required this.title, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.topLeft,
+      child: RichText(
+        text: TextSpan(
+          text: "${title} : ",
+          style: const TextStyle(color: Colors.black, fontSize: 14),
+          children: [
+            TextSpan(
+              text: value,
+              style: const TextStyle(color: AppColor.darkGrey),
+            ),
+          ],
+        ),
       ),
     );
   }
