@@ -5,6 +5,7 @@ import 'package:my_app/constant/type.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/widget/app_bar_widget.dart';
 import 'package:my_app/widget/app_button.dart';
+import 'package:my_app/widget/bottomSheet/bottom_sheet_option.dart';
 import 'package:my_app/widget/custome_text_field.dart';
 import 'package:my_app/widget/heading_widget.dart';
 
@@ -50,6 +51,15 @@ class _AddAddressScreen extends State<AddAddressScreen> {
       );
 
   bool? onChanged(bool? value) {}
+
+  void onAddressTypeSelect (){
+    showModalBottomSheet(
+      showDragHandle: true,
+      backgroundColor: Colors.white,
+      context: context, builder: (context){
+      return BottomSheetOption();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -149,6 +159,9 @@ class _AddAddressScreen extends State<AddAddressScreen> {
                 placeholder: "Address type",
                 label: "Address type",
                 error: getErrorByType(FieldTypes.addressType),
+                isDropDown: true,
+                onTap: onAddressTypeSelect,
+                enabled: false
               ),
               item_spacer,
               Row(

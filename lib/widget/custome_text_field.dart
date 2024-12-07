@@ -37,6 +37,10 @@ class CustomTextField extends StatelessWidget {
   final TextStyle? textStyle;
   final TextEditingController? textEditingController;
 
+  final bool isDropDown;
+  final VoidCallback? onTap;
+  final bool enabled;
+
   CustomTextField(
       {super.key,
       required this.placeholder,
@@ -53,7 +57,10 @@ class CustomTextField extends StatelessWidget {
       this.onCountryCodeChanged,
       this.country,
       this.textStyle,
-      this.textEditingController});
+      this.textEditingController,
+      this.isDropDown = false,
+      this.onTap,
+      this.enabled = true});
 
   void onCountryTap(BuildContext context) {
     Navigator.of(context).push(
@@ -76,6 +83,7 @@ class CustomTextField extends StatelessWidget {
       onChanged: onChanged,
       keyboardType: keyboardType,
       style: textStyle,
+      enabled: enabled,
       decoration: InputDecoration(
         hintText: placeholder,
         hintStyle: TextStyle(
@@ -84,7 +92,8 @@ class CustomTextField extends StatelessWidget {
         ),
         filled: true,
         fillColor: Colors.white,
-        contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 14.0),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 12.0, horizontal: 14.0),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none),
@@ -96,7 +105,15 @@ class CustomTextField extends StatelessWidget {
                   color: Colors.grey[700],
                 ),
               )
-            : null,
+            : isDropDown
+                ? IconButton(
+                    onPressed: onRightIconTap,
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: AppColor.darkGrey,
+                    ),
+                  )
+                : null,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide:
@@ -181,6 +198,8 @@ class CustomTextField extends StatelessWidget {
                 Expanded(flex: 3, child: getField())
               ],
             )
+          else if (isDropDown)
+            GestureDetector(onTap: onTap, child: getField())
           else
             getField(),
           if (hasError) ...[
