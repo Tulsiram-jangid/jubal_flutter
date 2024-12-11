@@ -49,7 +49,7 @@ class ApiForm {
 
   static Map<String, dynamic> getAddAddressForm({
     String? name,
-    String? location,
+    Map<String, dynamic>? location,
     String? type,
     String? zipcode,
     String? phone,

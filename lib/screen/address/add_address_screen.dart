@@ -1,8 +1,11 @@
 import 'package:country_pickers/country.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app/api/ApiController/address_service_controller.dart';
 import 'package:my_app/api/ApiController/google_service_controller.dart';
+import 'package:my_app/api/api_form.dart';
 import 'package:my_app/constant/app_constant.dart';
 import 'package:my_app/constant/type.dart';
+import 'package:my_app/helper/helper.dart';
 import 'package:my_app/helper/validator.dart';
 import 'package:my_app/model/staticData/bottom_sheet_option_model.dart';
 import 'package:my_app/route/app_navigation.dart';
@@ -49,10 +52,11 @@ class _AddAddressScreen extends State<AddAddressScreen> {
 
   String errorMsg = "";
   String errorType = "";
+  bool activity = false;
 
   void initState() {
     super.initState();
-    //getData();
+    getData();
   }
 
   void getData() {
@@ -122,7 +126,7 @@ class _AddAddressScreen extends State<AddAddressScreen> {
         duration: const Duration(seconds: 1), curve: Curves.easeInOut);
   }
 
-  void onSubmit() {
+  void onSubmit()async {
     if (firstName.text.isEmpty) {
       const msg = "First name is required";
       setState(() {
@@ -200,6 +204,35 @@ class _AddAddressScreen extends State<AddAddressScreen> {
       errorMsg = "";
       errorType = "";
     });
+
+    String fullName = "${firstName.text} ${lastName.text}";
+    final form = ApiForm.getAddAddressForm(
+      name: fullName,
+      location: locationData!.toJson(),
+      type: addressType.text,
+      zipcode: zipCode.text,
+      phone: mobile.text,
+      countryCode: countryCode,
+      office_phone: officeMobile.text,
+      office_phone_country_code: officeCountryCode,
+      fax: faxNumber.text,
+      email: email.text,
+      recovery_email: recoveryEmail.text,
+      isDefault: isDefault
+    );
+
+    setState(() {
+      activity = true;
+    });
+
+    final res = await AddressServiceController.addNewAddress(body: form);
+    setState(() {
+      activity = false;
+    });
+    if(res.status){
+      Navigator.of(context).pop();
+      Helper.showToast(context, "New Address added successfully");
+    }
   }
 
   @override
@@ -337,7 +370,7 @@ class _AddAddressScreen extends State<AddAddressScreen> {
               ),
               item_spacer,
               item_spacer,
-              AppButton(title: "Save", onTap: onSubmit)
+              AppButton(title: "Save", onTap: onSubmit, isLoading: activity,)
             ],
           ),
         ),

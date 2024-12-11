@@ -21,4 +21,17 @@ class BottomSheetOptionModel {
     ));
     return list;
   }
+
+  static List<BottomSheetOptionModel> getAddressActionList(){
+    List<BottomSheetOptionModel> list = [];
+    list.add(BottomSheetOptionModel(
+      title: "Delete",
+      type: FieldTypes.delete
+    ));
+    list.add(BottomSheetOptionModel(
+      title: "Make default",
+      type: FieldTypes.makeDefault
+    ));
+    return list;
+  }
 }

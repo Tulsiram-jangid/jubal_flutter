@@ -28,6 +28,8 @@ class FieldTypes {
   //Bottom Sheet options
   static const String home = "home";
   static const String office = "office";
+  static const String delete = "delete";
+  static const String makeDefault = "makeDefault";
   
 }
 

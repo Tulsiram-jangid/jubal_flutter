@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/api/ApiController/address_service_controller.dart';
+import 'package:my_app/constant/type.dart';
 import 'package:my_app/model/address/address_model.dart';
+import 'package:my_app/model/staticData/bottom_sheet_option_model.dart';
 import 'package:my_app/route/route_name.dart';
 import 'package:my_app/shimmer/list_shimmer.dart';
 import 'package:my_app/widget/add_action_widget.dart';
@@ -42,6 +44,48 @@ class _AddListScreen extends State<AddListScreen>{
     Navigator.of(context).pushNamed(RouteNames.addAddressScreen);
   }
 
+  void deleteAddress(String addressId)async{
+    setState(() {
+      activity = true;
+    });
+    final res = await AddressServiceController.deleteAddress(addressId: addressId);
+    if(res.status){
+      getAddress();
+      return;
+    }
+    setState(() {
+      activity = false;
+    });
+  }
+
+  void makeDefault(String addressId)async{
+    setState(() {
+      activity = true;
+    });
+    final form = {
+      "isDefault": true
+    };
+    final res = await AddressServiceController.editAddress(addressId: addressId, body: form);
+    if(res.status){
+      getAddress();
+      return;
+    }
+    setState(() {
+      activity = false;
+    });
+  }
+
+  void onActionTapped(BottomSheetOptionModel item, AddressModel address)async{
+    if(item.type == FieldTypes.delete){
+      deleteAddress(address.id);
+      return;
+    }
+    if(item.type == FieldTypes.makeDefault){
+      makeDefault(address.id);
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +111,9 @@ class _AddListScreen extends State<AddListScreen>{
               isDefault: item.isDefault,
               fax: item.fax,
               addressType: item.type,
+              onActionTapped: (_item){
+                onActionTapped(_item,item);
+              },
             );
           }, separatorBuilder: (_,index){
             return const SizedBox(height: 10,);

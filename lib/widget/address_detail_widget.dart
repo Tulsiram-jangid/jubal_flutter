@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/model/address/address_model.dart';
+import 'package:my_app/model/staticData/bottom_sheet_option_model.dart';
 import 'package:my_app/utils/appColor.dart';
+import 'package:my_app/widget/bottomSheet/bottom_sheet_option.dart';
 
 class AddressDetailWidget extends StatelessWidget {
   final String mobile;
@@ -10,15 +12,35 @@ class AddressDetailWidget extends StatelessWidget {
   final String addressType;
   final bool isDefault;
 
-  AddressDetailWidget({
-    super.key,
-    required this.mobile,
-    required this.email,
-    required this.address,
-    required this.addressType,
-    required this.fax,
-    this.isDefault = false
-  });
+  final ValueChanged<BottomSheetOptionModel> onActionTapped;
+
+  AddressDetailWidget(
+      {super.key,
+      required this.mobile,
+      required this.email,
+      required this.address,
+      required this.addressType,
+      required this.fax,
+      required this.onActionTapped,
+      this.isDefault = false});
+
+  void onItemPressed(BottomSheetOptionModel item, BuildContext context) {
+    Navigator.of(context).pop();
+    onActionTapped(item);
+  }
+
+  void onAction(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        showDragHandle: true,
+        builder: (context) {
+          return BottomSheetOption(
+              list: BottomSheetOptionModel.getAddressActionList(),
+              onPressed: (item) {
+                onItemPressed(item, context);
+              });
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +52,14 @@ class AddressDetailWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              AddressBadge(),
+              AddressBadge(
+                type: addressType,
+              ),
               const SizedBox(
                 width: 5,
               ),
-              DefaultBadge(),
-              Spacer(),
+              if (isDefault) DefaultBadge(),
+              const Spacer(),
               Container(
                 width: 40,
                 height: 40,
@@ -44,32 +68,41 @@ class AddressDetailWidget extends StatelessWidget {
                   shape: BoxShape.circle, // Makes it circular
                 ),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    onAction(context);
+                  },
                   icon: const Icon(Icons.more_vert),
                 ),
               )
             ],
           ),
-          const SizedBox(height: 5,),
+          const SizedBox(
+            height: 5,
+          ),
           RowText(
             title: "Mobile",
             value: mobile,
           ),
-          const SizedBox(height: 5,),
+          const SizedBox(
+            height: 5,
+          ),
           RowText(
             title: "Email",
             value: email,
           ),
-          const SizedBox(height: 5,),
+          const SizedBox(
+            height: 5,
+          ),
           RowText(
             title: "Fax",
             value: fax,
           ),
-          const SizedBox(height: 5,),
+          const SizedBox(
+            height: 5,
+          ),
           RowText(
             title: "Address",
-            value:
-                address,
+            value: address,
           )
         ],
       ),
@@ -78,6 +111,16 @@ class AddressDetailWidget extends StatelessWidget {
 }
 
 class AddressBadge extends StatelessWidget {
+  final String type;
+  AddressBadge({super.key, required this.type});
+
+  IconData get addressTypeIcon {
+    if (type == "office") {
+      return Icons.apartment;
+    }
+    return Icons.home;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -86,15 +129,15 @@ class AddressBadge extends StatelessWidget {
           color: Colors.grey.shade200, borderRadius: BorderRadius.circular(5)),
       child: Row(
         children: [
-          const Icon(
-            Icons.home,
+          Icon(
+            addressTypeIcon,
             size: 15,
           ),
           const SizedBox(
             width: 5,
           ),
           Text(
-            "Home",
+            type,
             style: const TextStyle(fontSize: 12),
           ),
         ],
