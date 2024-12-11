@@ -13,9 +13,8 @@ class ApiForm {
     String? lastName,
     String? about,
     String? gender,
-
     String? otp,
-  }){
+  }) {
     Map<String, dynamic> form = {};
     form['email'] = email;
     form['phone'] = phone;
@@ -39,12 +38,42 @@ class ApiForm {
     int? page = 1,
     String? sortField = "instrument_name",
     String? sortType = "ASC",
-  }){
+  }) {
     Map<String, dynamic> form = {};
     form['inStock'] = inStock;
     form['page'] = page;
     form['sortField'] = sortField;
     form['sortType'] = sortType;
+    return form;
+  }
+
+  static Map<String, dynamic> getAddAddressForm({
+    String? name,
+    String? location,
+    String? type,
+    String? zipcode,
+    String? phone,
+    String? countryCode,
+    String? fax,
+    String? email,
+    String? office_phone,
+    String? office_phone_country_code,
+    String? recovery_email,
+    bool? isDefault,
+  }) {
+    Map<String, dynamic> form = {};
+    form['name'] = name;
+    form['location'] = location;
+    form['type'] = type;
+    form['zipcode'] = zipcode;
+    form['phone'] = phone;
+    form['countryCode'] = countryCode;
+    form['fax'] = fax;
+    form['email'] = email;
+    form['office_phone'] = office_phone;
+    form['office_phone_country_code'] = office_phone_country_code;
+    form['recovery_email'] = recovery_email;
+    form['isDefault'] = isDefault;
     return form;
   }
 }

@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/model/address/address_model.dart';
 import 'package:my_app/utils/appColor.dart';
 
 class AddressDetailWidget extends StatelessWidget {
+  final String mobile;
+  final String email;
+  final String fax;
+  final String address;
+  final String addressType;
+  final bool isDefault;
+
+  AddressDetailWidget({
+    super.key,
+    required this.mobile,
+    required this.email,
+    required this.address,
+    required this.addressType,
+    required this.fax,
+    this.isDefault = false
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,23 +53,23 @@ class AddressDetailWidget extends StatelessWidget {
           const SizedBox(height: 5,),
           RowText(
             title: "Mobile",
-            value: "9876543234",
+            value: mobile,
           ),
           const SizedBox(height: 5,),
           RowText(
             title: "Email",
-            value: "mohan@gmail.com",
+            value: email,
           ),
           const SizedBox(height: 5,),
           RowText(
             title: "Fax",
-            value: "12121212",
+            value: fax,
           ),
           const SizedBox(height: 5,),
           RowText(
             title: "Address",
             value:
-                "Pwanapuri bikaner iwebwiser Pwanapuri bikaner iwebwiser Pwanapuri bikaner iwebwiser",
+                address,
           )
         ],
       ),

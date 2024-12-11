@@ -22,4 +22,10 @@ class ApiUrl {
 
   //likes
   static const getPostLikes = "${ApiUrl.server}/J0002/api/v1/post/my-liked";
+
+  //adress
+  static const createAddress = "${ApiUrl.server}/J0001/api/v1/create-address";// post
+  static const editAddress = "${ApiUrl.server}/J0001/api/v1/edit-address";// post
+  static const getAddressList = "${ApiUrl.server}/J0001/api/v1/get-address";// get
+  static const deleteAddress = "${ApiUrl.server}/J0001/api/v1/delete-address";// get
 }
