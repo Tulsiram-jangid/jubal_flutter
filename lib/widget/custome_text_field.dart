@@ -40,6 +40,7 @@ class CustomTextField extends StatelessWidget {
   final bool isDropDown;
   final VoidCallback? onTap;
   final bool enabled;
+  final bool isRequired;
 
   CustomTextField(
       {super.key,
@@ -60,7 +61,8 @@ class CustomTextField extends StatelessWidget {
       this.textEditingController,
       this.isDropDown = false,
       this.onTap,
-      this.enabled = true});
+      this.enabled = true,
+      this.isRequired = false});
 
   void onCountryTap(BuildContext context) {
     Navigator.of(context).push(
@@ -140,13 +142,27 @@ class CustomTextField extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: AppUtils.spacing),
-            child: Text(
-              label,
-              style: const TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                if (isRequired)
+                  const Text(
+                    " *",
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: AppColor.primary,
+                    ),
+                  )
+              ],
             ),
           ),
           const SizedBox(

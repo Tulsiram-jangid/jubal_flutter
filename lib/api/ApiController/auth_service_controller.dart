@@ -16,6 +16,9 @@ class AuthServiceController {
     if (res.data.containsKey("accessToken")) {
       AppConstant.setUserToken(res.data['accessToken']);
     }
+    if (res.data.containsKey("refreshToken")) {
+      AppConstant.setRefreshToken(res.data['refreshToken']);
+    }
     if (res.data.containsKey("id")) {
       AppConstant.setUserId(res.data['id']);
     }
@@ -31,8 +34,19 @@ class AuthServiceController {
     if (obj != null) {
       //if user logged in the set the user basic details
       if (obj.containsKey("accessToken")) {
+        //first check if token is valid or not
         AppConstant.setUserToken(obj['accessToken']);
+        bool isTokenExpired = await AuthServiceController.isTokenExpired();
+        if (isTokenExpired) {
+          Provider.of<StoreProvider>(context, listen: false).goToLogin();
+          return;
+        }
       }
+
+      if (obj.containsKey("refreshToken")) {
+        AppConstant.setRefreshToken(obj['refreshToken']);
+      }
+
       if (obj.containsKey("id")) {
         AppConstant.setUserId(obj['id']);
       }
@@ -139,5 +153,23 @@ class AuthServiceController {
     ApiResponse res =
         await ApiRequest.request(url: URL, method: "POST", body: body);
     return res;
+  }
+
+  static Future<bool> isTokenExpired() async {
+    const URL = ApiUrl.validateToken;
+    ApiResponse res = await ApiRequest.request(
+      url: URL,
+      method: "GET",
+    );
+    return !res.status;
+  }
+
+  static Future<void> refreshNewToken() async {
+    const URL = ApiUrl.validateToken;
+    ApiResponse res = await ApiRequest.request(
+      url: URL,
+      method: "GET",
+    );
+    if (res.status) {}
   }
 }

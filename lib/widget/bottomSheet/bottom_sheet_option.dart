@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:my_app/model/staticData/bottom_sheet_option_model.dart';
 import 'package:my_app/widget/heading_widget.dart';
 
 class BottomSheetOption extends StatelessWidget {
-  List<String> list;
+  final List<BottomSheetOptionModel> list;
+  final ValueChanged<BottomSheetOptionModel> onPressed;
 
-  BottomSheetOption({super.key, this.list = const ["Hello", "Home"]});
+  BottomSheetOption({super.key, required this.list, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,10 @@ class BottomSheetOption extends StatelessWidget {
           itemBuilder: (_, index) {
             final item = list[index];
             return OptionItem(
-              title: item,
+              title: item.title,
+              onPressed: (){
+                onPressed(item);
+              },
             );
           },
           itemCount: list.length),

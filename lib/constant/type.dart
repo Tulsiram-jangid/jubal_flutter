@@ -23,6 +23,11 @@ class FieldTypes {
   static const String country = "country";
   static const String zipCode = "zipCode";
   static const String addressType = "addressType";
+
+
+  //Bottom Sheet options
+  static const String home = "home";
+  static const String office = "office";
   
 }
 

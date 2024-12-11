@@ -6,6 +6,7 @@ class AppConstant {
   static BuildContext? context;
   static String? fcmToken;
   static String? userToken;
+  static String? refreshToken;
   static String? userId;
 
   static const String defaultCountryCode = "+1";
@@ -16,6 +17,11 @@ class AppConstant {
   static setUserToken(String token) {
     userToken = token;
     print("---------user token-----------${userToken}");
+  }
+
+  static setRefreshToken(String token) {
+    refreshToken = token;
+    print("---------refreshToken-----------${refreshToken}");
   }
 
   static setUserId(String id) {
