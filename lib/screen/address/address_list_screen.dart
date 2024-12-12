@@ -3,6 +3,7 @@ import 'package:my_app/api/ApiController/address_service_controller.dart';
 import 'package:my_app/constant/type.dart';
 import 'package:my_app/model/address/address_model.dart';
 import 'package:my_app/model/staticData/bottom_sheet_option_model.dart';
+import 'package:my_app/route/app_navigation.dart';
 import 'package:my_app/route/route_name.dart';
 import 'package:my_app/shimmer/list_shimmer.dart';
 import 'package:my_app/widget/add_action_widget.dart';
@@ -41,7 +42,9 @@ class _AddListScreen extends State<AddListScreen>{
   }
 
   void onAddPressed(){
-    Navigator.of(context).pushNamed(RouteNames.addAddressScreen);
+    AppNavigation.navigateToAddAddress(context: context, onRefresh: (){
+      getAddress();
+    });
   }
 
   void deleteAddress(String addressId)async{

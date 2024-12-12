@@ -35,7 +35,7 @@ class AddressDetailWidget extends StatelessWidget {
         showDragHandle: true,
         builder: (context) {
           return BottomSheetOption(
-              list: BottomSheetOptionModel.getAddressActionList(),
+              list: BottomSheetOptionModel.getAddressActionList(isDefault: isDefault),
               onPressed: (item) {
                 onItemPressed(item, context);
               });

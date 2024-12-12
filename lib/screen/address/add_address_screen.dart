@@ -19,6 +19,13 @@ import 'package:my_app/widget/heading_widget.dart';
 import 'package:provider/provider.dart';
 
 class AddAddressScreen extends StatefulWidget {
+  final VoidCallback onRefresh;
+
+  AddAddressScreen({
+    super.key,
+    required this.onRefresh
+  });
+
   @override
   State<StatefulWidget> createState() {
     return _AddAddressScreen();
@@ -230,6 +237,7 @@ class _AddAddressScreen extends State<AddAddressScreen> {
       activity = false;
     });
     if(res.status){
+      widget.onRefresh();
       Navigator.of(context).pop();
       Helper.showToast(context, "New Address added successfully");
     }

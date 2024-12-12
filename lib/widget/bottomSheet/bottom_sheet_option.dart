@@ -9,27 +9,44 @@ class BottomSheetOption extends StatelessWidget {
 
   BottomSheetOption({super.key, required this.list, required this.onPressed});
 
+  void onClose (BuildContext context){
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
-    double itemHeight = 70.0; // Estimated height of each item.
+    double itemHeight = 80.0; // Estimated height of each item.
     double maxHeight =
         MediaQuery.of(context).size.height * 0.5; // Set a max height.
-    double calculatedHeight = (list.length * itemHeight).clamp(0, maxHeight);
+    double calculatedHeight = itemHeight * list.length + itemHeight;
 
     return Container(
       width: double.infinity,
       height: calculatedHeight,
-      child: ListView.builder(
-          itemBuilder: (_, index) {
-            final item = list[index];
-            return OptionItem(
-              title: item.title,
-              onPressed: (){
-                onPressed(item);
-              },
-            );
-          },
-          itemCount: list.length),
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+                itemBuilder: (_, index) {
+                  final item = list[index];
+                  return OptionItem(
+                    title: item.title,
+                    onPressed: () {
+                      onPressed(item);
+                    },
+                  );
+                },
+                itemCount: list.length),
+          ),
+          Divider(),
+          SafeArea(child: OptionItem(
+            title: "Close",
+            onPressed: (){
+              onClose(context);
+            },
+          ))
+        ],
+      ),
     );
   }
 }
@@ -46,6 +63,8 @@ class OptionItem extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         alignment: Alignment.center,
+        width: double.infinity,
+        height: 50,
         padding: const EdgeInsets.all(15),
         child: HeadingWidget(
           title: title,
