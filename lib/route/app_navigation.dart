@@ -5,6 +5,7 @@ import 'package:my_app/screen/address/add_address_screen.dart';
 import 'package:my_app/screen/event/event_detail_screen.dart';
 import 'package:my_app/screen/instrument/instrument_detail.dart';
 import 'package:my_app/screen/search/address_search.dart';
+import 'package:my_app/screen/talent/talent_detail.dart';
 
 class AppNavigation {
   static navigateToEventDetail({BuildContext? context, String? eventId}) {
@@ -46,6 +47,16 @@ class AppNavigation {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => AddAddressScreen(onRefresh: onRefresh,),
+        ),
+      );
+    }
+  }
+
+  static navigateToTalentDetail({BuildContext? context, required String talentId}) {
+    if (context != null) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => TalentDetail(talentId: talentId,),
         ),
       );
     }

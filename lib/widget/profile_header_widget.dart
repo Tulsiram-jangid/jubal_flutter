@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/store/provider/StoreProvider.dart';
+import 'package:my_app/widget/app_image.dart';
 import 'package:my_app/widget/back_button_widget.dart';
 import 'package:provider/provider.dart';
 
 class ProfileHeaderWidget extends StatelessWidget {
+
+  final String profileBanner;
+  final String profilePhoto;
+
+  const ProfileHeaderWidget({
+    super.key,
+    required this.profileBanner,
+    required this.profilePhoto
+  });
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<StoreProvider>(context).user;
@@ -15,18 +26,12 @@ class ProfileHeaderWidget extends StatelessWidget {
       children: [
         Column(
           children: [
-            if (user != null && user.profileBanner != null)
-              Image.network(
-                user.profileBanner!,
-                fit: BoxFit.fill,
-                width: double.infinity,
-                height: imageHeight,
-              ) else Image.asset(
-                "assets/images/banner.png",
-                fit: BoxFit.fill,
-                width: double.infinity,
-                height: imageHeight,
-              ),
+            AppImage(
+              url: profileBanner,
+              width: double.infinity,
+              height: imageHeight,
+              assetUrl: "assets/images/banner.png",
+            ),
             const SizedBox(
               width: double.infinity,
               height: itemSpacing,
@@ -37,9 +42,9 @@ class ProfileHeaderWidget extends StatelessWidget {
             left: 0,
             right: 0,
             bottom: itemSpacing * .2,
-            child: user != null && user.profilePhoto != null ? CircleAvatar(
+            child: profilePhoto != null ? CircleAvatar(
               radius: 50,
-              backgroundImage: NetworkImage(user != null && user.profilePhoto != null ? user.profilePhoto! : "", scale: 1),
+              backgroundImage: NetworkImage(profilePhoto ?? "", scale: 1),
             ) : const CircleAvatar(
               radius: 50,
               child: Icon(Icons.person, size: 50,) ,

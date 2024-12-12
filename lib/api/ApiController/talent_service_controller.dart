@@ -37,4 +37,11 @@ class TalentServiceController {
     if (ApiRequest.isSuccess(res.toJosn(), context)) {}
     return res;
   }
+
+  static Future<ApiResponse> getUserDetail({
+    String userId = ""
+  })async{
+    final URL = "${ApiUrl.userDetail}/${userId}";
+    return await ApiRequest.request(url: URL, method: "GET");
+  }
 }

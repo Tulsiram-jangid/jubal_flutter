@@ -10,8 +10,10 @@ class ApiUrl {
   static const validateToken = "${ApiUrl.server}/J0001/api/v1/auth-check"; //get
   static const createNewToken = "${ApiUrl.server}/J0001/api/v1/create-access"; //get
 
+  //Talents
   static const filterTalent = "${ApiUrl.server}/J0001/api/v1/filterSearch";
   static const searchTalent = "${ApiUrl.server}/J0001/api/v1/users/list?type=3";
+  static const userDetail = "${ApiUrl.server}/J0001/api/v1/users/get";
 
   static const eventList = "${ApiUrl.server}/J0005/api/v1/event/list";
   static const eventDetail = "${ApiUrl.server}/J0005/api/v1/event";

@@ -4,8 +4,14 @@ class AppImage extends StatelessWidget {
   final double width;
   final double height;
   final String url;
+  final String assetUrl;
 
-  AppImage({super.key, this.width = 100, this.height = 100, required this.url});
+  AppImage(
+      {super.key,
+      this.width = 100,
+      this.height = 100,
+      required this.url,
+      this.assetUrl = ""});
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +41,24 @@ class AppImage extends StatelessWidget {
       },
       errorBuilder:
           (BuildContext context, Object error, StackTrace? stackTrace) {
-        return Container(
-          width: width,
-          height: height,
-          color: Colors.grey[300],
-          child: Icon(
-            Icons.broken_image,
-            color: Colors.grey[700],
-            size: width / 2,
-          ),
-        );
+        if (assetUrl.isNotEmpty)
+          return Image.asset(
+            assetUrl,
+            width: width,
+            height: height,
+            fit: BoxFit.cover,
+          );
+        else
+          return Container(
+            width: width,
+            height: height,
+            color: Colors.grey[300],
+            child: Icon(
+              Icons.broken_image,
+              color: Colors.grey[700],
+              size: width / 2,
+            ),
+          );
       },
     );
   }

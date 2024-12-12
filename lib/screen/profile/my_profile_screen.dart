@@ -35,10 +35,13 @@ class _MyProfileScreen extends State<MyProfileScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    ProfileHeaderWidget(),
+                    ProfileHeaderWidget(
+                      profileBanner: user!.profileBanner ?? "",
+                      profilePhoto: user.profilePhoto ?? "",
+                    ),
                     Container(
                       width: double.infinity,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
                         children: [
                           Row(

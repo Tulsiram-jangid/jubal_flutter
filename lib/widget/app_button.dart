@@ -7,6 +7,9 @@ class AppButton extends StatelessWidget {
   final Color textColor;
   final VoidCallback onTap;
   final Widget? leftIcon;
+  final double? width; 
+  final double? height; 
+  final Color borderColor;
   bool isLoading;
 
   AppButton(
@@ -16,7 +19,11 @@ class AppButton extends StatelessWidget {
       this.textColor = Colors.white,
       required this.onTap,
       this.isLoading = false,
-      this.leftIcon})
+      this.leftIcon,
+      this.width = double.infinity,
+      this.height = 50,
+      this.borderColor = Colors.transparent
+      })
       : super(
           key: key,
         );
@@ -28,11 +35,15 @@ class AppButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(30), // Rounded ripple effect
       splashColor: Colors.white.withOpacity(0.2), // Ripple color
       child: Container(
-        width: double.infinity,
-        height: 50,
+        width: width,
+        height: height,
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(10),
+          border:  Border.all(
+            color: borderColor,
+            width: 1
+          )
         ),
         alignment: Alignment.center,
         child: isLoading
