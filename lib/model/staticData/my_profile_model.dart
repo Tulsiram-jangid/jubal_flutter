@@ -18,7 +18,7 @@ class MyProfileHeadingModel {
     myProfileHeading
         .add(MyProfileHeadingModel(title: "General information", list: [
       MyProfileModel(
-          title: "Account Settings", route_name: RouteNames.myOrderScreen),
+          title: "Account Settings", route_name: RouteNames.accountSettingScreen),
       MyProfileModel(
         title: "Dashboard",
         route_name: RouteNames.myOrderScreen,

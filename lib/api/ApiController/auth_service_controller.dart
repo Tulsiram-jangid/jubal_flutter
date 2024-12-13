@@ -172,4 +172,20 @@ class AuthServiceController {
     );
     if (res.status) {}
   }
+
+  static Future<bool> changePassword ({
+    dynamic body,
+    BuildContext? context
+  })async {
+    const URL = ApiUrl.changePassword;
+    final res = await ApiRequest.request(
+      url: URL,
+      method: "POST",
+      body: body
+    );
+    if(ApiRequest.isSuccess(res.toJosn(), context)){
+      
+    }
+    return res.status;
+  }
 }

@@ -8,6 +8,10 @@ import 'package:my_app/screen/search/address_search.dart';
 import 'package:my_app/screen/talent/talent_detail.dart';
 
 class AppNavigation {
+  static void pop(BuildContext context) {
+    Navigator.of(context).pop();
+  }
+
   static navigateToEventDetail({BuildContext? context, String? eventId}) {
     if (context != null) {
       Navigator.of(context).push(
@@ -20,7 +24,8 @@ class AppNavigation {
     }
   }
 
-  static navigateToInstrumentDetail({BuildContext? context, String? instrumentId}) {
+  static navigateToInstrumentDetail(
+      {BuildContext? context, String? instrumentId}) {
     if (context != null) {
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -32,34 +37,43 @@ class AppNavigation {
     }
   }
 
-  static navigateToAddressSearch({BuildContext? context, required ValueChanged<AddressDetailModel> onSelectAddress}) {
+  static navigateToAddressSearch(
+      {BuildContext? context,
+      required ValueChanged<AddressDetailModel> onSelectAddress}) {
     if (context != null) {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => AddressSearch(onSelectAddress: onSelectAddress,),
+          builder: (context) => AddressSearch(
+            onSelectAddress: onSelectAddress,
+          ),
         ),
       );
     }
   }
 
-  static navigateToAddAddress({BuildContext? context, required VoidCallback onRefresh}) {
+  static navigateToAddAddress(
+      {BuildContext? context, required VoidCallback onRefresh}) {
     if (context != null) {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => AddAddressScreen(onRefresh: onRefresh,),
+          builder: (context) => AddAddressScreen(
+            onRefresh: onRefresh,
+          ),
         ),
       );
     }
   }
 
-  static navigateToTalentDetail({BuildContext? context, required String talentId}) {
+  static navigateToTalentDetail(
+      {BuildContext? context, required String talentId}) {
     if (context != null) {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => TalentDetail(talentId: talentId,),
+          builder: (context) => TalentDetail(
+            talentId: talentId,
+          ),
         ),
       );
     }
   }
-
 }

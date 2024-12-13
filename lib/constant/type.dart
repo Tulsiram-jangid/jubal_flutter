@@ -31,6 +31,9 @@ class FieldTypes {
   static const String delete = "delete";
   static const String makeDefault = "makeDefault";
   
+  //Change Password
+  static const String currentPassword = "currentPassword";
+  static const String newPassword = "newPassword";
 }
 
 enum MyProfileTypes { logout }

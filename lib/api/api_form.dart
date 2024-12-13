@@ -76,4 +76,24 @@ class ApiForm {
     form['isDefault'] = isDefault;
     return form;
   }
+
+  static Map<String, dynamic> getChangePasswordForm({
+    String? email,
+    String? phone,
+    String? countryCode,
+    required String currentPassword,
+    required String newPassword,
+  }){
+    Map<String, dynamic> form = {};
+    if(email != null && email.isNotEmpty){
+      form['email'] = email;
+    }
+    if(phone != null && phone.isNotEmpty){
+      form['phone'] = phone;
+      form['countryCode'] = countryCode;
+    }
+    form['currentPassword'] = currentPassword;
+    form['newPassword'] = newPassword;
+    return form;
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/utils/appColor.dart';
 
 class HeadingWidget extends StatelessWidget {
@@ -8,15 +9,17 @@ class HeadingWidget extends StatelessWidget {
   final double? fontSize;
   final double? textFontSize; 
   final int? maxLines;
+  final FontWeight? fontWeight;
 
-  HeadingWidget(
+  const HeadingWidget(
       {super.key,
       required this.title,
       this.color = Colors.black,
       this.isText = false,
       this.fontSize=18,
       this.textFontSize = 12,
-      this.maxLines
+      this.maxLines,
+      this.fontWeight = FontWeight.w500
       });
 
   @override
@@ -32,7 +35,12 @@ class HeadingWidget extends StatelessWidget {
     }
     return Text(
       title,
-      style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold, color: color),
+      // style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold, color: color),
+      style: GoogleFonts.montserrat(
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color
+      ),
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
     );

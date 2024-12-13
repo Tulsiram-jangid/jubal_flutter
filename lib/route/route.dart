@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/route/route_name.dart';
+import 'package:my_app/screen/account/account_setting.dart';
+import 'package:my_app/screen/account/change_password.dart';
 import 'package:my_app/screen/activity/comment/my_comment.dart';
 import 'package:my_app/screen/activity/my_activity.dart';
 import 'package:my_app/screen/activity/like/my_like.dart';
@@ -42,6 +44,10 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => JubalStoreScreen());
       case RouteNames.addressListScreen:
         return MaterialPageRoute(builder: (_) => AddListScreen());
+      case RouteNames.accountSettingScreen:
+        return MaterialPageRoute(builder: (_) => AccountSetting());
+      case RouteNames.changePasswordScreen:
+        return MaterialPageRoute(builder: (_) => ChangePassword());
       default:
         return null;
     }
