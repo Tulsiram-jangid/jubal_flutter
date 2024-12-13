@@ -17,7 +17,7 @@ class AccountSettingModel {
     ));
     list.add(AccountSettingModel(
       title: "Personal Details",
-      routeName: RouteNames.accountSettingScreen
+      routeName: RouteNames.profileDetailScreen
     ));
     list.add(AccountSettingModel(
       title: "Update field interest",

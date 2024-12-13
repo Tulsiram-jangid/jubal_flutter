@@ -41,6 +41,8 @@ class CustomTextField extends StatelessWidget {
   final VoidCallback? onTap;
   final bool enabled;
   final bool isRequired;
+  final int? maxLines;
+  final int? maxLength;
 
   CustomTextField(
       {super.key,
@@ -62,7 +64,10 @@ class CustomTextField extends StatelessWidget {
       this.isDropDown = false,
       this.onTap,
       this.enabled = true,
-      this.isRequired = false});
+      this.isRequired = false,
+      this.maxLines = 1,
+      this.maxLength
+      });
 
   void onCountryTap(BuildContext context) {
     Navigator.of(context).push(
@@ -86,6 +91,8 @@ class CustomTextField extends StatelessWidget {
       keyboardType: keyboardType,
       style: textStyle,
       enabled: enabled,
+      maxLines: maxLines,
+      maxLength: maxLength,
       decoration: InputDecoration(
         hintText: placeholder,
         hintStyle: TextStyle(

@@ -10,6 +10,7 @@ class AppButton extends StatelessWidget {
   final double? width; 
   final double? height; 
   final Color borderColor;
+  final bool? disabled;
   bool isLoading;
 
   AppButton(
@@ -22,7 +23,8 @@ class AppButton extends StatelessWidget {
       this.leftIcon,
       this.width = double.infinity,
       this.height = 50,
-      this.borderColor = Colors.transparent
+      this.borderColor = Colors.transparent,
+      this.disabled = false
       })
       : super(
           key: key,
@@ -30,15 +32,18 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    bool _disabled = disabled ?? false;
+
     return InkWell(
-      onTap: onTap,
+      onTap: _disabled ? (){} : onTap,
       borderRadius: BorderRadius.circular(30), // Rounded ripple effect
       splashColor: Colors.white.withOpacity(0.2), // Ripple color
       child: Container(
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: backgroundColor,
+          color: _disabled ? Colors.black12 : backgroundColor,
           borderRadius: BorderRadius.circular(10),
           border:  Border.all(
             color: borderColor,
