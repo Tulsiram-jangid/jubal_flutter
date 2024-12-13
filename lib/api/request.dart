@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_app/constant/app_constant.dart';
 import 'package:my_app/helper/helper.dart';
+import 'package:path/path.dart';
 
 class ApiResponse {
   bool status;
@@ -10,7 +12,11 @@ class ApiResponse {
   int? statusCode;
   dynamic data;
 
-  ApiResponse({required this.status, required this.message, this.data, this.statusCode});
+  ApiResponse(
+      {required this.status,
+      required this.message,
+      this.data,
+      this.statusCode});
 
   Map<String, dynamic> toJosn() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -40,17 +46,51 @@ class ApiRequest {
     String method = 'GET', // Default to 'GET' method
     Map<String, String>? headers,
     dynamic body,
+
+    //for file
+    File? file,
+    String? fileKey,
+    bool uploadFile = false,
+    Map<String, dynamic>? fields,
   }) async {
     late ApiResponse apiRes;
+    final authToken = "Bearer ${AppConstant.userToken}";
     try {
       // Default headers for the request
-      final requestHeaders = headers ?? {
-        'Content-Type': "application/json",
-        'Authorization': "Bearer ${AppConstant.userToken}"
-        };
+      final requestHeaders = headers ??
+          {'Content-Type': "application/json", 'Authorization': authToken};
       final requestUrl = Uri.parse(url);
 
       http.Response res;
+
+      if (uploadFile) {
+        final request = await http.MultipartRequest(method, requestUrl);
+        if (file != null) {
+          request.files.add(await http.MultipartFile.fromPath(
+              fileKey!, file.path,
+              filename: basename(file.path)));
+        }
+
+        if (fields != null) {
+          fields.forEach((key, value) {
+            request.fields[key] = value;
+          });
+        }
+
+        request.headers['Authorization'] = authToken;
+        final result = await request.send();
+        var responseBody = await result.stream.bytesToString();
+        Map<String, dynamic> jsonData = jsonDecode(responseBody);
+        if (jsonData.containsKey('status')) {
+          apiRes = ApiResponse(
+              status: jsonData['status'],
+              message: jsonData['message'],
+              data: jsonData['data']);
+          return apiRes;
+        }
+        return ApiResponse(
+            status: false, message: "Service error", data: jsonData);
+      }
 
       // Handle different HTTP methods
       switch (method.toUpperCase()) {
@@ -70,7 +110,6 @@ class ApiRequest {
           res = await http.get(requestUrl, headers: requestHeaders);
           break;
       }
-
 
       // Check response status and return the data if successful
       Map<String, dynamic> jsonData = jsonDecode(res.body);
