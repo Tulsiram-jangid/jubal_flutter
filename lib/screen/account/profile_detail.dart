@@ -2,9 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:my_app/api/ApiController/auth_service_controller.dart';
 import 'package:my_app/api/ApiController/file_service_controller.dart';
 import 'package:my_app/constant/app_constant.dart';
+import 'package:my_app/helper/helper.dart';
 import 'package:my_app/helper/picker.dart';
+import 'package:my_app/model/user_model.dart';
+import 'package:my_app/route/app_navigation.dart';
 import 'package:my_app/store/provider/StoreProvider.dart';
 import 'package:my_app/utils/appColor.dart';
 import 'package:my_app/widget/app_bar_widget.dart';
@@ -59,6 +63,8 @@ class _ProfileDetail extends State<ProfileDetail> {
       email.text = user.email ?? "";
       location.text = locationData['address'] ?? "";
       about.text = user.about ?? "";
+      bannerUrl = user.profileBanner;
+      imageUrl = user.profilePhoto;
     }
   }
 
@@ -69,27 +75,51 @@ class _ProfileDetail extends State<ProfileDetail> {
   }
 
   void onSubmit() async {
+    final storeProvider = Provider.of<StoreProvider>(context, listen: false);
     final List<Future> uploadTask = [];
     setState(() {
       activity = true;
     });
+
     if (imageFile != null) {
       uploadTask.add(FileServiceController.uploadFile(
-          file: imageFile!,
-          userId: AppConstant.userId ?? "",
-          type: "profilePhoto",
-          key: "profilePhoto"));
+        file: imageFile!,
+        userId: AppConstant.userId ?? "",
+        type: "profilePhoto",
+        key: "profilePhoto",
+      ));
     }
+
     if (bannerFile != null) {
       uploadTask.add(FileServiceController.uploadFile(
-          file: bannerFile!,
-          userId: AppConstant.userId ?? "",
-          type: "profileBanner",
-          key: "profileBanner"));
+        file: bannerFile!,
+        userId: AppConstant.userId ?? "",
+        type: "profileBanner",
+        key: "profileBanner",
+      ));
     }
-    if(uploadTask.isNotEmpty){
+
+    if (uploadTask.isNotEmpty) {
+      uploadTask.add(AuthServiceController.getUserDetail());
       final res = await Future.wait(uploadTask);
+
+      UserModel user = res.last as UserModel;
+      storeProvider.setUser(user);
+
+      setState(() {
+        activity = false;
+      });
+
+      Helper.showToast(context, "Profile updated successfully");
+
+      // Delay navigation by 2 seconds
+      Future.delayed(const Duration(seconds: 1), () {
+        AppNavigation.pop(context);
+      });
+
+      return;
     }
+
     setState(() {
       activity = false;
     });
@@ -299,6 +329,24 @@ class ProfileHeader extends StatelessWidget {
     ));
   }
 
+  Widget get profileImage {
+    if (imageFile != null) {
+      return CircleAvatar(
+        radius: 50,
+        backgroundImage: FileImage(imageFile!),
+      );
+    }
+    if (imageUrl != null && imageUrl!.isNotEmpty) {
+      return UserCircleImage(
+        url: imageUrl!,
+        radius: 50,
+      );
+    }
+    return const CircleAvatar(
+      radius: 50,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -325,15 +373,7 @@ class ProfileHeader extends StatelessWidget {
             left: 0,
             right: 0,
             child: Center(
-              child: imageFile != null
-                  ? CircleAvatar(
-                      radius: 50,
-                      backgroundImage: FileImage(imageFile!),
-                    )
-                  : UserCircleImage(
-                      url: "",
-                      radius: 50,
-                    ),
+              child: profileImage,
             ),
           ),
           Positioned(bottom: 0, right: 0, left: 70, child: editButton)

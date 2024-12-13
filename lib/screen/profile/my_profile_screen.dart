@@ -47,7 +47,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              HeadingWidget(title: user != null ? user.getFullName() ?? "" : ""),
+                              HeadingWidget(title: user != null ? user.getFullName ?? "" : ""),
                               const SizedBox(
                                 width: 10,
                               ),

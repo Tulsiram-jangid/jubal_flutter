@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/route/app_navigation.dart';
 import 'package:my_app/utils/appColor.dart';
 
 class BackButtonWidget extends StatelessWidget {
@@ -18,7 +19,7 @@ class BackButtonWidget extends StatelessWidget {
     if(backTap != null) {
       backTap!();
     } else{
-       Navigator.pop(context);
+       AppNavigation.pop(context);
     }
   }
 

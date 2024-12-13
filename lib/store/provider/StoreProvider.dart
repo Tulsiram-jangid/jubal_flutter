@@ -24,6 +24,7 @@ class StoreProvider extends ChangeNotifier {
   //For user
   void setUser(UserModel _user){
     this.user = _user;
+    notifyListeners();
   }
 
   UserModel getUser(){

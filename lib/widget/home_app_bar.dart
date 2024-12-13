@@ -10,7 +10,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     final user = Provider.of<StoreProvider>(context).getUser();
 
     String getName() {
-      String name = user.getFullName();
+      String name = user.getFullName;
       // Split the name by spaces
       List<String> nameParts = name.split(" ");
       // Get the initials

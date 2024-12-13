@@ -9,7 +9,8 @@ import 'package:my_app/screen/talent/talent_detail.dart';
 
 class AppNavigation {
   static void pop(BuildContext context) {
-    Navigator.of(context).pop();
+    //Navigator.of(context).pop();
+    Navigator.pop(context,true);
   }
 
   static navigateToEventDetail({BuildContext? context, String? eventId}) {

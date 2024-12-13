@@ -23,7 +23,7 @@ class AuthServiceController {
       AppConstant.setUserId(res.data['id']);
     }
 
-    UserModel user = UserModel.getUserFromLoginApi(res.data);
+    UserModel user = await AuthServiceController.getUserDetail();
     Provider.of<StoreProvider>(context, listen: false).setUser(user);
     Provider.of<StoreProvider>(context, listen: false).goToHome();
   }
@@ -50,7 +50,7 @@ class AuthServiceController {
       if (obj.containsKey("id")) {
         AppConstant.setUserId(obj['id']);
       }
-      UserModel user = UserModel.getUserFromLoginApi(obj);
+      UserModel user = await AuthServiceController.getUserDetail();
       Provider.of<StoreProvider>(context, listen: false).setUser(user);
       Provider.of<StoreProvider>(context, listen: false).goToHome();
       return;
@@ -162,6 +162,18 @@ class AuthServiceController {
       method: "GET",
     );
     return !res.status;
+  }
+
+  static Future<UserModel> getUserDetail() async {
+    const URL = ApiUrl.validateToken;
+    ApiResponse res = await ApiRequest.request(
+      url: URL,
+      method: "GET",
+    );
+    if(res.status){
+      return UserModel(user: res.data);
+    }
+    return UserModel(user: {});
   }
 
   static Future<void> refreshNewToken() async {
