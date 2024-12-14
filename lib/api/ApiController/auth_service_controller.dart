@@ -200,4 +200,17 @@ class AuthServiceController {
     }
     return res.status;
   }
+
+  static Future<bool> updateUserProfile({
+    required dynamic body,
+    BuildContext? context
+  })async{
+    const URL = ApiUrl.updateUser;
+    final res = await ApiRequest.request(
+      url: URL,
+      method: "PUT",
+      body: body
+    );
+   return ApiRequest.isSuccess(res.toJosn(), context);
+  }
 }

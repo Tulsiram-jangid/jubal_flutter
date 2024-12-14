@@ -83,17 +83,52 @@ class ApiForm {
     String? countryCode,
     required String currentPassword,
     required String newPassword,
-  }){
+  }) {
     Map<String, dynamic> form = {};
-    if(email != null && email.isNotEmpty){
+    if (email != null && email.isNotEmpty) {
       form['email'] = email;
     }
-    if(phone != null && phone.isNotEmpty){
+    if (phone != null && phone.isNotEmpty) {
       form['phone'] = phone;
       form['countryCode'] = countryCode;
     }
     form['currentPassword'] = currentPassword;
     form['newPassword'] = newPassword;
+    return form;
+  }
+
+  static Map<String, dynamic> getUserProfileForm({
+    String? firstName,
+    String? lastName,
+    String? startTime,
+    String? endTime,
+    String? location,
+    String? about,
+    String? email,
+    String? username,
+    String? phone,
+    String? countryCode,
+  }) {
+    Map<String, dynamic> form = {};
+    Map<String, dynamic> obj = {
+      "firstName"     :     firstName   ??  null,
+      "lastName"      :     lastName    ??  null,
+      "startTime"     :     startTime   ??  null,
+      "endTime"       :     endTime     ??  null,
+      "location"      :     location    ??  null,
+      "about"         :     about       ??  null,
+      "email"         :     email       ??  null,
+      "username"      :     username    ??  null,
+      "phone"         :     phone       ??  null,
+      "countryCode"   :     countryCode ??  null
+    };
+
+    obj.forEach((key,value){
+      if(value != null){
+        form[key] = value;
+      }
+    });
+
     return form;
   }
 }

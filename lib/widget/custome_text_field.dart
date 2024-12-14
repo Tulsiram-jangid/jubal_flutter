@@ -1,6 +1,8 @@
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app/api/ApiController/google_service_controller.dart';
+import 'package:my_app/route/app_navigation.dart';
 import 'package:my_app/route/route_name.dart';
 import 'package:my_app/screen/search/country_screen.dart';
 import 'package:my_app/utils/appColor.dart';
@@ -36,13 +38,31 @@ class CustomTextField extends StatelessWidget {
   final String value;
   final TextStyle? textStyle;
   final TextEditingController? textEditingController;
-
   final bool isDropDown;
   final VoidCallback? onTap;
   final bool enabled;
   final bool isRequired;
   final int? maxLines;
   final int? maxLength;
+  final Widget? suffixIcon;
+  final bool? isLocation;
+  final ValueChanged<AddressDetailModel>? onSelectAddress;
+  final bool? activity;
+
+  TextStyle txtStyle = const TextStyle(
+    color: Colors.black,
+    fontSize: 14,
+  );
+
+  void onTapField(BuildContext context) {
+    if (isLocation != null && isLocation!) {
+      AppNavigation.navigateToAddressSearch(
+          onSelectAddress: onSelectAddress!, context: context);
+    } else if (onTap != null) {
+      onTap!();
+    }
+    return;
+  }
 
   CustomTextField(
       {super.key,
@@ -66,8 +86,11 @@ class CustomTextField extends StatelessWidget {
       this.enabled = true,
       this.isRequired = false,
       this.maxLines = 1,
-      this.maxLength
-      });
+      this.maxLength,
+      this.suffixIcon,
+      this.isLocation = false,
+      this.onSelectAddress,
+      this.activity = false});
 
   void onCountryTap(BuildContext context) {
     Navigator.of(context).push(
@@ -81,6 +104,40 @@ class CustomTextField extends StatelessWidget {
     );
   }
 
+  Widget get renderSuffixIcon {
+    if (activity!) {
+      double size = 10;
+      return Container(
+        width: size,
+        height: size,
+        alignment: Alignment.center, // To center the CircularProgressIndicator
+        child: Transform.scale(scale: .5,child: const CircularProgressIndicator(color: AppColor.primary,),),
+      );
+    }
+    if (isPassword) {
+      return (IconButton(
+        onPressed: onRightIconTap,
+        icon: Icon(
+          !obscureText ? Icons.visibility : Icons.visibility_off,
+          color: Colors.grey[700],
+        ),
+      ));
+    }
+    if (isDropDown) {
+      return IconButton(
+        onPressed: onRightIconTap,
+        icon: const Icon(
+          Icons.keyboard_arrow_down,
+          color: AppColor.darkGrey,
+        ),
+      );
+    }
+    if (suffixIcon != null) {
+      return suffixIcon!;
+    }
+    return const SizedBox();
+  }
+
   Widget getField() {
     final bool hasError = error != null && error!.trim().isNotEmpty;
 
@@ -89,7 +146,7 @@ class CustomTextField extends StatelessWidget {
       obscureText: obscureText,
       onChanged: onChanged,
       keyboardType: keyboardType,
-      style: textStyle,
+      style: textStyle != null ? textStyle : txtStyle,
       enabled: enabled,
       maxLines: maxLines,
       maxLength: maxLength,
@@ -106,23 +163,7 @@ class CustomTextField extends StatelessWidget {
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none),
-        suffixIcon: isPassword
-            ? IconButton(
-                onPressed: onRightIconTap,
-                icon: Icon(
-                  !obscureText ? Icons.visibility : Icons.visibility_off,
-                  color: Colors.grey[700],
-                ),
-              )
-            : isDropDown
-                ? IconButton(
-                    onPressed: onRightIconTap,
-                    icon: const Icon(
-                      Icons.keyboard_arrow_down,
-                      color: AppColor.darkGrey,
-                    ),
-                  )
-                : null,
+        suffixIcon: renderSuffixIcon,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide:
@@ -222,7 +263,11 @@ class CustomTextField extends StatelessWidget {
               ],
             )
           else if (isDropDown)
-            GestureDetector(onTap: onTap, child: getField())
+            GestureDetector(
+                onTap: () {
+                  onTapField(context);
+                },
+                child: getField())
           else
             getField(),
           if (hasError) ...[

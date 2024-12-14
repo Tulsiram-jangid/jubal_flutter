@@ -27,4 +27,11 @@ class Helper {
       },
     );
   }
+
+  static String getUserNameFormate(String username){
+    if(username.startsWith("@")){
+      return username;
+    }
+    return "@${username}";
+  }
 }
