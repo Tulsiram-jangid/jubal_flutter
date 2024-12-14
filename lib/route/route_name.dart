@@ -18,4 +18,6 @@ class RouteNames {
   static const String addAddressScreen = "/addAddressScreen";
   static const String changePasswordScreen = "/changePasswordScreen";
   static const String profileDetailScreen = "/profileDetailScreen";
+  static const String userCategoryScreen = "/userCategoryScreen";
+  static const String userServiceScreen = "/userServiceScreen";
 }

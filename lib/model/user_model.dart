@@ -1,9 +1,9 @@
+import 'dart:convert';
+
 class UserModel {
   Map<String, dynamic> user;
 
-  UserModel({
-    required this.user
-  });
+  UserModel({required this.user});
 
   String get id => user['id'];
   String get firstName => user['Profile']['firstName'];
@@ -26,6 +26,20 @@ class UserModel {
   String get about => user['Profile']['about'] ?? "";
   String get age => user['Profile']['age'] ?? "";
 
+  List<String> get service {
+    final services = user['Vendor']?['services'] ?? [];
+    try {
+      if (services is String) {
+        final List<dynamic> decoded = jsonDecode(services);
+        return decoded.whereType<String>().toList();
+      } else if (services is List) {
+        return services.whereType<String>().toList();
+      }
+    } catch (e) {
+      print("Error decoding services: $e");
+    }
+    return [];
+  }
 }
 
 

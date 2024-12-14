@@ -21,11 +21,25 @@ class AccountSettingModel {
     ));
     list.add(AccountSettingModel(
       title: "Update field interest",
-      routeName: RouteNames.accountSettingScreen
+      routeName: RouteNames.userCategoryScreen
     ));
     list.add(AccountSettingModel(
       title: "Share your profile",
       routeName: RouteNames.accountSettingScreen
+    ));
+    return list;
+  }
+
+
+  static List<AccountSettingModel> getUserCategoryList(){
+    List<AccountSettingModel> list = [];
+    list.add(AccountSettingModel(
+      title: "Services",
+      routeName: RouteNames.userServiceScreen
+    ));
+    list.add(AccountSettingModel(
+      title: "Social accounts",
+      routeName: RouteNames.profileDetailScreen
     ));
     return list;
   }

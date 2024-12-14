@@ -10,6 +10,7 @@ class ApiUrl {
   static const createNewToken = "${ApiUrl.server}/J0001/api/v1/create-access"; //get
   static const uploadFile = "${ApiUrl.server}/J0001/api/v1/upload-image"; //post
   static const updateUser = "${ApiUrl.server}/J0001/api/v1/set-profile"; //put
+  static const userService = "${ApiUrl.server}/J0001/api/v1/admin/get-service"; //get
 
   //change password
   static const changePassword = "${ApiUrl.server}/J0001/api/v1/change-password"; //post
