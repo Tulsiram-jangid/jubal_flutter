@@ -18,4 +18,36 @@ class CategoryServiceController {
     }
     return [];
   }
+
+  static Future<List<IdNameModel>> getPrimaryCategory ({
+    String search = ""
+  })async {
+    String URL = ApiUrl.primaryCategory;
+    if(search.isNotEmpty){
+      URL = "$URL?search=$search";
+    }
+    final res = await ApiRequest.request(url: URL, method: "GET");
+    if(res.status){
+      List<IdNameModel> list = [];
+      list = IdNameModel.getFromJson(res.data, "catagory");
+      return list;
+    }
+    return [];
+  }
+
+  static Future<List<IdNameModel>> getMusicGenre ({
+    String search = ""
+  })async {
+    String URL = ApiUrl.musicGenre;
+    if(search.isNotEmpty){
+      URL = "$URL?search=$search";
+    }
+    final res = await ApiRequest.request(url: URL, method: "GET");
+    if(res.status){
+      List<IdNameModel> list = [];
+      list = IdNameModel.getFromJson(res.data, "type");
+      return list;
+    }
+    return [];
+  }
 }

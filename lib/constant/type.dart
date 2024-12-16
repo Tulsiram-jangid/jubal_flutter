@@ -49,6 +49,16 @@ enum EventStatusTypes {
   final String value;
 }
 
+enum UserTypes {
+  fan(1),
+  vendor(2),
+  talent(3);
+  
+
+  const UserTypes(this.value);
+  final int value;
+}
+
 String getEventStatusText(String status) {
   if (status == EventStatusTypes.pending.value) {
     return "Draft";

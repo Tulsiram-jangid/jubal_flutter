@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/route/route_name.dart';
 import 'package:my_app/screen/account/account_setting.dart';
+import 'package:my_app/screen/account/category/primary_category.dart';
 import 'package:my_app/screen/account/category/user_category.dart';
 import 'package:my_app/screen/account/category/user_service.dart';
 import 'package:my_app/screen/account/change_password.dart';
@@ -57,6 +58,8 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => UserCategory());
       case RouteNames.userServiceScreen:
         return MaterialPageRoute(builder: (_) => UserService());
+      case RouteNames.primaryCategoryScreen:
+        return MaterialPageRoute(builder: (_) => PrimaryCategory());
       default:
         return null;
     }

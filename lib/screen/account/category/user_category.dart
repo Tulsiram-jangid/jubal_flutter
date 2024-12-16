@@ -3,8 +3,27 @@ import 'package:my_app/model/staticData/account_setting_model.dart';
 import 'package:my_app/widget/app_bar_widget.dart';
 import 'package:my_app/widget/option_button.dart';
 
-class UserCategory extends StatelessWidget {
-  List<AccountSettingModel> list = AccountSettingModel.getUserCategoryList();
+class UserCategory extends StatefulWidget {
+  State<StatefulWidget> createState(){
+    return _UserCategory();
+  }
+}
+
+
+class _UserCategory extends State<UserCategory> {
+  List<AccountSettingModel> list = [];
+
+  void initState(){
+    super.initState();
+    getData();
+  }
+
+  void getData(){
+    final _list = AccountSettingModel.getUserCategoryList(context);
+    setState(() {
+      list = _list;
+    });
+  }
 
   void onItemTap(BuildContext context, AccountSettingModel item) {
     if (item.routeName.isNotEmpty) {

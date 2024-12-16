@@ -25,8 +25,8 @@ class CategoryOption extends StatelessWidget {
           borderRadius: BorderRadius.circular(10)
         ),
         child: Row(children: [
-          HeadingWidget(title: title, fontSize: 14,),
-          Spacer(),
+          Expanded(flex: 10,child: HeadingWidget(title: title, fontSize: 14,maxLines: 2,)),
+          const Spacer(),
           Checkbox(value: isActive, onChanged: (value){},)
         ],),
       ),

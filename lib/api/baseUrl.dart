@@ -10,7 +10,12 @@ class ApiUrl {
   static const createNewToken = "${ApiUrl.server}/J0001/api/v1/create-access"; //get
   static const uploadFile = "${ApiUrl.server}/J0001/api/v1/upload-image"; //post
   static const updateUser = "${ApiUrl.server}/J0001/api/v1/set-profile"; //put
+
+  //category
   static const userService = "${ApiUrl.server}/J0001/api/v1/admin/get-service"; //get
+  static const musicGenre = "${ApiUrl.server}/J0001/api/v1/admin/music-types"; //get
+  static const primaryCategory = "${ApiUrl.server}/J0001/api/v1/admin/get-catagory"; //get
+  //static const primaryInstrument = "${ApiUrl.server}/J0001/api/v1/admin/get-catagory"; //get
 
   //change password
   static const changePassword = "${ApiUrl.server}/J0001/api/v1/change-password"; //post
