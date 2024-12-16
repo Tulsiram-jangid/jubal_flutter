@@ -55,6 +55,36 @@ class UserModel {
     }
     return [];
   }
+
+  List<String> get genre {
+    final services = user['Talent']?['genre'] ?? [];
+    try {
+      if (services is String) {
+        final List<dynamic> decoded = jsonDecode(services);
+        return decoded.whereType<String>().toList();
+      } else if (services is List) {
+        return services.whereType<String>().toList();
+      }
+    } catch (e) {
+      print("Error decoding services: $e");
+    }
+    return [];
+  }
+
+  List<String> get instrument {
+    final services = user['Talent']?['instrument'] ?? [];
+    try {
+      if (services is String) {
+        final List<dynamic> decoded = jsonDecode(services);
+        return decoded.whereType<String>().toList();
+      } else if (services is List) {
+        return services.whereType<String>().toList();
+      }
+    } catch (e) {
+      print("Error decoding services: $e");
+    }
+    return [];
+  }
 }
 
 

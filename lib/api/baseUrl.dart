@@ -13,9 +13,9 @@ class ApiUrl {
 
   //category
   static const userService = "${ApiUrl.server}/J0001/api/v1/admin/get-service"; //get
-  static const musicGenre = "${ApiUrl.server}/J0001/api/v1/admin/music-types"; //get
+  static const musicGenre = "${ApiUrl.server}/J0005/api/v1/music-types"; //get
   static const primaryCategory = "${ApiUrl.server}/J0001/api/v1/admin/get-catagory"; //get
-  //static const primaryInstrument = "${ApiUrl.server}/J0001/api/v1/admin/get-catagory"; //get
+  static const getInstrument = "${ApiUrl.server}/J0003/api/v1/instrument-name/get"; //get
 
   //change password
   static const changePassword = "${ApiUrl.server}/J0001/api/v1/change-password"; //post

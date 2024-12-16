@@ -14,12 +14,12 @@ import 'package:my_app/widget/category_option.dart';
 import 'package:my_app/widget/search_text_widget.dart';
 import 'package:provider/provider.dart';
 
-class PrimaryCategory extends StatefulWidget {
+class MusicGenre extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _PrimaryCategory();
+  State<StatefulWidget> createState() => _MusicGenre();
 }
 
-class _PrimaryCategory extends State<PrimaryCategory> {
+class _MusicGenre extends State<MusicGenre> {
   List<IdNameModel> list = [];
   List<IdNameModel> selectedList = [];
   bool isListUpdated = false;
@@ -37,7 +37,7 @@ class _PrimaryCategory extends State<PrimaryCategory> {
     try {
       // Safely access StoreProvider and check nulls
       final storeProvider = Provider.of<StoreProvider>(context, listen: false);
-      List<String> userServices = storeProvider.user!.category ?? [];
+      List<String> userServices = storeProvider.user!.genre ?? [];
 
       setState(() {
         activity = true;
@@ -45,7 +45,7 @@ class _PrimaryCategory extends State<PrimaryCategory> {
 
       // Fetch the list of services
       final List<IdNameModel> itemList =
-          await CategoryServiceController.getPrimaryCategory();
+          await CategoryServiceController.getMusicGenre();
 
       // Filter the services based on the user's selected services
       List<IdNameModel> userSelectedService =
@@ -95,7 +95,7 @@ class _PrimaryCategory extends State<PrimaryCategory> {
         activity = true;
       });
       final List<IdNameModel> itemList =
-          await CategoryServiceController.getPrimaryCategory(search: value);
+          await CategoryServiceController.getMusicGenre(search: value);
       setState(() {
         activity = false;
         list = itemList;
@@ -106,7 +106,7 @@ class _PrimaryCategory extends State<PrimaryCategory> {
   void onSubmit() async {
     final storeProvider = Provider.of<StoreProvider>(context, listen: false);
     dynamic form = {
-      "catagory": jsonEncode(selectedList.map((item) => item.name).toList())
+      "genre": jsonEncode(selectedList.map((item) => item.name).toList())
     };
     setState(() {
       saveActivity = true;
@@ -118,7 +118,7 @@ class _PrimaryCategory extends State<PrimaryCategory> {
     });
     if (res) {
       storeProvider.setUser(user);
-      Helper.showToast(context, "Primary category updated successfully");
+      Helper.showToast(context, "Music genre updated successfully");
       AppNavigation.pop(context);
     }
   }
@@ -149,14 +149,14 @@ class _PrimaryCategory extends State<PrimaryCategory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(title: "Primary category"),
+      appBar: const AppBarWidget(title: "Music genre"),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SearchTextField(
-              placeholder: "Search primary category...",
+              placeholder: "Search music genre...",
               onChanged: onSearch,
             ),
             const SizedBox(height: 20),

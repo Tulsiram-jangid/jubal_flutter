@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/route/route_name.dart';
 import 'package:my_app/screen/account/account_setting.dart';
+import 'package:my_app/screen/account/category/music_genre.dart';
+import 'package:my_app/screen/account/category/music_instrument.dart';
 import 'package:my_app/screen/account/category/primary_category.dart';
 import 'package:my_app/screen/account/category/user_category.dart';
 import 'package:my_app/screen/account/category/user_service.dart';
@@ -60,6 +62,10 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => UserService());
       case RouteNames.primaryCategoryScreen:
         return MaterialPageRoute(builder: (_) => PrimaryCategory());
+      case RouteNames.primaryMusicInstrumentScreen:
+        return MaterialPageRoute(builder: (_) => MusicInstrument());
+      case RouteNames.musicGenreScreen:
+        return MaterialPageRoute(builder: (_) => MusicGenre());
       default:
         return null;
     }

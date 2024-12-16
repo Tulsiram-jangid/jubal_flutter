@@ -21,4 +21,6 @@ class RouteNames {
   static const String userCategoryScreen = "/userCategoryScreen";
   static const String userServiceScreen = "/userServiceScreen";
   static const String primaryCategoryScreen = "/primaryCategoryScreen";
+  static const String primaryMusicInstrumentScreen = "/primaryMusicInstrumentScreen";
+  static const String musicGenreScreen = "/musicGenreScreen";
 }

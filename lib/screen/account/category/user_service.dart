@@ -37,12 +37,7 @@ class _UserService extends State<UserService> {
     try {
       // Safely access StoreProvider and check nulls
       final storeProvider = Provider.of<StoreProvider>(context, listen: false);
-      List<String> userServices = storeProvider.user!.service;
-
-      if (storeProvider.user?.service == null) {
-        print("User or services are null");
-        return;
-      }
+      List<String> userServices = storeProvider.user!.service ?? [];
 
       setState(() {
         activity = true;
@@ -109,6 +104,7 @@ class _UserService extends State<UserService> {
   }
 
   void onSubmit() async {
+    final storeProvider = Provider.of<StoreProvider>(context, listen: false);
     dynamic form = {
       "services": jsonEncode(selectedList.map((item) => item.name).toList())
     };
@@ -116,10 +112,12 @@ class _UserService extends State<UserService> {
       saveActivity = true;
     });
     final res = await AuthServiceController.updateUserProfile(body: form);
+    final user = await AuthServiceController.getUserDetail();
     setState(() {
       saveActivity = false;
     });
     if (res) {
+      storeProvider.setUser(user);
       Helper.showToast(context, "Services updated successfully");
       AppNavigation.pop(context);
     }

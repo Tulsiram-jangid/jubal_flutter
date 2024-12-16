@@ -50,4 +50,20 @@ class CategoryServiceController {
     }
     return [];
   }
+
+  static Future<List<IdNameModel>> getInstrument ({
+    String search = ""
+  })async {
+    String URL = ApiUrl.getInstrument;
+    if(search.isNotEmpty){
+      URL = "$URL?search=$search";
+    }
+    final res = await ApiRequest.request(url: URL, method: "GET");
+    if(res.status){
+      List<IdNameModel> list = [];
+      list = IdNameModel.getFromJson(res.data['instruments'], "instrumentName");
+      return list;
+    }
+    return [];
+  }
 }

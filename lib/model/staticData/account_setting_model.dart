@@ -37,9 +37,9 @@ class AccountSettingModel {
           routeName: RouteNames.primaryCategoryScreen));
       list.add(AccountSettingModel(
           title: "Primary musical instrument",
-          routeName: RouteNames.primaryCategoryScreen));
+          routeName: RouteNames.primaryMusicInstrumentScreen));
       list.add(AccountSettingModel(
-          title: "Music genre", routeName: RouteNames.primaryCategoryScreen));
+          title: "Music genre", routeName: RouteNames.musicGenreScreen));
     } else {
       list.add(AccountSettingModel(
           title: "Services", routeName: RouteNames.userServiceScreen));
